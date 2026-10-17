@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registradora de Pedidos</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>Registro de Pedidos</h1>
+
+<form id="pedidoForm">
+
+<input type="text" id="cliente" placeholder="Nome do Cliente" required>
+
+<input type="text" id="produto" placeholder="Produto" required>
+
+<input type="number" id="quantidade" placeholder="Quantidade" required>
+
+<input type="number" step="0.01" id="valor" placeholder="Valor Unitário" required>
+
+<select id="pagamento">
+<option>PIX</option>
+<option>Cartão</option>
+<option>Dinheiro</option>
+<option>Boleto</option>
+</select>
+
+<button type="submit">Registrar Pedido</button>
+
+</form>
+
+<div id="recibo"></div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

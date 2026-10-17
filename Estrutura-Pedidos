@@ -1,0 +1,7 @@
+pedido-system/
+│
+├── index.html
+├── style.css
+├── script.js
+│
+└── banco.sql

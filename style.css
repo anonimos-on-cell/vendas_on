@@ -1,0 +1,44 @@
+body{
+font-family: Arial, sans-serif;
+background:#f5f5f5;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+h1{
+text-align:center;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#0b8f4d;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+button:hover{
+background:#066b38;
+}
+
+#recibo{
+margin-top:30px;
+border:1px dashed #000;
+padding:15px;
+white-space:pre-line;
+}
