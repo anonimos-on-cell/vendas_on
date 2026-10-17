@@ -82,6 +82,10 @@ selectPagamento.addEventListener("change", function() {
     camposBoleto.style.display = valor === "Boleto" ? "block" : "none";
 });
 
+function imprimirApenasRecibo() {
+    window.print();
+}
+
 form.addEventListener("submit", function(e){
     e.preventDefault();
     numeroPedido++;
@@ -114,7 +118,7 @@ form.addEventListener("submit", function(e){
             <div id="qrcode-container"></div>
             <p style="font-weight: bold; margin-top: 15px; margin-bottom: 8px;">Código PIX Copia e Cola:</p>
             <div class="pix-copia-cola" id="pixCodeText">${pixCopiaECola}</div>
-            <button type="button" class="btn-secundario" onclick="navigator.clipboard.writeText('${pixCopiaECola}'); alert('Código PIX copiado!');">Copiar Código PIX</button>
+            <button type="button" class="btn-secundario btn-copiar-pix" onclick="navigator.clipboard.writeText('${pixCopiaECola}'); alert('Código PIX copiado!');">Copiar Código PIX</button>
         </div>`;
 
     } else if (pagamento === "Cartão") {
@@ -229,6 +233,9 @@ form.addEventListener("submit", function(e){
 
     recibo.style.display = "block";
     recibo.innerHTML = `
+        <div class="acoes-recibo">
+            <button type="button" class="btn-imprimir" onclick="imprimirApenasRecibo()">🖨️ Imprimir Recibo de Venda</button>
+        </div>
         <div class="recibo-header">
             <h2>RECIBO DE VENDA</h2>
             <p><strong>Pedido Nº ${numeroPedido}</strong></p>

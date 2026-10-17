@@ -72,6 +72,26 @@ input, select {
     background-color: #0056b3;
 }
 
+.acoes-recibo {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.btn-imprimir {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-imprimir:hover {
+    background-color: #218838;
+}
+
 .canvas-container {
     border: 1px solid #ccc;
     display: inline-block;
@@ -205,4 +225,40 @@ input, select {
     height: 40px;
     background: repeating-linear-gradient(90deg, #000 0, #000 2px, #fff 2px, #fff 4px);
     width: 100%;
+}
+
+/* REGRAS EXCLUSIVAS PARA IMPRESSÃO DE APENAS O RECIBO */
+@media print {
+    body {
+        background-color: #fff;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Oculta tudo na página por padrão */
+    body * {
+        visibility: hidden;
+    }
+
+    /* Exibe apenas o recibo e seus componentes */
+    #recibo, #recibo * {
+        visibility: visible;
+    }
+
+    /* Posiciona o recibo no topo da página */
+    #recibo {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        border: none;
+        padding: 0;
+        background-color: transparent;
+    }
+
+    /* Oculta o botão de imprimir durante a própria impressão */
+    .acoes-recibo, .btn-imprimir, .btn-copiar-pix {
+        display: none !important;
+    }
 }

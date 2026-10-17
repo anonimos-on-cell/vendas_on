@@ -1,9 +1,9 @@
-# Registradora de Pedidos - Versão v3.2.0
+# Registradora de Pedidos - Versão v3.3.0
 
-Sistema completo para registro de pedidos com opções de pagamento dinâmicas, alinhamento visual perfeito do bloco PIX e configurações via arquivos JSON.
+Sistema completo para registro de pedidos com impressão isolada de Recibo de Venda.
 
-## Estrutura
-Todos os arquivos do projeto estão organizados dentro do diretório `pedidos_v3.2.0`.
+## Funcionalidades
+- **Botão de Impressão de Recibo**: Permite imprimir apenas a área do recibo de venda, ocultando o formulário, títulos e outros elementos da tela.
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.
