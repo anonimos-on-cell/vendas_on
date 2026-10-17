@@ -1,10 +1,11 @@
-# Registradora de Pedidos - Versão v3.5.0
+# Registradora de Pedidos - Versão v3.7.0
 
-Sistema completo para registro de pedidos com verificação de status do servidor e fallback inteligente para chave Pix alternativa vinda do `config.json`.
+Sistema completo para registro de pedidos com QR Code Pix estático por produto (valor exato preenchido e travado no campo ID 54) e suporte a fallback offline via `config.json`.
 
 ## Funcionalidades
-- **Verificação de Servidor**: Checagem automática se o servidor Node.js/Banco de Dados está ativo.
-- **Fallback Pix Alternativo**: Quando o servidor estiver desativado, o sistema utiliza automaticamente a chave Pix/código alternativo configurado no `config.json` tanto para o QR Code quanto para o botão "Copiar Código PIX".
+- **QR Codes Estáticos por Produto/Serviço**: Cada venda gera um payload Pix com o valor exato do produto/serviço, garantindo que o cliente realize o pagamento com o valor tabelado e bloqueado para alterações.
+- **Verificação de Servidor**: Checagem automática do estado da API.
+- **Fallback Automático**: Se o servidor estiver offline, o sistema utiliza a chave alternativa do `config.json`.
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.

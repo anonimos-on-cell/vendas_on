@@ -165,7 +165,7 @@ input, select {
 }
 
 .boleto-header-banco {
-    display: flex;
+    dispatch: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 2px solid #000;

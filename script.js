@@ -2,7 +2,7 @@
 let Beneficiado = {Destinatario: "Jose_paulodeJesusFerreira"};
 let configApp = { 
     chave_pix: "contacorrente166@gmail.com",
-    chave_pix_alternativa: "contacorrente166@gmail.com"
+    chave_pix_alternativa: "00020126580014BR.GOV.BCB.PIX0136contacorrente166@gmail.com52040000530398654055802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA"
 };
 
 let servidorAtivo = false;
@@ -108,7 +108,7 @@ form.addEventListener("submit", async function(e){
     e.preventDefault();
     numeroPedido++;
 
-    // Verificar status do servidor antes de processar
+    // Verifica status do servidor antes de submeter
     await verificarServidor();
 
     const cliente = document.getElementById("cliente").value;
@@ -132,18 +132,18 @@ form.addEventListener("submit", async function(e){
         let pixCopiaECola = "";
 
         if (servidorAtivo) {
-            // Servidor ativo: gera payload dinâmico com valor do pedido
+            // QR Code Estático por Produto/Serviço (ID 54 com valor fixo e exato do item/pedido)
             const chavePix = configApp.chave_pix || "contacorrente166@gmail.com";
             pixCopiaECola = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`;
         } else {
-            // Servidor desativado: utiliza estritamente a chave/código alternativo configurado no config.json
+            // Servidor desativado: usa a chave alternativa do config.json
             pixCopiaECola = configApp.chave_pix_alternativa || configApp.chave_pix || "contacorrente166@gmail.com";
         }
         
         htmlPagamento = `
         <div class="pagamento-bloco pix-container">
-            <h3>Pagamento via PIX</h3>
-            <p style="margin-bottom: 15px;">Escaneie o QR Code abaixo com o app do seu banco:</p>
+            <h3>Pagamento via PIX (Valor Fixo / Produto Tabelado)</h3>
+            <p style="margin-bottom: 15px;">Escaneie o QR Code abaixo com o valor exato do serviço/produto bloqueado para pagamento:</p>
             <div id="qrcode-container"></div>
             <p style="font-weight: bold; margin-top: 15px; margin-bottom: 8px;">Código PIX Copia e Cola:</p>
             <div class="pix-copia-cola" id="pixCodeText">${pixCopiaECola}</div>

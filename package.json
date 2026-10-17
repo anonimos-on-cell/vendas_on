@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "3.5.0",
-  "description": "Sistema de registro de pedidos com verificação de status do servidor e fallback Pix alternativo via config.json",
+  "version": "3.7.0",
+  "description": "Sistema com QR Code Pix estático por produto (com valor exato fixo via ID 54) e verificação de servidor",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

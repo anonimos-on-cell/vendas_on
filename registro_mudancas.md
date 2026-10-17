@@ -1,11 +1,10 @@
-# Registro de Mudanças no Código (Changelog) - Versão v3.5.0
+# Registro de Mudanças no Código (Changelog) - Versão v3.7.0
 
-Este documento descreve as alterações e atualizações realizadas no código do sistema **Registradora de Pedidos**.
+This document describes changes in version v3.7.0 [cite: 3].
 
 ---
 
-## 1. Atualização para a Versão v3.5.0
-- **Verificação de Status do Servidor e Fallback Pix via config.json**:
-  - Implementada função assíncrona de verificação de conectividade com a API (`/status` ou `/pedidos`).
-  - Quando o servidor está **ativo**, o payload Pix é gerado dinamicamente com o valor total atualizado do pedido.
-  - Quando o servidor está **inativo/desativado**, o sistema busca automaticamente a `chave_pix_alternativa` definida no arquivo `config.json` para exibir o QR Code e preencher o botão "Copiar Código PIX".
+## 1. Atualização para a Versão v3.7.0
+- **Implementação de QR Codes Estáticos por Produto/Serviço (ID 54 com Valor Fixo)**:
+  - O payload EMV do Pix gerado (tanto para o QR Code quanto para o botão "Copiar Código PIX") agora insere o valor exato do produto/serviço correspondente ao total do pedido no campo ID 54, permitindo que o cliente escaneie e pague um valor tabelado e travado para edições.
+  - Mantida a verificação de status do servidor e o fallback inteligente utilizando a `chave_pix_alternativa` do `config.json` caso o servidor esteja offline.
