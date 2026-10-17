@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "3.3.0",
-  "description": "Sistema de registro de pedidos com botão para impressão exclusiva do Recibo de Venda",
+  "version": "3.5.0",
+  "description": "Sistema de registro de pedidos com verificação de status do servidor e fallback Pix alternativo via config.json",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

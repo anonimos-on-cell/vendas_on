@@ -1,18 +1,36 @@
 // Carregar configurações dinâmicas (Chave PIX, Beneficiário, etc.)
-let Beneficiado = {Destinatario: "Jose_paulo_de_Jesus_Ferreira"};
-let configApp = { chave_pix: "contacorrente166@gmail.com" };
+let Beneficiado = {Destinatario: "Jose_paulodeJesusFerreira"};
+let configApp = { 
+    chave_pix: "contacorrente166@gmail.com",
+    chave_pix_alternativa: "contacorrente166@gmail.com"
+};
+
+let servidorAtivo = false;
 
 async function carregarConfiguracoes() {
     try {
         const res = await fetch("config.json");
         if (res.ok) {
-            configApp = await res.json();
+            const data = await res.json();
+            configApp = { ...configApp, ...data };
         }
     } catch (e) {
         console.warn("Não foi possível carregar config.json, usando padrão.", e);
     }
 }
+
+async function verificarServidor() {
+    try {
+        const res = await fetch("http://localhost:3000/status", { method: "GET" });
+        servidorAtivo = res.ok;
+    } catch (e) {
+        servidorAtivo = false;
+    }
+}
+
+// Inicializações assíncronas
 carregarConfiguracoes();
+verificarServidor();
 
 const form = document.getElementById("pedidoForm");
 const recibo = document.getElementById("recibo");
@@ -86,9 +104,12 @@ function imprimirApenasRecibo() {
     window.print();
 }
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", async function(e){
     e.preventDefault();
     numeroPedido++;
+
+    // Verificar status do servidor antes de processar
+    await verificarServidor();
 
     const cliente = document.getElementById("cliente").value;
     const produto = document.getElementById("produto").value;
@@ -108,8 +129,16 @@ form.addEventListener("submit", function(e){
     let dadosExtras = {};
 
     if (pagamento === "PIX") {
-        const chavePix = configApp.chave_pix || "contacorrente166@gmail.com";
-        const pixCopiaECola = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`;
+        let pixCopiaECola = "";
+
+        if (servidorAtivo) {
+            // Servidor ativo: gera payload dinâmico com valor do pedido
+            const chavePix = configApp.chave_pix || "contacorrente166@gmail.com";
+            pixCopiaECola = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`;
+        } else {
+            // Servidor desativado: utiliza estritamente a chave/código alternativo configurado no config.json
+            pixCopiaECola = configApp.chave_pix_alternativa || configApp.chave_pix || "contacorrente166@gmail.com";
+        }
         
         htmlPagamento = `
         <div class="pagamento-bloco pix-container">
@@ -233,11 +262,11 @@ form.addEventListener("submit", function(e){
 
     recibo.style.display = "block";
     recibo.innerHTML = `
-        <div class="acoes-recibo">
-            <button type="button" class="btn-imprimir" onclick="imprimirApenasRecibo()">🖨️ Imprimir Recibo de Venda</button>
-        </div>
         <div class="recibo-header">
             <h2>RECIBO DE VENDA</h2>
+            <div class="acoes-recibo">
+                <button type="button" class="btn-imprimir" onclick="imprimirApenasRecibo()">🖨️ Imprimir Recibo de Venda</button>
+            </div>
             <p><strong>Pedido Nº ${numeroPedido}</strong></p>
         </div>
         <div class="recibo-info">
@@ -257,10 +286,15 @@ form.addEventListener("submit", function(e){
             const qrContainer = document.getElementById("qrcode-container");
             if (qrContainer) {
                 qrContainer.innerHTML = "";
-                const chavePix = configApp.chave_pix || "contacorrente166@gmail.com";
-                const pixCode = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`;
+                let qrPixCode = "";
+                if (servidorAtivo) {
+                    const chavePix = configApp.chave_pix || "contacorrente166@gmail.com";
+                    qrPixCode = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`;
+                } else {
+                    qrPixCode = configApp.chave_pix_alternativa || configApp.chave_pix || "contacorrente166@gmail.com";
+                }
                 new QRCode(qrContainer, {
-                    text: pixCode,
+                    text: qrPixCode,
                     width: 160,
                     height: 160
                 });

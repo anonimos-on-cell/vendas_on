@@ -21,6 +21,10 @@ db.connect((err) => {
     }
 });
 
+app.get('/status', (req, res) => {
+    res.json({ status: 'ativo', message: 'Servidor online' });
+});
+
 app.post('/pedidos', (req, res) => {
     const { cliente, produto, quantidade, valor, total, pagamento, cartao_numero, cartao_titular, cartao_validade, cartao_cvv, assinatura, boleto_nome, boleto_documento, boleto_endereco } = req.body;
     

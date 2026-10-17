@@ -1,6 +1,7 @@
 {
   "chave_pix": "contacorrente166@gmail.com",
-  "beneficiario": "JosépaulodeJesusFerreira",
+  "chave_pix_alternativa": "contacorrente166@gmail.com",
+  "beneficiario": "José paulo de Jesus Ferreira",
   "cnpj": "12.345.678/0001-90",
   "agencia_conta": "1234 / 56789-0"
 }
