@@ -1,15 +1,15 @@
 # Registro de Mudanças no Código (Changelog)
 
-Este documento descreve as principais alterações e inclusões feitas no código do sistema **Registradora de Pedidos**.
+Este documento descreve as alterações e atualizações realizadas no código do sistema **Registradora de Pedidos**.
 
 ---
 
-## 1. Arquivo de Configuração Separado (`config.json`)
-Foi criado um arquivo JSON exclusivo para armazenar os dados bancários e a chave PIX, permitindo alterações rápidas sem alterar o código-fonte principal:
+## 1. Arquivo de Configuração (`config.json`)
+Criação de um arquivo JSON centralizado para gerenciar os dados bancários e a chave Pix no formato oficial de e-mail (sem espaços):
 
 ```json
 {
-  "chave_pix": "166@gmail.com",
+  "chave_pix": "contacorrente166@gmail.com",
   "beneficiario": "Empresa Vendedora Ltda.",
   "cnpj": "12.345.678/0001-90",
   "agencia_conta": "1234 / 56789-0"
@@ -18,34 +18,17 @@ Foi criado um arquivo JSON exclusivo para armazenar os dados bancários e a chav
 
 ---
 
-## 2. Carregamento Dinâmico em JavaScript (`script.js`)
-No início do arquivo `script.js`, foi adicionada a função assíncrona `carregarConfiguracoes()` para buscar as informações diretamente do arquivo `config.json`:
-
-```javascript
-let configApp = { chave_pix: "166@gmail.com" };
-
-async function carregarConfiguracoes() {
-    try {
-        const res = await fetch("config.json");
-        if (res.ok) {
-            configApp = await res.json();
-        }
-    } catch (e) {
-        console.warn("Não foi possível carregar config.json, usando padrão.", e);
-    }
-}
-carregarConfiguracoes();
-```
+## 2. Carregamento Dinâmico no Front-End (`script.js`)
+Função assíncrona `carregarConfiguracoes()` para carregar os dados de `config.json` ao inicializar a página.
 
 ---
 
-## 3. Armazenamento de Dados de Clientes e Produtos (`clientes.json` e `produtos.json`)
-Foram criados dois arquivos JSON adicionais para gerenciar informações cadastrais:
-- **`clientes.json`**: Guarda nomes, documentos, e-mails, telefones e endereços.
-- **`produtos.json`**: Guarda itens, categorias, preços unitários e estoque.
-
----
-
-## 4. Atualização da Interface do Recibo e PIX
-- A chave PIX informada no recibo passa a refletir dinamicamente a variável `${configApp.chave_pix}`.
-- O layout do Boleto utiliza os dados de beneficiário e agência/conta contidos no `config.json`.
+## 3. Atualização e Simplificação da Exibição do PIX
+- **Chave Pix em Formato E-mail**: Integração da chave `contacorrente166@gmail.com` diretamente na geração do payload do Pix.
+- **Remoção de Texto Redundante**: Removido o rótulo com o texto "Chave PIX / Conta Corrente de Destino:" no recibo.
+- **Exibição Limpa**: A interface do Pix exibe unicamente:
+  1. Título "Pagamento via PIX"
+  2. Instrução "Escaneie o QR Code abaixo com o app do seu banco:"
+  3. QR Code gerado em Canvas
+  4. Código Pix Copia e Cola
+  5. Botão "Copiar Código PIX"

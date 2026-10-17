@@ -1,8 +1,8 @@
-CREATE DATABASE registradora;
+CREATE DATABASE IF NOT EXISTS registradora;
 
 USE registradora;
 
-CREATE TABLE pedidos (
+CREATE TABLE IF NOT EXISTS pedidos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cliente VARCHAR(100),
     produto VARCHAR(100),

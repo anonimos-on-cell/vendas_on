@@ -1,5 +1,5 @@
 // Carregar configurações dinâmicas (Chave PIX, Beneficiário, etc.)
-let configApp = { chave_pix: "166@gmail.com" };
+let configApp = { chave_pix: "contacorrente166@gmail.com"};
 
 async function carregarConfiguracoes() {
     try {
@@ -24,10 +24,11 @@ const camposBoleto = document.getElementById("campos-boleto");
 let numeroPedido = 1000;
 
 const canvas = document.getElementById("canvasAssinatura");
-const ctx = canvas.getContext("2d");
+const ctx = canvas ? canvas.getContext("2d") : null;
 let desenhando = false;
 
 function iniciarAssinatura(e) {
+    if(!ctx) return;
     desenhando = true;
     ctx.beginPath();
     const pos = obterPosicaoCursor(e);
@@ -35,7 +36,7 @@ function iniciarAssinatura(e) {
 }
 
 function desenhar(e) {
-    if (!desenhando) return;
+    if (!desenhando || !ctx) return;
     const pos = obterPosicaoCursor(e);
     ctx.lineTo(pos.x, pos.y);
     ctx.stroke();
@@ -55,18 +56,23 @@ function obterPosicaoCursor(e) {
     };
 }
 
-canvas.addEventListener("mousedown", iniciarAssinatura);
-canvas.addEventListener("mousemove", desenhar);
-canvas.addEventListener("mouseup", pararAssinatura);
-canvas.addEventListener("mouseleave", pararAssinatura);
+if(canvas){
+    canvas.addEventListener("mousedown", iniciarAssinatura);
+    canvas.addEventListener("mousemove", desenhar);
+    canvas.addEventListener("mouseup", pararAssinatura);
+    canvas.addEventListener("mouseleave", pararAssinatura);
 
-canvas.addEventListener("touchstart", (e) => { iniciarAssinatura(e); e.preventDefault(); });
-canvas.addEventListener("touchmove", (e) => { desenhar(e); e.preventDefault(); });
-canvas.addEventListener("touchend", pararAssinatura);
+    canvas.addEventListener("touchstart", (e) => { iniciarAssinatura(e); e.preventDefault(); });
+    canvas.addEventListener("touchmove", (e) => { desenhar(e); e.preventDefault(); });
+    canvas.addEventListener("touchend", pararAssinatura);
+}
 
-document.getElementById("limparAssinatura").addEventListener("click", () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-});
+const btnLimpar = document.getElementById("limparAssinatura");
+if(btnLimpar && ctx){
+    btnLimpar.addEventListener("click", () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+}
 
 selectPagamento.addEventListener("change", function() {
     const valor = this.value;
@@ -92,17 +98,18 @@ form.addEventListener("submit", function(e){
     const dataVenc = new Date();
     dataVenc.setDate(dataVenc.getDate() + 3);
     const vencimentoStr = dataVenc.toLocaleDateString('pt-BR');
+    let nomeaa = "JosepaulodeJesusFerreira";
 
     let htmlPagamento = "";
     let dadosExtras = {};
 
     if (pagamento === "PIX") {
-        const pixCopiaECola = `00020126580014BR.GOV.BCB.PIX0136a629327e-7f21-41ee-b02c-7c08285c5b525204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`;
+        const chavePix = configApp.chave_pix || "contacorrente166@gmail.com";
+        const pixCopiaECola = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920${nomeaa}6009SAO PAULO62070503***6304E2CA`;
         
         htmlPagamento = `
         <div class="pagamento-bloco pix-container">
             <h3>Pagamento via PIX</h3>
-            <p><strong>Chave PIX / Conta Corrente de Destino:</strong> ${configApp.chave_pix}</p>
             <p>Escaneie o QR Code abaixo com o app do seu banco:</p>
             <div id="qrcode-container"></div>
             <p><strong>Código PIX Copia e Cola:</strong></p>
@@ -128,7 +135,7 @@ form.addEventListener("submit", function(e){
         dadosExtras = { cartao_numero, cartao_titular, cartao_validade, cartao_cvv };
 
     } else if (pagamento === "Dinheiro") {
-        const assinaturaDataURL = canvas.toDataURL();
+        const assinaturaDataURL = canvas ? canvas.toDataURL() : "";
 
         htmlPagamento = `
         <div class="pagamento-bloco">
@@ -243,8 +250,10 @@ form.addEventListener("submit", function(e){
             const qrContainer = document.getElementById("qrcode-container");
             if (qrContainer) {
                 qrContainer.innerHTML = "";
+                const chavePix = configApp.chave_pix || "contacorrente166@gmail.com";
+                const pixCode = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`;
                 new QRCode(qrContainer, {
-                    text: `00020126580014BR.GOV.BCB.PIX0136a629327e-7f21-41ee-b02c-7c08285c5b525204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`,
+                    text: pixCode,
                     width: 160,
                     height: 160
                 });
