@@ -1,5 +1,6 @@
 // Carregar configurações dinâmicas (Chave PIX, Beneficiário, etc.)
-let configApp = { chave_pix: "contacorrente166@gmail.com"};
+let Beneficiado = {Destinatario: "Jose_paulo_de_Jesus_Ferreira"};
+let configApp = { chave_pix: "contacorrente166@gmail.com" };
 
 async function carregarConfiguracoes() {
     try {
@@ -98,14 +99,13 @@ form.addEventListener("submit", function(e){
     const dataVenc = new Date();
     dataVenc.setDate(dataVenc.getDate() + 3);
     const vencimentoStr = dataVenc.toLocaleDateString('pt-BR');
-    let nomeaa = "JosepaulodeJesusFerreira";
 
     let htmlPagamento = "";
     let dadosExtras = {};
 
     if (pagamento === "PIX") {
         const chavePix = configApp.chave_pix || "contacorrente166@gmail.com";
-        const pixCopiaECola = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920${nomeaa}6009SAO PAULO62070503***6304E2CA`;
+        const pixCopiaECola = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`;
         
         htmlPagamento = `
         <div class="pagamento-bloco pix-container">

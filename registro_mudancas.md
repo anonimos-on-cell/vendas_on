@@ -1,34 +1,13 @@
-# Registro de Mudanças no Código (Changelog)
+# Registro de Mudanças no Código (Changelog) - Versão v3.1.0
 
 Este documento descreve as alterações e atualizações realizadas no código do sistema **Registradora de Pedidos**.
 
 ---
 
-## 1. Arquivo de Configuração (`config.json`)
-Criação de um arquivo JSON centralizado para gerenciar os dados bancários e a chave Pix no formato oficial de e-mail (sem espaços):
-
-```json
-{
-  "chave_pix": "contacorrente166@gmail.com",
-  "beneficiario": "Empresa Vendedora Ltda.",
-  "cnpj": "12.345.678/0001-90",
-  "agencia_conta": "1234 / 56789-0"
-}
-```
-
----
-
-## 2. Carregamento Dinâmico no Front-End (`script.js`)
-Função assíncrona `carregarConfiguracoes()` para carregar os dados de `config.json` ao inicializar a página.
-
----
-
-## 3. Atualização e Simplificação da Exibição do PIX
-- **Chave Pix em Formato E-mail**: Integração da chave `contacorrente166@gmail.com` diretamente na geração do payload do Pix.
-- **Remoção de Texto Redundante**: Removido o rótulo com o texto "Chave PIX / Conta Corrente de Destino:" no recibo.
-- **Exibição Limpa**: A interface do Pix exibe unicamente:
-  1. Título "Pagamento via PIX"
-  2. Instrução "Escaneie o QR Code abaixo com o app do seu banco:"
-  3. QR Code gerado em Canvas
-  4. Código Pix Copia e Cola
-  5. Botão "Copiar Código PIX"
+## 1. Atualização para a Versão v3.1.0
+- **Ajuste de Layout Visual no Recibo**:
+  - **Pagamento via PIX**: Formatação limpa centralizada do título, instrução de escaneamento, QR Code, texto "Código PIX Copia e Cola:" e bloco de código.
+  - **Pagamento em Dinheiro**: Exibição da imagem da assinatura de confirmação do cliente gerada no quadro Canvas dentro do recibo.
+  - **Boleto Bancário**: Layout estruturado no padrão de boleto Itaú (Linha digitável, Beneficiário, Pagador/Sacado, grade com datas e valores, instruções e código de barras visual).
+- **Atualização do Versionamento Geral**:
+  - Atualização dos arquivos `package.json`, `README.md`, `Estrutura-pedido.md` e `registro_mudancas.md` para refletir a nova versão `v3.1.0`.

@@ -1,6 +1,6 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Sistema de registro de pedidos com campos dinâmicos e configurações via JSON",
   "main": "server.js",
   "scripts": {

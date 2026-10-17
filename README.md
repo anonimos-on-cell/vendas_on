@@ -1,9 +1,9 @@
-# Registradora de Pedidos - Versão v3.0.0
+# Registradora de Pedidos - Versão v3.1.0
 
-Sistema completo para registro de pedidos com opções de pagamento dinâmicas e configurações via arquivos JSON.
+Sistema completo para registro de pedidos com opções de pagamento dinâmicas, interface visual personalizada e configurações via arquivos JSON.
 
 ## Estrutura
-Todos os arquivos do projeto estão organizados dentro do diretório `pedidos_v3.0.0`.
+Todos os arquivos do projeto estão organizados dentro do diretório `pedidos_v3.1.0`.
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.

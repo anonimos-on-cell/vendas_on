@@ -1,25 +1,155 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
+    background-color: #f4f4f9;
     margin: 0;
     padding: 20px;
 }
+
 .container {
     max-width: 600px;
     margin: 0 auto;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
-h1 { text-align: center; color: #333; }
-fieldset { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; }
-legend { font-weight: bold; color: #555; }
-input, select { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-.btn-principal { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
-.btn-principal:hover { background-color: #218838; }
-.btn-secundario { padding: 8px 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
-.pagamento-bloco { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 15px; border: 1px solid #e9ecef; }
-.pix-copia-cola { background: #e9ecef; padding: 10px; word-break: break-all; font-family: monospace; border-radius: 4px; margin-top: 5px; }
-#qrcode-container { margin: 15px 0; text-align: center; }
-#qrcode-container img { display: inline-block !important; }
+
+h1, h2, h3 {
+    text-align: center;
+    color: #333;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+legend {
+    font-weight: bold;
+    color: #555;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.btn-principal {
+    width: 100%;
+    padding: 12px;
+    background-color: #1b7e42;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-principal:hover {
+    background-color: #145e31;
+}
+
+.btn-secundario {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.canvas-container {
+    border: 1px solid #ccc;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+#recibo {
+    margin-top: 25px;
+    border: 1px dashed #1b7e42;
+    padding: 15px;
+    background-color: #fafafa;
+    border-radius: 6px;
+}
+
+.recibo-header h2 {
+    color: #1b7e42;
+    margin: 0;
+}
+
+.boleto-box {
+    border: 1px solid #000;
+    padding: 10px;
+    background: #fff;
+    font-size: 11px;
+}
+
+.boleto-header-banco {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #000;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.banco-logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ec7000;
+}
+
+.banco-codigo {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 10px;
+    border-left: 2px solid #000;
+    border-right: 2px solid #000;
+}
+
+.linha-digitavel {
+    font-size: 12px;
+    font-family: monospace;
+}
+
+.boleto-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}
+
+.boleto-campo-full {
+    grid-column: span 2;
+    border: 1px solid #ccc;
+    padding: 4px;
+}
+
+.boleto-campo {
+    border: 1px solid #ccc;
+    padding: 4px;
+}
+
+.boleto-label {
+    font-size: 9px;
+    color: #666;
+    display: block;
+    text-transform: uppercase;
+}
+
+.barcode-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.barcode-lines {
+    height: 40px;
+    background: repeating-linear-gradient(90deg, #000 0, #000 2px, #fff 2px, #fff 4px);
+    width: 100%;
+}
