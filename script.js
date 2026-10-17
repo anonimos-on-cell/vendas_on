@@ -110,11 +110,11 @@ form.addEventListener("submit", function(e){
         htmlPagamento = `
         <div class="pagamento-bloco pix-container">
             <h3>Pagamento via PIX</h3>
-            <p>Escaneie o QR Code abaixo com o app do seu banco:</p>
+            <p style="margin-bottom: 15px;">Escaneie o QR Code abaixo com o app do seu banco:</p>
             <div id="qrcode-container"></div>
-            <p><strong>Código PIX Copia e Cola:</strong></p>
+            <p style="font-weight: bold; margin-top: 15px; margin-bottom: 8px;">Código PIX Copia e Cola:</p>
             <div class="pix-copia-cola" id="pixCodeText">${pixCopiaECola}</div>
-            <button type="button" class="btn-secundario" onclick="navigator.clipboard.writeText('${pixCopiaECola}'); alert('Código PIX copiado!');" style="margin-top:10px;">Copiar Código PIX</button>
+            <button type="button" class="btn-secundario" onclick="navigator.clipboard.writeText('${pixCopiaECola}'); alert('Código PIX copiado!');">Copiar Código PIX</button>
         </div>`;
 
     } else if (pagamento === "Cartão") {

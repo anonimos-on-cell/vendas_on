@@ -57,12 +57,19 @@ input, select {
 }
 
 .btn-secundario {
-    padding: 8px 12px;
+    padding: 10px 16px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.btn-secundario:hover {
+    background-color: #0056b3;
 }
 
 .canvas-container {
@@ -84,6 +91,52 @@ input, select {
     margin: 0;
 }
 
+/* ESTILIZAÇÃO E ALINHAMENTO DO BLOCO PIX */
+.pix-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    margin-top: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#qrcode-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+#qrcode-container canvas, #qrcode-container img {
+    display: block;
+    margin: 0 auto;
+}
+
+.pix-copia-cola {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    font-family: monospace;
+    font-size: 12px;
+    color: #333;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    text-align: center;
+    margin: 8px 0;
+}
+
+/* BOLETO */
 .boleto-box {
     border: 1px solid #000;
     padding: 10px;

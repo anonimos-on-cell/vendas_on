@@ -1,13 +1,13 @@
-# Árvore da Aplicação - Registradora de Pedidos (v3.1.0)
+# Árvore da Aplicação - Registradora de Pedidos (v3.2.0)
 
-Esta é a estrutura atualizada de arquivos da aplicação contida na pasta `pedidos_v3.1.0`:
+Esta é a estrutura atualizada de arquivos da aplicação contida na pasta `pedidos_v3.2.0`:
 
 ```text
-pedidos_v3.1.0/
+pedidos_v3.2.0/
 │
 ├── index.html            # Interface principal
-├── style.css             # Estilização
-├── script.js             # Lógica front-end com visual dos recibos ajustado
+├── style.css             # Estilização completa e responsiva
+├── script.js             # Lógica front-end com alinhamento do bloco PIX
 ├── server.js             # API Node.js (Express + CORS)
 ├── banco.sql             # Script para MySQL
 ├── config.json           # Configurações dinâmicas (Chave PIX, Empresa)
