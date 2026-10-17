@@ -1,16 +1,16 @@
 # Registradora de Pedidos - Versão v2.0.0
 
-Sistema completo de registro de pedidos com suporte a formas de pagamento dinâmicas, renderização visual de comprovantes/boletos e persistência em MySQL.
+Sistema completo de registro de pedidos com suporte a formas de pagamento dinâmicas e persistência no MySQL via Node.js.
 
 ## Funcionalidades
-- **PIX**: QR Code gerado em tempo real com código Copia e Cola [cite: 16].
-- **Cartão Virtual**: Coleta de Número, Titular, Validade e CVV Dinâmico [cite: 14].
-- **Dinheiro**: Assinatura digital do cliente gravada via Canvas HTML5 [cite: 14, 16].
-- **Boleto Bancário**: Layout estruturado com dados do Beneficiário, Pagador, Datas, Valores e Código de Barras [cite: 16].
-- **Geração de Recibo**: Visualização imediata e detalhada após o registro [cite: 16].
+- **PIX**: Processamento simples e direto do pedido.
+- **Cartão Virtual**: Coleta de Número, Titular, Validade e CVV Dinâmico.
+- **Dinheiro**: Campo de assinatura digital via Touch/Mouse utilizando Canvas HTML5.
+- **Boleto**: Coleta de informações completas do pagador (Nome/Razão Social, CPF/CNPJ e Endereço).
+- **Geração de Recibo Instantânea**: Exibição dos dados diretamente na tela após o envio.
 
 ## Instalação e Execução
-1. Importe o arquivo `banco.sql` no seu banco de dados MySQL [cite: 13].
-2. Execute `npm install` no terminal para instalar as dependências [cite: 15].
-3. Inicie a API com `npm start` [cite: 15].
-4. Abra o arquivo `index.html` no navegador [cite: 14].
+1. Importe o arquivo `banco.sql` no seu servidor MySQL.
+2. Instale as dependências: `npm install`
+3. Inicie o servidor: `npm start`
+4. Abra o arquivo `index.html` no seu navegador.

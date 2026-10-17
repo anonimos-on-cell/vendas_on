@@ -1,28 +1,26 @@
 body{
 font-family: Arial, sans-serif;
-background:#f4f6f9;
+background:#f5f5f5;
 padding:20px;
-color:#333;
 }
 
 .container{
-max-width:800px;
+max-width:750px;
 margin:auto;
 background:white;
 padding:25px;
 border-radius:10px;
-box-shadow:0 0 15px rgba(0,0,0,.1);
+box-shadow:0 0 15px rgba(0,0,0,.15);
 }
 
 h1{
 text-align:center;
-color:#1b5e20;
-margin-bottom:20px;
+color:#333;
 }
 
 fieldset{
 border:1px solid #ddd;
-border-radius:8px;
+border-radius:6px;
 padding:15px;
 margin-bottom:20px;
 background:#fafafa;
@@ -31,7 +29,7 @@ background:#fafafa;
 legend{
 font-weight:bold;
 color:#0b8f4d;
-padding:0 8px;
+padding:0 5px;
 }
 
 input,select{
@@ -41,12 +39,11 @@ margin:8px 0;
 box-sizing: border-box;
 border: 1px solid #ccc;
 border-radius: 4px;
-font-size:14px;
 }
 
 .campos-condicionais{
 margin-top:15px;
-padding:15px;
+padding:12px;
 background:#fff;
 border:1px dashed #0b8f4d;
 border-radius:6px;
@@ -54,15 +51,15 @@ border-radius:6px;
 
 .campos-condicionais h3{
 font-size:15px;
-color:#0b8f4d;
+color:#333;
 margin-top:0;
-margin-bottom:10px;
+margin-bottom:8px;
 }
 
 .instrucao{
 font-size:13px;
 color:#666;
-margin-bottom:8px;
+margin-bottom:6px;
 }
 
 .canvas-container{
@@ -80,6 +77,7 @@ touch-action: none;
 }
 
 .btn-secundario{
+width:auto;
 padding:6px 12px;
 background:#e0e0e0;
 color:#333;
@@ -87,6 +85,7 @@ border:none;
 border-radius:4px;
 cursor:pointer;
 font-size:12px;
+display:block;
 margin-bottom:10px;
 }
 .btn-secundario:hover{
@@ -95,15 +94,14 @@ background:#d0d0d0;
 
 .btn-principal{
 width:100%;
-padding:14px;
+padding:12px;
 background:#0b8f4d;
 color:white;
 border:none;
-border-radius:6px;
+border-radius:4px;
 cursor:pointer;
 font-size:16px;
 font-weight:bold;
-transition: background 0.3s;
 }
 
 .btn-principal:hover{
@@ -112,173 +110,9 @@ background:#066b38;
 
 #recibo{
 margin-top:30px;
-border:1px solid #ccc;
+border:1px dashed #000;
 padding:20px;
 background:#fff;
-border-radius:8px;
-box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.recibo-header{
-border-bottom: 2px dashed #0b8f4d;
-padding-bottom: 10px;
-margin-bottom: 15px;
-text-align: center;
-}
-
-.recibo-header h2{
-margin: 0;
-color: #0b8f4d;
-}
-
-.recibo-info p{
-margin: 6px 0;
-font-size: 14px;
-}
-
-.pagamento-bloco{
-margin-top: 20px;
-padding: 15px;
-border: 1px solid #e0e0e0;
-border-radius: 6px;
-background-color: #f9f9f9;
-}
-
-.pagamento-bloco h3{
-margin-top: 0;
-color: #333;
-border-bottom: 1px solid #ddd;
-padding-bottom: 8px;
-}
-
-.pix-container{
-text-align: center;
-}
-
-#qrcode-container{
-display: flex;
-justify-content: center;
-margin: 15px 0;
-}
-
-.pix-copia-cola{
-word-break: break-all;
-background: #eee;
-padding: 10px;
-border-radius: 4px;
-font-family: monospace;
-font-size: 12px;
-border: 1px solid #ddd;
-}
-
-.cartao-detalhes p{
-margin: 6px 0;
-font-size: 14px;
-}
-
-.assinatura-preview img{
-border: 1px solid #ccc;
-border-radius: 4px;
-background: #fff;
-max-width: 100%;
-}
-
-.boleto-box{
-background: #fff;
-border: 2px solid #000;
-padding: 15px;
-font-family: Arial, sans-serif;
-color: #000;
-font-size: 12px;
-margin-top: 15px;
-}
-
-.boleto-header-banco{
-display: flex;
-align-items: center;
-border-bottom: 2px solid #000;
-padding-bottom: 8px;
-margin-bottom: 10px;
-}
-
-.banco-logo{
-font-weight: bold;
-font-size: 20px;
-color: #ec7000;
-margin-right: 15px;
-}
-
-.banco-codigo{
-font-size: 18px;
-font-weight: bold;
-padding: 0 10px;
-border-left: 2px solid #000;
-border-right: 2px solid #000;
-margin-right: 15px;
-}
-
-.linha-digitavel{
-font-size: 13px;
-font-weight: bold;
-font-family: monospace;
-}
-
-.boleto-grid{
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 10px;
-border-bottom: 1px solid #000;
-padding-bottom: 10px;
-margin-bottom: 10px;
-}
-
-.boleto-campo{
-border: 1px solid #999;
-padding: 5px;
-background: #fafafa;
-}
-
-.boleto-label{
-font-size: 9px;
-font-weight: bold;
-color: #555;
-text-transform: uppercase;
-display: block;
-}
-
-.boleto-valor-txt{
-font-size: 12px;
-font-weight: bold;
-margin-top: 2px;
-}
-
-.boleto-campo-full{
-grid-column: span 2;
-border: 1px solid #999;
-padding: 5px;
-background: #fafafa;
-}
-
-.barcode-container{
-text-align: center;
-margin-top: 15px;
-padding-top: 10px;
-border-top: 1px dashed #000;
-}
-
-.barcode-lines{
-height: 50px;
-background: repeating-linear-gradient(
-  90deg,
-  #000,
-  #000 2px,
-  #fff 2px,
-  #fff 4px,
-  #000 4px,
-  #000 7px,
-  #fff 7px,
-  #fff 8px
-);
-width: 100%;
-margin-top: 5px;
+white-space:pre-line;
+border-radius:4px;
 }

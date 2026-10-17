@@ -3,10 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registradora de Pedidos - Completa</title>
+<title>Registradora de Pedidos - Avançada</title>
 <link rel="stylesheet" href="style.css">
-<!-- Biblioteca QRCode via CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -17,11 +15,11 @@
 <form id="pedidoForm">
 
 <fieldset>
-<legend>Dados Gerais do Pedido</legend>
+<legend>Dados Gerais</legend>
 <input type="text" id="cliente" placeholder="Nome do Cliente" required>
 <input type="text" id="produto" placeholder="Produto" required>
 <input type="number" id="quantidade" placeholder="Quantidade" required>
-<input type="number" step="0.01" id="valor" placeholder="Valor Unitário (R$)" required>
+<input type="number" step="0.01" id="valor" placeholder="Valor Unitário" required>
 </fieldset>
 
 <fieldset>
@@ -55,7 +53,7 @@
 
 <!-- Campos Dinâmicos para Boleto -->
 <div id="campos-boleto" class="campos-condicionais" style="display:none;">
-<h3>Informações do Pagador (Sacado)</h3>
+<h3>Informações de Quem Paga (Pagador / Sacado)</h3>
 <input type="text" id="boleto_nome" placeholder="Nome do Pagador / Razão Social">
 <input type="text" id="boleto_documento" placeholder="Documento do Pagador (CPF ou CNPJ)">
 <input type="text" id="boleto_endereco" placeholder="Endereço Completo (Logradouro, Nº, Bairro, Cidade, Estado, CEP)">
@@ -67,8 +65,7 @@
 
 </form>
 
-<!-- ÁREA DO RECIBO E DETALHES DE PAGAMENTO -->
-<div id="recibo" style="display:none;"></div>
+<div id="recibo"></div>
 
 </div>
 
