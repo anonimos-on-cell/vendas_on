@@ -110,7 +110,6 @@ transition: background 0.3s;
 background:#066b38;
 }
 
-/* ESTILIZAÇÃO DO RECIBO E EXIBIÇÃO DE PAGAMENTO */
 #recibo{
 margin-top:30px;
 border:1px solid #ccc;
@@ -152,7 +151,6 @@ border-bottom: 1px solid #ddd;
 padding-bottom: 8px;
 }
 
-/* PIX STYLES */
 .pix-container{
 text-align: center;
 }
@@ -173,13 +171,11 @@ font-size: 12px;
 border: 1px solid #ddd;
 }
 
-/* CARTÃO STYLES */
 .cartao-detalhes p{
 margin: 6px 0;
 font-size: 14px;
 }
 
-/* ASSINATURA STYLES */
 .assinatura-preview img{
 border: 1px solid #ccc;
 border-radius: 4px;
@@ -187,7 +183,6 @@ background: #fff;
 max-width: 100%;
 }
 
-/* BOLETO STYLES (LAYOUT BANCO ITAÚ) */
 .boleto-box{
 background: #fff;
 border: 2px solid #000;
@@ -209,7 +204,7 @@ margin-bottom: 10px;
 .banco-logo{
 font-weight: bold;
 font-size: 20px;
-color: #ec7000; /* Laranja Itaú */
+color: #ec7000;
 margin-right: 15px;
 }
 

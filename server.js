@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 
 app.use(cors());
-app.use(express.json({ limit: '50mb' })); // Aumentado limite para aceitar a imagem da assinatura em base64
+app.use(express.json({ limit: '50mb' }));
 
 const db = mysql.createConnection({
     host: "localhost",

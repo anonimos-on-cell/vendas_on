@@ -8,7 +8,6 @@ const camposBoleto = document.getElementById("campos-boleto");
 
 let numeroPedido = 1000;
 
-// Configuração do Canvas para assinatura
 const canvas = document.getElementById("canvasAssinatura");
 const ctx = canvas.getContext("2d");
 let desenhando = false;
@@ -54,7 +53,6 @@ document.getElementById("limparAssinatura").addEventListener("click", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 });
 
-// Alternar campos dinâmicos baseados na forma de pagamento
 selectPagamento.addEventListener("change", function() {
     const valor = this.value;
     camposCartao.style.display = valor === "Cartão" ? "block" : "none";
@@ -76,7 +74,6 @@ form.addEventListener("submit", function(e){
     const dataStr = dataObj.toLocaleDateString('pt-BR');
     const horaStr = dataObj.toLocaleTimeString('pt-BR');
 
-    // Vencimento do boleto (ex: 3 dias após a data atual)
     const dataVenc = new Date();
     dataVenc.setDate(dataVenc.getDate() + 3);
     const vencimentoStr = dataVenc.toLocaleDateString('pt-BR');
@@ -141,7 +138,6 @@ form.addEventListener("submit", function(e){
         <div class="pagamento-bloco">
             <h3>Boleto Bancário de Cobrança</h3>
             <div class="boleto-box">
-                <!-- 1. Dados de Identificação Financeira -->
                 <div class="boleto-header-banco">
                     <span class="banco-logo">Itaú</span>
                     <span class="banco-codigo">341-7</span>
@@ -149,7 +145,6 @@ form.addEventListener("submit", function(e){
                 </div>
 
                 <div class="boleto-grid">
-                    <!-- 2. Informações de Quem Recebe (Beneficiário) -->
                     <div class="boleto-campo-full">
                         <span class="boleto-label">2. Beneficiário (Quem Recebe)</span>
                         <div class="boleto-valor-txt">Empresa Vendedora Ltda. | CNPJ: 12.345.678/0001-90</div>
@@ -157,7 +152,6 @@ form.addEventListener("submit", function(e){
                         <div class="boleto-valor-txt">1234 / 56789-0</div>
                     </div>
 
-                    <!-- 3. Informações de Quem Paga (Pagador / Sacado) -->
                     <div class="boleto-campo-full">
                         <span class="boleto-label">3. Pagador (Sacado)</span>
                         <div class="boleto-valor-txt">Nome: ${boleto_nome}</div>
@@ -165,7 +159,6 @@ form.addEventListener("submit", function(e){
                         <div class="boleto-valor-txt">Endereço: ${boleto_endereco}</div>
                     </div>
 
-                    <!-- 4. Datas e Valores (Dados da Cobrança) -->
                     <div class="boleto-campo">
                         <span class="boleto-label">Data do Documento</span>
                         <div class="boleto-valor-txt">${dataStr}</div>
@@ -191,7 +184,6 @@ form.addEventListener("submit", function(e){
                         <div class="boleto-valor-txt">${numeroDocumento}</div>
                     </div>
 
-                    <!-- 5. Instruções e Condições -->
                     <div class="boleto-campo-full">
                         <span class="boleto-label">5. Instruções e Condições</span>
                         <div class="boleto-valor-txt">
@@ -212,7 +204,6 @@ form.addEventListener("submit", function(e){
         dadosExtras = { boleto_nome, boleto_documento, boleto_endereco };
     }
 
-    // Montar o recibo completo
     recibo.style.display = "block";
     recibo.innerHTML = `
         <div class="recibo-header">
@@ -231,7 +222,6 @@ form.addEventListener("submit", function(e){
         ${htmlPagamento}
     `;
 
-    // Gerar QR Code PIX se for selecionado PIX
     if (pagamento === "PIX") {
         setTimeout(() => {
             const qrContainer = document.getElementById("qrcode-container");
