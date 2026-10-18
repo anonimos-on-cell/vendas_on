@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.14.0",
-  "description": "Sistema de registro de pedidos com QR Code Pix estático/dinâmico atualizado para nova chave UUID e cidade FEIRA DE SANTAN",
+  "version": "v3.15.0",
+  "description": "Sistema de registro de pedidos com limitação rígida da assinatura de dinheiro dentro da caixa do canvas",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

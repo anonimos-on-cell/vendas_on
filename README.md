@@ -1,13 +1,11 @@
-# Registradora de Pedidos - Versão v3.14.0
+# Registradora de Pedidos - Versão v3.15.0
 
-Sistema completo para registro de pedidos com QR Code Pix estático/dinâmico, valor total travado (tag 54) e recibo organizado visualmente.
+Sistema completo para registro de pedidos com controle estrito de limites no Canvas da Assinatura de pagamento em dinheiro.
 
 ## Funcionalidades
-- **Nova Chave PIX**: Atualizada para a chave aleatória UUID `dc529730-f4e4-4370-a87d-658ed8ab9eb9` e cidade `FEIRA DE SANTAN`.
-- **Recibo Visualmente Atraente**: Layout em cartões e grade limpa, com QR Code Pix centralizado.
-- **Valor PIX Preenchido e Travado**: O valor total calculado é inserido diretamente no payload EMV (Tag 54) para o cliente não precisar digitar.
-- **Formato PIX Universal Seguro**: TXID genérico estático (`***`) sem conflito nos bancos.
-- **Fallback e Suporte Offline**: Leitura dinâmica via `config.json`.
+- **Assinatura Confinada na Caixa**: O cursor e o traço de assinatura em dinheiro ficam restritos rigorosamente à área útil do Canvas (`clip` + trava de coordenadas `Math.max` / `Math.min`), impedindo vazamento para fora da borda.
+- **Payload PIX EMV Válido**: Chave Pix `dc529730-f4e4-4370-a87d-658ed8ab9eb9`, cidade `FEIRA DE SANTAN` e valor total preenchido e travado (Tag 54).
+- **Recibo Organizado e Atraente**: Layout em cartões e grade moderna com QR Code centralizado.
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.

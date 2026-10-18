@@ -18,6 +18,7 @@
 <input type="number" id="quantidade" placeholder="Quantidade" required>
 <input type="number" step="0.01" id="valor" placeholder="Valor Unitário (R$)" required>
 </fieldset>
+
 <fieldset>
 <legend>Forma de Pagamento</legend>
 <select id="pagamento" required>
@@ -36,14 +37,20 @@
 </div>
 
 <div id="campos-dinheiro" class="campos-condicionais" style="display:none;">
-<canvas id="canvasAssinatura" width="400" height="150"></canvas>
+<h3 style="font-size:14px; margin-top:10px; color:#4a5568;">Assinatura do Cliente (Mantenha dentro da caixa):</h3>
+<div class="canvas-container">
+    <canvas id="canvasAssinatura" width="400" height="150"></canvas>
+</div>
 <button type="button" id="limparAssinatura" class="btn-secundario">Limpar Assinatura</button>
 </div>
 </fieldset>
+
 <button type="submit" class="btn-principal">Registrar Pedido</button>
 </form>
+
 <div id="recibo" style="display:none;"></div>
 </div>
+
 <script src="script.js"></script>
 </body>
 </html>

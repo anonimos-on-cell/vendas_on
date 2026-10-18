@@ -24,16 +24,15 @@ function gerarPayloadPix(chavePix, valorTotal) {
     
     const tag00 = "000201"; 
     const tag52 = "52040000"; 
-    const tag53 = "5303986"; // BRL (Real)
+    const tag53 = "5303986"; 
     
-    // Tag 54: Insere o valor total formatado obrigatoriamente
     const valorStr = (parseFloat(valorTotal) || 0.00).toFixed(2);
     const tag54 = "54" + String(valorStr.length).padStart(2, '0') + valorStr;
     
     const tag58 = "5802BR"; 
     const tag59 = "5925JOSE PAULO DE JESUS FERRE"; 
-    const tag60 = "6015FEIRA DE SANTAN"; // Cidade ajustada
-    const tag62 = "62070503***"; // TXID padrão genérico seguro
+    const tag60 = "6015FEIRA DE SANTAN"; 
+    const tag62 = "62070503***"; 
     
     let payloadSemCRC = tag00 + tag26 + tag52 + tag53 + tag54 + tag58 + tag59 + tag60 + tag62 + "6304";
     let crc = calcularCRC16(payloadSemCRC);
@@ -82,37 +81,54 @@ const camposBoleto = document.getElementById("campos-boleto");
 
 let numeroPedido = 1000;
 
+// CONTROLE DO CANVAS DE ASSINATURA COM RESTRIÇÃO RÍGIDA DE BORDAS
 const canvas = document.getElementById("canvasAssinatura");
 const ctx = canvas ? canvas.getContext("2d") : null;
 let desenhando = false;
+
+if (ctx && canvas) {
+    // Configura o caminho de corte (clip) para garantir zero extrapolação
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "#000000";
+}
+
+function obterPosicaoCursorClamped(e) {
+    if (!canvas) return { x: 0, y: 0 };
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+    const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+    
+    // Calcula x e y em relação às dimensões reais do Canvas
+    let posX = (clientX - rect.left) * (canvas.width / rect.width);
+    let posY = (clientY - rect.top) * (canvas.height / rect.height);
+    
+    // Clampa (restringe) rigorosamente para não sair do limite (0 até canvas.width/height)
+    posX = Math.max(1, Math.min(canvas.width - 1, posX));
+    posY = Math.max(1, Math.min(canvas.height - 1, posY));
+    
+    return { x: posX, y: posY };
+}
 
 function iniciarAssinatura(e) {
     if(!ctx) return;
     desenhando = true;
     ctx.beginPath();
-    const pos = obterPosicaoCursor(e);
+    const pos = obterPosicaoCursorClamped(e);
     ctx.moveTo(pos.x, pos.y);
 }
 
 function desenhar(e) {
     if (!desenhando || !ctx) return;
-    const pos = obterPosicaoCursor(e);
+    const pos = obterPosicaoCursorClamped(e);
     ctx.lineTo(pos.x, pos.y);
     ctx.stroke();
 }
 
 function pararAssinatura() {
+    if(ctx) ctx.closePath();
     desenhando = false;
-}
-
-function obterPosicaoCursor(e) {
-    const rect = canvas.getBoundingClientRect();
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-    return {
-        x: clientX - rect.left,
-        y: clientY - rect.top
-    };
 }
 
 if(canvas){
@@ -121,13 +137,13 @@ if(canvas){
     canvas.addEventListener("mouseup", pararAssinatura);
     canvas.addEventListener("mouseleave", pararAssinatura);
 
-    canvas.addEventListener("touchstart", (e) => { iniciarAssinatura(e); e.preventDefault(); });
-    canvas.addEventListener("touchmove", (e) => { desenhar(e); e.preventDefault(); });
+    canvas.addEventListener("touchstart", (e) => { iniciarAssinatura(e); e.preventDefault(); }, { passive: false });
+    canvas.addEventListener("touchmove", (e) => { desenhar(e); e.preventDefault(); }, { passive: false });
     canvas.addEventListener("touchend", pararAssinatura);
 }
 
 const btnLimpar = document.getElementById("limparAssinatura");
-if(btnLimpar && ctx){
+if(btnLimpar && ctx && canvas){
     btnLimpar.addEventListener("click", () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
@@ -202,7 +218,7 @@ form.addEventListener("submit", async function(e){
         htmlPagamento = `
         <div class="pagamento-bloco">
             <h3>Pagamento em Dinheiro</h3>
-            <p><strong>Assinatura do Cliente:</strong></p>
+            <p style="margin-bottom: 8px;"><strong>Assinatura do Cliente:</strong></p>
             <div class="assinatura-preview">
                 <img src="${assinaturaDataURL}" alt="Assinatura" />
             </div>

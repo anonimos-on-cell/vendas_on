@@ -82,6 +82,50 @@ button {
     color: white;
 }
 
+.btn-secundario:hover {
+    background-color: #2d3748;
+}
+
+/* CAIXA DA ASSINATURA CONFINADA */
+.canvas-container {
+    border: 2px solid #cbd5e0;
+    border-radius: 8px;
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    overflow: hidden !important; /* Impede que qualquer elemento visual ultrapasse */
+    position: relative;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+canvas#canvasAssinatura {
+    touch-action: none !important; /* Desativa rolagem da página no toque para desenhar limpo */
+    cursor: crosshair;
+    display: block;
+    background-color: #ffffff;
+    border-radius: 6px;
+    max-width: 100%;
+}
+
+.assinatura-preview {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.assinatura-preview img {
+    max-width: 100%;
+    height: auto;
+    max-height: 120px;
+}
+
+/* RECIBO */
 .recibo-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
