@@ -1,263 +1,227 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+* {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     padding: 20px;
 }
 
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 20px;
+    background-color: #ffffff;
+    padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 100%;
 }
 
-h1, h2, h3 {
+h1 {
     text-align: center;
-    color: #333;
+    margin-bottom: 20px;
+    color: #2c3e50;
 }
 
 fieldset {
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 6px;
     padding: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 legend {
     font-weight: bold;
-    color: #555;
+    padding: 0 8px;
+    color: #34495e;
 }
 
 input, select {
     width: 100%;
     padding: 10px;
-    margin: 8px 0;
+    margin-top: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.btn-principal {
-    width: 100%;
-    padding: 12px;
-    background-color: #1b7e42;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.btn-principal:hover {
-    background-color: #145e31;
-}
-
-.btn-secundario {
-    padding: 10px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    display: inline-block;
-    margin-top: 10px;
-}
-
-.btn-secundario:hover {
-    background-color: #0056b3;
-}
-
-.acoes-recibo {
-    text-align: center;
-    margin: 10px 0;
-}
-
-.btn-imprimir {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
     font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
 }
 
-.btn-imprimir:hover {
-    background-color: #218838;
+.campos-condicionais h3 {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #16a085;
 }
 
 .canvas-container {
-    border: 1px solid #ccc;
-    display: inline-block;
-    margin-bottom: 10px;
+    border: 1px dashed #aaa;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    background-color: #fafafa;
+}
+
+canvas {
+    touch-action: none;
+    cursor: crosshair;
+}
+
+button {
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    padding: 12px;
+    width: 100%;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.btn-principal {
+    background-color: #27ae60;
+    color: white;
+    font-size: 16px;
+}
+
+.btn-principal:hover {
+    background-color: #219150;
+}
+
+.btn-secundario {
+    background-color: #7f8c8d;
+    color: white;
+}
+
+.btn-secundario:hover {
+    background-color: #636e72;
 }
 
 #recibo {
-    margin-top: 25px;
-    border: 1px dashed #1b7e42;
-    padding: 15px;
-    background-color: #fafafa;
-    border-radius: 6px;
+    margin-top: 30px;
+    border-top: 2px dashed #bbb;
+    padding-top: 20px;
 }
 
-.recibo-header h2 {
-    color: #1b7e42;
-    margin: 0;
-}
-
-/* ESTILIZAÇÃO E ALINHAMENTO DO BLOCO PIX */
-.pix-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.recibo-header {
     text-align: center;
-    background-color: #f9f9f9;
+    margin-bottom: 15px;
+}
+
+.recibo-info p {
+    margin-bottom: 5px;
+}
+
+.pagamento-bloco {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
     padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
+    border-radius: 6px;
     margin-top: 15px;
-    width: 100%;
-    box-sizing: border-box;
+}
+
+.pix-container {
+    text-align: center;
 }
 
 #qrcode-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin: 10px 0;
-}
-
-#qrcode-container canvas, #qrcode-container img {
-    display: block;
-    margin: 0 auto;
+    margin: 15px 0;
 }
 
 .pix-copia-cola {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    word-break: break-all;
+    background: #eef2f5;
     padding: 10px;
     font-family: monospace;
     font-size: 12px;
-    color: #333;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    word-break: break-all;
-    overflow-wrap: anywhere;
-    white-space: normal;
-    text-align: center;
-    margin: 8px 0;
+    border-radius: 4px;
 }
 
-/* BOLETO */
 .boleto-box {
     border: 1px solid #000;
     padding: 10px;
+    font-size: 12px;
     background: #fff;
-    font-size: 11px;
 }
 
 .boleto-header-banco {
-    dispatch: flex;
-    align-items: center;
+    display: flex;
     justify-content: space-between;
+    align-items: center;
     border-bottom: 2px solid #000;
     padding-bottom: 5px;
-    margin-bottom: 5px;
-}
-
-.banco-logo {
-    font-size: 20px;
+    margin-bottom: 10px;
     font-weight: bold;
-    color: #ec7000;
-}
-
-.banco-codigo {
-    font-size: 16px;
-    font-weight: bold;
-    padding: 0 10px;
-    border-left: 2px solid #000;
-    border-right: 2px solid #000;
-}
-
-.linha-digitavel {
-    font-size: 12px;
-    font-family: monospace;
 }
 
 .boleto-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 5px;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
 }
 
 .boleto-campo-full {
     grid-column: span 2;
-    border: 1px solid #ccc;
-    padding: 4px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
 }
 
 .boleto-campo {
-    border: 1px solid #ccc;
-    padding: 4px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
 }
 
 .boleto-label {
-    font-size: 9px;
+    font-size: 10px;
     color: #666;
     display: block;
-    text-transform: uppercase;
 }
 
-.barcode-container {
-    margin-top: 10px;
-    text-align: center;
+.boleto-valor-txt {
+    font-weight: bold;
 }
 
 .barcode-lines {
     height: 40px;
-    background: repeating-linear-gradient(90deg, #000 0, #000 2px, #fff 2px, #fff 4px);
-    width: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        #000,
+        #000 2px,
+        #fff 2px,
+        #fff 4px,
+        #000 4px,
+        #000 7px
+    );
+    margin-top: 5px;
 }
 
-/* REGRAS EXCLUSIVAS PARA IMPRESSÃO DE APENAS O RECIBO */
-@media print {
-    body {
-        background-color: #fff;
-        padding: 0;
-        margin: 0;
-    }
+.btn-imprimir {
+    background-color: #2980b9;
+    color: white;
+    width: auto;
+    padding: 8px 15px;
+    margin-bottom: 10px;
+}
 
-    /* Oculta tudo na página por padrão */
+@media print {
     body * {
         visibility: hidden;
     }
-
-    /* Exibe apenas o recibo e seus componentes */
     #recibo, #recibo * {
         visibility: visible;
     }
-
-    /* Posiciona o recibo no topo da página */
     #recibo {
         position: absolute;
         left: 0;
         top: 0;
         width: 100%;
-        margin: 0;
-        border: none;
-        padding: 0;
-        background-color: transparent;
     }
-
-    /* Oculta o botão de imprimir durante a própria impressão */
     .acoes-recibo, .btn-imprimir, .btn-copiar-pix {
         display: none !important;
     }

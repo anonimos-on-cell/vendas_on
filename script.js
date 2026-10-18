@@ -1,8 +1,8 @@
 // Carregar configurações dinâmicas (Chave PIX, Beneficiário, etc.)
 let Beneficiado = {Destinatario: "Jose_paulodeJesusFerreira"};
 let configApp = { 
-    chave_pix: "contacorrente166@gmail.com",
-    chave_pix_alternativa: "00020126580014BR.GOV.BCB.PIX0136contacorrente166@gmail.com52040000530398654055802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA"
+    chave_pix: "dfd6038c-64a7-4143-b17b-3eced0fba32a",
+    chave_pix_alternativa: "dfd6038c-64a7-4143-b17b-3eced0fba32a"
 };
 
 let servidorAtivo = false;
@@ -108,7 +108,6 @@ form.addEventListener("submit", async function(e){
     e.preventDefault();
     numeroPedido++;
 
-    // Verifica status do servidor antes de submeter
     await verificarServidor();
 
     const cliente = document.getElementById("cliente").value;
@@ -132,12 +131,10 @@ form.addEventListener("submit", async function(e){
         let pixCopiaECola = "";
 
         if (servidorAtivo) {
-            // QR Code Estático por Produto/Serviço (ID 54 com valor fixo e exato do item/pedido)
-            const chavePix = configApp.chave_pix || "contacorrente166@gmail.com";
+            const chavePix = configApp.chave_pix || "77e79306-f90f-4ed6-9815-1fd759dbc425";
             pixCopiaECola = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`;
         } else {
-            // Servidor desativado: usa a chave alternativa do config.json
-            pixCopiaECola = configApp.chave_pix_alternativa || configApp.chave_pix || "contacorrente166@gmail.com";
+            pixCopiaECola = configApp.chave_pix_alternativa || configApp.chave_pix || "77e79306-f90f-4ed6-9815-1fd759dbc425";
         }
         
         htmlPagamento = `
@@ -288,10 +285,10 @@ form.addEventListener("submit", async function(e){
                 qrContainer.innerHTML = "";
                 let qrPixCode = "";
                 if (servidorAtivo) {
-                    const chavePix = configApp.chave_pix || "contacorrente166@gmail.com";
+                    const chavePix = configApp.chave_pix || "77e79306-f90f-4ed6-9815-1fd759dbc425";
                     qrPixCode = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`;
                 } else {
-                    qrPixCode = configApp.chave_pix_alternativa || configApp.chave_pix || "contacorrente166@gmail.com";
+                    qrPixCode = configApp.chave_pix_alternativa || configApp.chave_pix || "77e79306-f90f-4ed6-9815-1fd759dbc425";
                 }
                 new QRCode(qrContainer, {
                     text: qrPixCode,

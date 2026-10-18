@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "3.7.0",
-  "description": "Sistema com QR Code Pix estático por produto (com valor exato fixo via ID 54) e verificação de servidor",
+  "version": "v3.8.0",
+  "description": "Sistema de registro de pedidos com QR Code Pix estático por produto e automação de versão",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
