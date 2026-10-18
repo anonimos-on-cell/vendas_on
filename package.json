@@ -1,6 +1,6 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.8.0",
+  "version": "v3.9.0",
   "description": "Sistema de registro de pedidos com QR Code Pix estático por produto e automação de versão",
   "main": "server.js",
   "scripts": {

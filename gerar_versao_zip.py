@@ -22,7 +22,7 @@ tipo_mudanca = sys.argv[1] if len(sys.argv) > 1 else "minor"
 with open("package.json", "r", encoding="utf-8") as f:
     pkg = json.load(f)
 
-nova_versao = incrementar_versao(pkg.get("version", "v3.7.0"), tipo_mudanca)
+nova_versao = incrementar_versao(pkg.get("version", "v3.8.0"), tipo_mudanca)
 pkg["version"] = nova_versao
 
 with open("package.json", "w", encoding="utf-8") as f:

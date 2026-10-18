@@ -1,8 +1,52 @@
-// Carregar configurações dinâmicas (Chave PIX, Beneficiário, etc.)
-let Beneficiado = {Destinatario: "Jose_paulodeJesusFerreira"};
+// Função para calcular o CRC16 (CCITT-FALSE / 0x1021) do BR Code Pix conforme especificação do Bacen
+function calcularCRC16(str) {
+    let crc = 0xFFFF;
+    for (let i = 0; i < str.length; i++) {
+        crc ^= (str.charCodeAt(i) << 8);
+        for (let j = 0; j < 8; j++) {
+            if ((crc & 0x8000) !== 0) {
+                crc = ((crc << 1) ^ 0x1021) & 0xFFFF;
+            } else {
+                crc = (crc << 1) & 0xFFFF;
+            }
+        }
+    }
+    let hex = (crc & 0xFFFF).toString(16).toUpperCase();
+    return hex.padStart(4, '0');
+}
+
+// Função para gerar o payload EMV do Pix dinamicamente com CRC16 válido
+function gerarPayloadPix(chavePix, valorTotal) {
+    // Formatação dos campos segundo o padrão BR Code
+    const gui = "0014BR.GOV.BCB.PIX";
+    const chave = "01" + String(chavePix.length).padStart(2, '0') + chavePix;
+    const merchantAccountInfo = gui + chave;
+    const tag26 = "26" + String(merchantAccountInfo.length).padStart(2, '0') + merchantAccountInfo;
+    
+    const tag00 = "000201"; // Payload Format Indicator
+    const tag52 = "52040000"; // Merchant Category Code
+    const tag53 = "5303986"; // Transaction Currency (BRL - 986)
+    
+    let tag54 = "";
+    if (valorTotal && valorTotal > 0) {
+        const valorStr = valorTotal.toFixed(2);
+        tag54 = "54" + String(valorStr.length).padStart(2, '0') + valorStr;
+    }
+    
+    const tag58 = "5802BR"; // Country Code
+    const tag59 = "5916Empresa Vendedora"; // Merchant Name
+    const tag60 = "6009SAO PAULO"; // Merchant City
+    const tag62 = "62070503***"; // Additional Data Field Template
+    
+    let payloadSemCRC = tag00 + tag26 + tag52 + tag53 + tag54 + tag58 + tag59 + tag60 + tag62 + "6304";
+    let crc = calcularCRC16(payloadSemCRC);
+    
+    return payloadSemCRC + crc;
+}
+
 let configApp = { 
     chave_pix: "dfd6038c-64a7-4143-b17b-3eced0fba32a",
-    chave_pix_alternativa: "dfd6038c-64a7-4143-b17b-3eced0fba32a"
+    chave_pix_alternativa: ""
 };
 
 let servidorAtivo = false;
@@ -28,7 +72,6 @@ async function verificarServidor() {
     }
 }
 
-// Inicializações assíncronas
 carregarConfiguracoes();
 verificarServidor();
 
@@ -131,10 +174,15 @@ form.addEventListener("submit", async function(e){
         let pixCopiaECola = "";
 
         if (servidorAtivo) {
-            const chavePix = configApp.chave_pix || "77e79306-f90f-4ed6-9815-1fd759dbc425";
-            pixCopiaECola = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`;
+            const chavePix = configApp.chave_pix || "dfd6038c-64a7-4143-b17b-3eced0fba32a";
+            pixCopiaECola = gerarPayloadPix(chavePix, total);
         } else {
-            pixCopiaECola = configApp.chave_pix_alternativa || configApp.chave_pix || "77e79306-f90f-4ed6-9815-1fd759dbc425";
+            if (configApp.chave_pix_alternativa) {
+                pixCopiaECola = configApp.chave_pix_alternativa;
+            } else {
+                const chavePix = configApp.chave_pix || "dfd6038c-64a7-4143-b17b-3eced0fba32a";
+                pixCopiaECola = gerarPayloadPix(chavePix, total);
+            }
         }
         
         htmlPagamento = `
@@ -285,10 +333,15 @@ form.addEventListener("submit", async function(e){
                 qrContainer.innerHTML = "";
                 let qrPixCode = "";
                 if (servidorAtivo) {
-                    const chavePix = configApp.chave_pix || "77e79306-f90f-4ed6-9815-1fd759dbc425";
-                    qrPixCode = `00020126580014BR.GOV.BCB.PIX0136${chavePix}5204000053039865405${total.toFixed(2)}5802BR5920Empresa Vendedora6009SAO PAULO62070503***6304E2CA`;
+                    const chavePix = configApp.chave_pix || "dfd6038c-64a7-4143-b17b-3eced0fba32a";
+                    qrPixCode = gerarPayloadPix(chavePix, total);
                 } else {
-                    qrPixCode = configApp.chave_pix_alternativa || configApp.chave_pix || "77e79306-f90f-4ed6-9815-1fd759dbc425";
+                    if (configApp.chave_pix_alternativa) {
+                        qrPixCode = configApp.chave_pix_alternativa;
+                    } else {
+                        const chavePix = configApp.chave_pix || "dfd6038c-64a7-4143-b17b-3eced0fba32a";
+                        qrPixCode = gerarPayloadPix(chavePix, total);
+                    }
                 }
                 new QRCode(qrContainer, {
                     text: qrPixCode,

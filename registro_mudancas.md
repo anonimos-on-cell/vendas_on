@@ -1,11 +1,7 @@
-# Registro de Mudanças no Código (Changelog) - Versão v3.8.0
+# Registro de Mudanças no Código (Changelog) - Versão v3.9.0
 
-Este documento descreve as alterações na versão v3.8.0.
-
----
-
-## 1. Atualização para a Versão v3.8.0
-- **Chave Pix Aleatória**:
-  - A `chave_pix` e a `chave_pix_alternativa` foram atualizadas para a chave aleatória `77e79306-f90f-4ed6-9815-1fd759dbc425`.
-- **Automação de Versionamento e Exportação ZIP**:
-  - Inclusão do script `gerar_versao_zip.py` para versionamento automático da aplicação e empacotamento ZIP em lote.
+## Versão v3.9.0
+- **Atualização da Chave PIX e Payload EMV**:
+  - Chave Pix atualizada para a nova chave aleatória: `dfd6038c-64a7-4143-b17b-3eced0fba32a`.
+  - Implementado o cálculo dinâmico de checksum CRC16 (polinômio 0x1021) conforme especificação oficial do Banco Central do Brasil (BR Code EMV) no `script.js`.
+  - QR Code e Copiar Código PIX gerados no formato EMV padronizado com valor dinâmico/estático aceito por aplicativos bancários.
