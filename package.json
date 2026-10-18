@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.11.0",
-  "description": "Sistema de registro de pedidos com recibo visualmente elegante e QR Code centralizado",
+  "version": "v3.12.0",
+  "description": "Sistema de registro de pedidos com Payload Pix EMV contendo valor exato travado no ID 54",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

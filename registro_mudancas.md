@@ -1,7 +1,6 @@
-# Registro de Mudancas no Codigo (Changelog) - Versão v3.11.0
+# Registro de Mudanças no Código (Changelog) - Versão v3.12.0
 
-## Versão v3.11.0
-- **Otimização Visual do Recibo**:
-  - Reestruturação completa do recibo com layout moderno em cartões/tabelas limpas.
-  - Centralização do QR Code Pix e do bloco "Copia e Cola".
-  - Detalhes do pedido dispostos em linhas elegantes com ícones e melhor hierarquia tipográfica.
+## Versão v3.12.0
+- **Inclusão Obrigatória do Valor Total no PIX (Tag 54)**:
+  - Garantido que a função `gerarPayloadPix` sempre inclua a tag EMV `54` formatada com 2 casas decimais contendo o valor total exato do pedido.
+  - Ao escanearem o QR Code ou utilizarem o código Copia e Cola, os bancos carregarão automaticamente o valor preenchido e travado para o pagador.
