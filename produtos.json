@@ -2,6 +2,8 @@
   {
     "id": 101,
     "nome": "Mochila",
-    "preco": 15.0
+    "categoria": "Acessórios",
+    "preco": 15.0,
+    "estoque": 20
   }
 ]

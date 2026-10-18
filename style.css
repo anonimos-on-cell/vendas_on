@@ -73,6 +73,10 @@ button {
     font-size: 16px;
 }
 
+.btn-principal:hover {
+    background-color: #2f855a;
+}
+
 .btn-secundario {
     background-color: #4a5568;
     color: white;
@@ -175,4 +179,29 @@ button {
     border-radius: 6px;
     border: 1px solid #cbd5e0;
     text-align: left;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #recibo, #recibo * {
+        visibility: visible;
+    }
+    #recibo {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .acoes-recibo, .btn-imprimir, .btn-copiar-pix {
+        display: none !important;
+    }
+    .recibo-card {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+    }
 }

@@ -27,6 +27,18 @@
 <option value="Dinheiro">Dinheiro</option>
 <option value="Boleto">Boleto</option>
 </select>
+
+<div id="campos-cartao" class="campos-condicionais" style="display:none;">
+<input type="text" id="cartao_numero" placeholder="Número do Cartão Virtual">
+<input type="text" id="cartao_titular" placeholder="Nome do Titular">
+<input type="text" id="cartao_validade" placeholder="MM/AA">
+<input type="text" id="cartao_cvv" placeholder="CVV">
+</div>
+
+<div id="campos-dinheiro" class="campos-condicionais" style="display:none;">
+<canvas id="canvasAssinatura" width="400" height="150"></canvas>
+<button type="button" id="limparAssinatura" class="btn-secundario">Limpar Assinatura</button>
+</div>
 </fieldset>
 <button type="submit" class="btn-principal">Registrar Pedido</button>
 </form>

@@ -15,7 +15,7 @@ function calcularCRC16(str) {
     return hex.padStart(4, '0');
 }
 
-// Função para gerar o payload EMV do Pix com Valor Total Obrigatório e Fixo (Tag 54)
+// Função para gerar o payload EMV do Pix com Valor Total Obrigatório (Tag 54) e TXID seguro
 function gerarPayloadPix(chavePix, valorTotal) {
     const gui = "0014BR.GOV.BCB.PIX";
     const chave = "01" + String(chavePix.length).padStart(2, '0') + chavePix;
@@ -24,7 +24,7 @@ function gerarPayloadPix(chavePix, valorTotal) {
     
     const tag00 = "000201"; 
     const tag52 = "52040000"; 
-    const tag53 = "5303986"; // BRL - Real
+    const tag53 = "5303986"; // BRL (Real)
     
     // Tag 54: Insere o valor total formatado obrigatoriamente
     const valorStr = (parseFloat(valorTotal) || 0.00).toFixed(2);
@@ -33,7 +33,7 @@ function gerarPayloadPix(chavePix, valorTotal) {
     const tag58 = "5802BR"; 
     const tag59 = "5925JOSE PAULO DE JESUS FERRE"; 
     const tag60 = "6009SAO PAULO"; 
-    const tag62 = "622605223GNIRORKTNZxf3V6UiCunL"; 
+    const tag62 = "62070503***"; // TXID padrão genérico seguro
     
     let payloadSemCRC = tag00 + tag26 + tag52 + tag53 + tag54 + tag58 + tag59 + tag60 + tag62 + "6304";
     let crc = calcularCRC16(payloadSemCRC);
@@ -165,19 +165,18 @@ form.addEventListener("submit", async function(e){
 
     if (pagamento === "PIX") {
         const chavePix = configApp.chave_pix || "+557598343185";
-        // Sempre gera o payload com o valor total exato do pedido
         const pixCopiaECola = gerarPayloadPix(chavePix, total);
         
         htmlPagamento = `
         <div class="pagamento-bloco pix-container">
             <h3>Pagamento via PIX (Valor Fixo)</h3>
-            <p class="pix-instrucao">Escaneie o QR Code abaixo. O valor exato de <strong>R$ ${total.toFixed(2)}</strong> já está preenchido e travado:</p>
+            <p class="pix-instrucao">Escaneie o QR Code abaixo. O valor exato de <strong>R$ ${total.toFixed(2)}</strong> já está integrado:</p>
             <div id="qrcode-wrapper">
                 <div id="qrcode-container"></div>
             </div>
             <p class="pix-copia-titulo">Código PIX Copia e Cola:</p>
             <div class="pix-copia-cola" id="pixCodeText">${pixCopiaECola}</div>
-            <button type="button" class="btn-secundario btn-copiar-pix" onclick="navigator.clipboard.writeText('${pixCopiaECola}'); alert('Código PIX com valor total de R$ ${total.toFixed(2)} copiado!');">Copiar Código PIX</button>
+            <button type="button" class="btn-secundario btn-copiar-pix" onclick="navigator.clipboard.writeText('${pixCopiaECola}'); alert('Código PIX copiado!');">Copiar Código PIX</button>
         </div>`;
 
     } else if (pagamento === "Cartão") {

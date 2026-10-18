@@ -1,6 +1,10 @@
 [
   {
     "id": 1,
-    "nome": "João Silva"
+    "nome": "João Silva",
+    "documento": "123.456.789-00",
+    "email": "joao.silva@email.com",
+    "telefone": "(11) 98765-4321",
+    "endereco": "Rua das Flores, 123, Bairro Alto, São Paulo - SP"
   }
 ]
