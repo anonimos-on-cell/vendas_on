@@ -137,9 +137,9 @@ if(btnLimpar && ctx){
 
 selectPagamento.addEventListener("change", function() {
     const valor = this.value;
-    camposCartao.style.display = valor === "Cartão" ? "block" : "none";
-    camposDinheiro.style.display = valor === "Dinheiro" ? "block" : "none";
-    camposBoleto.style.display = valor === "Boleto" ? "block" : "none";
+    if(camposCartao) camposCartao.style.display = valor === "Cartão" ? "block" : "none";
+    if(camposDinheiro) camposDinheiro.style.display = valor === "Dinheiro" ? "block" : "none";
+    if(camposBoleto) camposBoleto.style.display = valor === "Boleto" ? "block" : "none";
 });
 
 function imprimirApenasRecibo() {
@@ -162,10 +162,6 @@ form.addEventListener("submit", async function(e){
     const dataStr = dataObj.toLocaleDateString('pt-BR');
     const horaStr = dataObj.toLocaleTimeString('pt-BR');
 
-    const dataVenc = new Date();
-    dataVenc.setDate(dataVenc.getDate() + 3);
-    const vencimentoStr = dataVenc.toLocaleDateString('pt-BR');
-
     let htmlPagamento = "";
     let dadosExtras = {};
 
@@ -186,143 +182,99 @@ form.addEventListener("submit", async function(e){
         
         htmlPagamento = `
         <div class="pagamento-bloco pix-container">
-            <h3>Pagamento via PIX (Valor Fixo / Produto Tabelado)</h3>
-            <p style="margin-bottom: 15px;">Escaneie o QR Code abaixo com o valor exato do serviço/produto bloqueado para pagamento:</p>
-            <div id="qrcode-container"></div>
-            <p style="font-weight: bold; margin-top: 15px; margin-bottom: 8px;">Código PIX Copia e Cola:</p>
+            <h3>Pagamento via PIX</h3>
+            <p class="pix-instrucao">Escaneie o QR Code abaixo para pagar com o valor exato do pedido:</p>
+            <div id="qrcode-wrapper">
+                <div id="qrcode-container"></div>
+            </div>
+            <p class="pix-copia-titulo">Código PIX Copia e Cola:</p>
             <div class="pix-copia-cola" id="pixCodeText">${pixCopiaECola}</div>
-            <button type="button" class="btn-secundario btn-copiar-pix" onclick="navigator.clipboard.writeText('${pixCopiaECola}'); alert('Código PIX copiado!');">Copiar Código PIX</button>
+            <button type="button" class="btn-secundario btn-copiar-pix" onclick="navigator.clipboard.writeText('${pixCopiaECola}'); alert('Código PIX copiado com sucesso!');">Copiar Código PIX</button>
         </div>`;
 
     } else if (pagamento === "Cartão") {
-        const cartao_numero = document.getElementById("cartao_numero").value || "4000 1234 5678 9010";
-        const cartao_titular = document.getElementById("cartao_titular").value || cliente;
-        const cartao_validade = document.getElementById("cartao_validade").value || "12/28";
-        const cartao_cvv = document.getElementById("cartao_cvv").value || "852";
+        const cartao_numero = document.getElementById("cartao_numero") ? document.getElementById("cartao_numero").value : "4000 1234 5678 9010";
+        const cartao_titular = document.getElementById("cartao_titular") ? document.getElementById("cartao_titular").value : cliente;
+        const cartao_validade = document.getElementById("cartao_validade") ? document.getElementById("cartao_validade").value : "12/28";
+        const cartao_cvv = document.getElementById("cartao_cvv") ? document.getElementById("cartao_cvv").value : "852";
 
         htmlPagamento = `
-        <div class="pagamento-bloco cartao-detalhes">
-            <h3>Detalhes do Pagamento com Cartão Virtual</h3>
-            <p>• <strong>Número do Cartão Virtual:</strong> ${cartao_numero}</p>
-            <p>• <strong>Nome do Titular:</strong> ${cartao_titular}</p>
-            <p>• <strong>Data de Validade:</strong> ${cartao_validade}</p>
-            <p>• <strong>CVV Dinâmico (Código de Segurança):</strong> ${cartao_cvv}</p>
+        <div class="pagamento-bloco">
+            <h3>Detalhes do Cartão</h3>
+            <div class="detalhe-grid">
+                <span>Número:</span> <strong>${cartao_numero}</strong>
+                <span>Titular:</span> <strong>${cartao_titular}</strong>
+                <span>Validade:</span> <strong>${cartao_validade}</strong>
+                <span>CVV:</span> <strong>${cartao_cvv}</strong>
+            </div>
         </div>`;
-
         dadosExtras = { cartao_numero, cartao_titular, cartao_validade, cartao_cvv };
 
     } else if (pagamento === "Dinheiro") {
         const assinaturaDataURL = canvas ? canvas.toDataURL() : "";
-
         htmlPagamento = `
         <div class="pagamento-bloco">
             <h3>Pagamento em Dinheiro</h3>
-            <p><strong>Assinatura de Confirmação do Cliente:</strong></p>
+            <p><strong>Assinatura do Cliente:</strong></p>
             <div class="assinatura-preview">
-                <img src="${assinaturaDataURL}" alt="Assinatura do Cliente" />
+                <img src="${assinaturaDataURL}" alt="Assinatura" />
             </div>
         </div>`;
-
         dadosExtras = { assinatura: assinaturaDataURL };
 
     } else if (pagamento === "Boleto") {
-        const boleto_nome = document.getElementById("boleto_nome").value || cliente;
-        const boleto_documento = document.getElementById("boleto_documento").value || "000.000.000-00";
-        const boleto_endereco = document.getElementById("boleto_endereco").value || "Rua Exemplo, 123 - Centro";
-
-        const nossoNumero = `341/98765432-1`;
-        const numeroDocumento = `PED-${numeroPedido}`;
-        const linhaDigitavel = "34191.09008 61234.567891 01234.567893 1 96540000" + Math.floor(total * 100);
-
         htmlPagamento = `
         <div class="pagamento-bloco">
-            <h3>Boleto Bancário de Cobrança</h3>
-            <div class="boleto-box">
-                <div class="boleto-header-banco">
-                    <span class="banco-logo">Itaú</span>
-                    <span class="banco-codigo">341-7</span>
-                    <span class="linha-digitavel">${linhaDigitavel}</span>
-                </div>
-
-                <div class="boleto-grid">
-                    <div class="boleto-campo-full">
-                        <span class="boleto-label">2. Beneficiário (Quem Recebe)</span>
-                        <div class="boleto-valor-txt">${configApp.beneficiario || "Empresa Vendedora Ltda."} | CNPJ: ${configApp.cnpj || "12.345.678/0001-90"}</div>
-                        <span class="boleto-label" style="margin-top:4px;">Agência / Código Beneficiário</span>
-                        <div class="boleto-valor-txt">${configApp.agencia_conta || "1234 / 56789-0"}</div>
-                    </div>
-
-                    <div class="boleto-campo-full">
-                        <span class="boleto-label">3. Pagador (Sacado)</span>
-                        <div class="boleto-valor-txt">Nome: ${boleto_nome}</div>
-                        <div class="boleto-valor-txt">Documento (CPF/CNPJ): ${boleto_documento}</div>
-                        <div class="boleto-valor-txt">Endereço: ${boleto_endereco}</div>
-                    </div>
-
-                    <div class="boleto-campo">
-                        <span class="boleto-label">Data do Documento</span>
-                        <div class="boleto-valor-txt">${dataStr}</div>
-                    </div>
-                    <div class="boleto-campo">
-                        <span class="boleto-label">Data de Vencimento</span>
-                        <div class="boleto-valor-txt">${vencimentoStr}</div>
-                    </div>
-                    <div class="boleto-campo">
-                        <span class="boleto-label">Data de Processamento</span>
-                        <div class="boleto-valor-txt">${dataStr}</div>
-                    </div>
-                    <div class="boleto-campo">
-                        <span class="boleto-label">Valor do Documento</span>
-                        <div class="boleto-valor-txt">R$ ${total.toFixed(2)}</div>
-                    </div>
-                    <div class="boleto-campo">
-                        <span class="boleto-label">Nosso Número</span>
-                        <div class="boleto-valor-txt">${nossoNumero}</div>
-                    </div>
-                    <div class="boleto-campo">
-                        <span class="boleto-label">Nº do Documento</span>
-                        <div class="boleto-valor-txt">${numeroDocumento}</div>
-                    </div>
-
-                    <div class="boleto-campo-full">
-                        <span class="boleto-label">5. Instruções e Condições</span>
-                        <div class="boleto-valor-txt">
-                            • Após o vencimento, cobrar juros de R$ 0,50 por dia e multa de 2%.<br>
-                            • Não receber após 30 dias do vencimento.<br>
-                            • Descontos / Abatimentos / Juros / Multa: Conforme contrato.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="barcode-container">
-                    <span class="boleto-label">Código de Barras</span>
-                    <div class="barcode-lines"></div>
-                </div>
-            </div>
+            <h3>Boleto Bancário</h3>
+            <p><strong>Valor do Documento:</strong> R$ ${total.toFixed(2)}</p>
         </div>`;
-
-        dadosExtras = { boleto_nome, boleto_documento, boleto_endereco };
     }
 
     recibo.style.display = "block";
     recibo.innerHTML = `
-        <div class="recibo-header">
-            <h2>RECIBO DE VENDA</h2>
-            <div class="acoes-recibo">
-                <button type="button" class="btn-imprimir" onclick="imprimirApenasRecibo()">🖨️ Imprimir Recibo de Venda</button>
+        <div class="recibo-card">
+            <div class="recibo-header">
+                <h2>Comprovante de Pedido</h2>
+                <span class="badge-pedido">#${numeroPedido}</span>
             </div>
-            <p><strong>Pedido Nº ${numeroPedido}</strong></p>
+            
+            <div class="acoes-recibo">
+                <button type="button" class="btn-imprimir" onclick="imprimirApenasRecibo()">🖨️ Imprimir Recibo</button>
+            </div>
+
+            <div class="recibo-info-grid">
+                <div class="info-item">
+                    <span class="info-label">Data e Hora</span>
+                    <span class="info-value">${dataStr} às ${horaStr}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Cliente</span>
+                    <span class="info-value">${cliente}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Produto</span>
+                    <span class="info-value">${produto}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Quantidade</span>
+                    <span class="info-value">${quantidade}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Valor Unitário</span>
+                    <span class="info-value">R$ ${valor.toFixed(2)}</span>
+                </div>
+                <div class="info-item total-highlight">
+                    <span class="info-label">Total a Pagar</span>
+                    <span class="info-value">R$ ${total.toFixed(2)}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Forma de Pagamento</span>
+                    <span class="info-value">${pagamento}</span>
+                </div>
+            </div>
+
+            ${htmlPagamento}
         </div>
-        <div class="recibo-info">
-            <p><strong>Data:</strong> ${dataStr} às ${horaStr}</p>
-            <p><strong>Cliente:</strong> ${cliente}</p>
-            <p><strong>Produto:</strong> ${produto}</p>
-            <p><strong>Quantidade:</strong> ${quantidade}</p>
-            <p><strong>Valor Unitário:</strong> R$ ${valor.toFixed(2)}</p>
-            <p><strong>TOTAL:</strong> R$ ${total.toFixed(2)}</p>
-            <p><strong>Forma de Pagamento Selecionada:</strong> ${pagamento}</p>
-        </div>
-        ${htmlPagamento}
     `;
 
     if (pagamento === "PIX") {
@@ -344,8 +296,8 @@ form.addEventListener("submit", async function(e){
                 }
                 new QRCode(qrContainer, {
                     text: qrPixCode,
-                    width: 160,
-                    height: 160
+                    width: 180,
+                    height: 180
                 });
             }
         }, 100);

@@ -1,9 +1,7 @@
 [
   {
     "id": 101,
-    "nome": "Teclado Mecânico RGB",
-    "categoria": "Periféricos",
-    "preco": 250.0,
-    "estoque": 15
+    "nome": "Mochila",
+    "preco": 15.0
   }
 ]
