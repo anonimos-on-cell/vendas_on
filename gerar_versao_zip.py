@@ -1,8 +1,8 @@
 import zipfile
 import os
 
-zip_name = "pedidos_v3.13.0.zip"
-folder = "pedidos_v3.13.0"
+zip_name = "pedidos_v3.14.0.zip"
+folder = "pedidos_v3.14.0"
 
 with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zf:
     for root, dirs, files in os.walk(folder):

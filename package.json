@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.13.0",
-  "description": "Sistema de registro de pedidos com layout moderno do recibo, QR Code centralizado e Pix EMV com valor total fixado",
+  "version": "v3.14.0",
+  "description": "Sistema de registro de pedidos com QR Code Pix estático/dinâmico atualizado para nova chave UUID e cidade FEIRA DE SANTAN",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

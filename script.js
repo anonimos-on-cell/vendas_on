@@ -15,7 +15,7 @@ function calcularCRC16(str) {
     return hex.padStart(4, '0');
 }
 
-// Função para gerar o payload EMV do Pix com Valor Total Obrigatório (Tag 54) e TXID seguro
+// Função para gerar o payload EMV do Pix com Valor Total Obrigatório (Tag 54)
 function gerarPayloadPix(chavePix, valorTotal) {
     const gui = "0014BR.GOV.BCB.PIX";
     const chave = "01" + String(chavePix.length).padStart(2, '0') + chavePix;
@@ -32,7 +32,7 @@ function gerarPayloadPix(chavePix, valorTotal) {
     
     const tag58 = "5802BR"; 
     const tag59 = "5925JOSE PAULO DE JESUS FERRE"; 
-    const tag60 = "6009SAO PAULO"; 
+    const tag60 = "6015FEIRA DE SANTAN"; // Cidade ajustada
     const tag62 = "62070503***"; // TXID padrão genérico seguro
     
     let payloadSemCRC = tag00 + tag26 + tag52 + tag53 + tag54 + tag58 + tag59 + tag60 + tag62 + "6304";
@@ -42,7 +42,7 @@ function gerarPayloadPix(chavePix, valorTotal) {
 }
 
 let configApp = { 
-    chave_pix: "+557598343185",
+    chave_pix: "dc529730-f4e4-4370-a87d-658ed8ab9eb9",
     chave_pix_alternativa: ""
 };
 
@@ -164,7 +164,7 @@ form.addEventListener("submit", async function(e){
     let dadosExtras = {};
 
     if (pagamento === "PIX") {
-        const chavePix = configApp.chave_pix || "+557598343185";
+        const chavePix = configApp.chave_pix || "dc529730-f4e4-4370-a87d-658ed8ab9eb9";
         const pixCopiaECola = gerarPayloadPix(chavePix, total);
         
         htmlPagamento = `
@@ -269,7 +269,7 @@ form.addEventListener("submit", async function(e){
             const qrContainer = document.getElementById("qrcode-container");
             if (qrContainer) {
                 qrContainer.innerHTML = "";
-                const chavePix = configApp.chave_pix || "+557598343185";
+                const chavePix = configApp.chave_pix || "dc529730-f4e4-4370-a87d-658ed8ab9eb9";
                 const qrPixCode = gerarPayloadPix(chavePix, total);
                 new QRCode(qrContainer, {
                     text: qrPixCode,
