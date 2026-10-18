@@ -1,12 +1,12 @@
-# Registradora de Pedidos - Versão v3.17.0
+# Registradora de Pedidos - Versão v3.18.0
 
-Sistema completo para registro de pedidos com módulo PIX totalmente remodelado, visual moderno, QR Code elegante e caixa de Copia e Cola estruturada.
+Sistema completo para registro de pedidos totalmente redesenhado com visual moderno, harmonizado na paleta do Pix (#0b2b26 verde escuro profundo, #32bcad verde esmeralda Pix e cinzas neutros quentes).
 
-## Novidades na Versão v3.17.0
-- **Design do PIX Remodelado**: Card limpo com destaque em cor de marca (#32bcad - tom oficial Pix).
-- **Badge e Detalhes do Pagamento**: Destaque visual do valor total fixo, beneficiário, chave Pix e cidade.
-- **Caixa de Código Copia e Cola Funcional**: Caixa estilizada de código com botão responsivo de cópia em um clique.
-- **QR Code Centralizado com Borda Suave**: QR Code renderizado com sombra sutil e moldura organizada.
+## Novidades na Versão v3.18.0
+- **Identidade Visual Harmonizada**: Cores neutras, verdes escuros refinados e tipografia com hierarquia clara.
+- **Experiência Acolhedora**: Formulário intuitivo e minimalista, sem poluição visual.
+- **Bloco Pix Elegante**: Design integrado perfeitamente ao tema geral da página.
+- **Responsividade e Usabilidade Premium**: Sombras suaves, cantos arredondados e botões com transição agradável.
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.

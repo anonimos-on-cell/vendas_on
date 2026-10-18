@@ -3,41 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registradora de Pedidos</title>
+<title>Registro de Pedidos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 <div class="container">
-<h1>Registro de Pedidos</h1>
+<div class="brand-header">
+    <h1>Registro de Pedidos</h1>
+    <p>Preencha os dados e escolha a melhor opção de pagamento</p>
+</div>
+
 <form id="pedidoForm">
 <fieldset>
-<legend>Dados Gerais do Pedido</legend>
-<input type="text" id="cliente" placeholder="Nome do Cliente" required>
-<input type="text" id="produto" placeholder="Produto" required>
-<input type="number" id="quantidade" placeholder="Quantidade" required>
+<legend>Dados do Pedido</legend>
+<input type="text" id="cliente" placeholder="Nome Completo do Cliente" required>
+<input type="text" id="produto" placeholder="Descrição do Produto / Serviço" required>
+<input type="number" id="quantidade" placeholder="Quantidade" min="1" required>
 <input type="number" step="0.01" id="valor" placeholder="Valor Unitário (R$)" required>
 </fieldset>
 
 <fieldset>
 <legend>Forma de Pagamento</legend>
 <select id="pagamento" required>
-<option value="" disabled selected>Selecione a forma de pagamento</option>
-<option value="PIX">PIX</option>
-<option value="Cartão">Cartão</option>
-<option value="Dinheiro">Dinheiro</option>
-<option value="Boleto">Boleto</option>
+<option value="" disabled selected>Escolha a forma de pagamento...</option>
+<option value="PIX">PIX (Instantâneo e Seguro)</option>
+<option value="Cartão">Cartão de Crédito / Débito</option>
+<option value="Dinheiro">Dinheiro com Assinatura</option>
+<option value="Boleto">Boleto Bancário</option>
 </select>
 
 <div id="campos-cartao" class="campos-condicionais" style="display:none;">
 <input type="text" id="cartao_numero" placeholder="Número do Cartão Virtual">
-<input type="text" id="cartao_titular" placeholder="Nome do Titular">
+<input type="text" id="cartao_titular" placeholder="Nome do Titular Impresso no Cartão">
 <input type="text" id="cartao_validade" placeholder="MM/AA">
-<input type="text" id="cartao_cvv" placeholder="CVV">
+<input type="text" id="cartao_cvv" placeholder="Código de Segurança (CVV)">
 </div>
 
 <div id="campos-dinheiro" class="campos-condicionais" style="display:none;">
-<h3 style="font-size:14px; margin-top:10px; color:#4a5568;">Assinatura do Cliente (Mantenha dentro da caixa):</h3>
+<h3 style="font-size:13px; margin-top:12px; color:#4a5568;">Assinatura do Cliente (Mantenha dentro da caixa):</h3>
 <div class="canvas-container">
     <canvas id="canvasAssinatura" width="400" height="150"></canvas>
 </div>
@@ -45,14 +52,14 @@
 </div>
 
 <div id="campos-boleto" class="campos-condicionais" style="display:none;">
-<h3 style="font-size:14px; margin-top:10px; color:#4a5568;">Informações do Pagador (Sacado):</h3>
+<h3 style="font-size:13px; margin-top:12px; color:#4a5568;">Informações do Pagador (Sacado):</h3>
 <input type="text" id="boleto_nome" placeholder="Nome / Razão Social do Pagador">
 <input type="text" id="boleto_documento" placeholder="CPF ou CNPJ do Pagador">
 <input type="text" id="boleto_endereco" placeholder="Endereço Completo">
 </div>
 </fieldset>
 
-<button type="submit" class="btn-principal">Registrar Pedido</button>
+<button type="submit" class="btn-principal">Finalizar e Gerar Comprovante</button>
 </form>
 
 <div id="recibo" style="display:none;"></div>

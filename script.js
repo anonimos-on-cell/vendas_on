@@ -94,7 +94,7 @@ if (ctx && canvas) {
     ctx.lineWidth = 2;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.strokeStyle = "#000000";
+    ctx.strokeStyle = "#0b2b26";
 }
 
 function obterPosicaoCursorClamped(e) {
@@ -214,7 +214,7 @@ form.addEventListener("submit", async function(e){
                     <div class="pix-icon-badge">❖</div>
                     <div>
                         <h3>Pagamento via PIX</h3>
-                        <p class="pix-subtitulo">Instantâneo, seguro e sem taxas</p>
+                        <p class="pix-subtitulo">Aprovação imediata e sem taxas</p>
                     </div>
                 </div>
                 <span class="pix-badge-status">Valor Fixo Inserido</span>
@@ -293,7 +293,6 @@ form.addEventListener("submit", async function(e){
         const valorCentavos = Math.round(total * 100).toString().padStart(10, '0');
         const linhaDigitavel = `34191.09008 61234.567891 01234.567893 1 ${valorCentavos}`;
         const linhaDigitavelLimpa = linhaDigitavel.replace(/\./g, '').replace(/ /g, '');
-        const nossoNumero = `341/98765432-1`;
 
         htmlPagamento = `
         <div class="pagamento-bloco boleto-container">
@@ -356,7 +355,7 @@ form.addEventListener("submit", async function(e){
     recibo.innerHTML = `
         <div class="recibo-card">
             <div class="recibo-header">
-                <h2>Comprovante de Pedido</h2>
+                <h2>Comprovante do Pedido</h2>
                 <span class="badge-pedido">#${numeroPedido}</span>
             </div>
             

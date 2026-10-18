@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.17.0",
-  "description": "Sistema de registro de pedidos com bloco do Pix totalmente remodelado, limpo, moderno e organizado",
+  "version": "v3.18.0",
+  "description": "Sistema de registro de pedidos com redesign moderno em tons verde escuro, teal e neutros elegantes",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
