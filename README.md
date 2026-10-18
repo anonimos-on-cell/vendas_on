@@ -1,9 +1,9 @@
-# Registradora de Pedidos - Versão v3.9.0
+# Registradora de Pedidos - Versão v3.10.0
 
-Sistema completo para registro de pedidos com QR Code Pix estático por produto e chave aleatória funcional.
+Sistema completo para registro de pedidos com QR Code Pix estático por produto e chave Pix formatada.
 
 ## Funcionalidades
-- **QR Codes Estáticos por Produto/Serviço**: Payload EMV Válido gerado para a chave Pix `dfd6038c-64a7-4143-b17b-3eced0fba32a`.
+- **QR Codes Estáticos por Produto/Serviço**: Payload EMV Válido gerado com o formato exato da chave e do beneficiário.
 - **Botão Copiar Código PIX e QR Code Sincronizados**: Ambos geram o código EMV válido para leitura pelos aplicativos bancários.
 
 ## Como Executar

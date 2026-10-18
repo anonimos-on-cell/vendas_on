@@ -4,7 +4,6 @@
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 body {
     background-color: #f4f7f6;
     color: #333;
@@ -14,7 +13,6 @@ body {
     min-height: 100vh;
     padding: 20px;
 }
-
 .container {
     background-color: #ffffff;
     padding: 30px;
@@ -23,26 +21,22 @@ body {
     max-width: 600px;
     width: 100%;
 }
-
 h1 {
     text-align: center;
     margin-bottom: 20px;
     color: #2c3e50;
 }
-
 fieldset {
     border: 1px solid #ddd;
     border-radius: 6px;
     padding: 15px;
     margin-bottom: 20px;
 }
-
 legend {
     font-weight: bold;
     padding: 0 8px;
     color: #34495e;
 }
-
 input, select {
     width: 100%;
     padding: 10px;
@@ -51,26 +45,6 @@ input, select {
     border-radius: 4px;
     font-size: 14px;
 }
-
-.campos-condicionais h3 {
-    font-size: 16px;
-    margin-top: 10px;
-    color: #16a085;
-}
-
-.canvas-container {
-    border: 1px dashed #aaa;
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    background-color: #fafafa;
-}
-
-canvas {
-    touch-action: none;
-    cursor: crosshair;
-}
-
 button {
     cursor: pointer;
     font-weight: bold;
@@ -81,59 +55,14 @@ button {
     margin-top: 10px;
     transition: background 0.3s;
 }
-
 .btn-principal {
     background-color: #27ae60;
     color: white;
     font-size: 16px;
 }
-
 .btn-principal:hover {
     background-color: #219150;
 }
-
-.btn-secundario {
-    background-color: #7f8c8d;
-    color: white;
-}
-
-.btn-secundario:hover {
-    background-color: #636e72;
-}
-
-#recibo {
-    margin-top: 30px;
-    border-top: 2px dashed #bbb;
-    padding-top: 20px;
-}
-
-.recibo-header {
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.recibo-info p {
-    margin-bottom: 5px;
-}
-
-.pagamento-bloco {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    padding: 15px;
-    border-radius: 6px;
-    margin-top: 15px;
-}
-
-.pix-container {
-    text-align: center;
-}
-
-#qrcode-container {
-    display: flex;
-    justify-content: center;
-    margin: 15px 0;
-}
-
 .pix-copia-cola {
     word-break: break-all;
     background: #eef2f5;
@@ -141,88 +70,4 @@ button {
     font-family: monospace;
     font-size: 12px;
     border-radius: 4px;
-}
-
-.boleto-box {
-    border: 1px solid #000;
-    padding: 10px;
-    font-size: 12px;
-    background: #fff;
-}
-
-.boleto-header-banco {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #000;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.boleto-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-}
-
-.boleto-campo-full {
-    grid-column: span 2;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 4px;
-}
-
-.boleto-campo {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 4px;
-}
-
-.boleto-label {
-    font-size: 10px;
-    color: #666;
-    display: block;
-}
-
-.boleto-valor-txt {
-    font-weight: bold;
-}
-
-.barcode-lines {
-    height: 40px;
-    background: repeating-linear-gradient(
-        90deg,
-        #000,
-        #000 2px,
-        #fff 2px,
-        #fff 4px,
-        #000 4px,
-        #000 7px
-    );
-    margin-top: 5px;
-}
-
-.btn-imprimir {
-    background-color: #2980b9;
-    color: white;
-    width: auto;
-    padding: 8px 15px;
-    margin-bottom: 10px;
-}
-
-@media print {
-    body * {
-        visibility: hidden;
-    }
-    #recibo, #recibo * {
-        visibility: visible;
-    }
-    #recibo {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-    }
-    .acoes-recibo, .btn-imprimir, .btn-copiar-pix {
-        display: none !important;
-    }
 }

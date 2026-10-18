@@ -5,19 +5,5 @@
     "categoria": "Periféricos",
     "preco": 250.0,
     "estoque": 15
-  },
-  {
-    "id": 102,
-    "nome": "Mouse Gamer 16000 DPI",
-    "categoria": "Periféricos",
-    "preco": 120.0,
-    "estoque": 30
-  },
-  {
-    "id": 103,
-    "nome": "Monitor 24' Full HD 144Hz",
-    "categoria": "Monitores",
-    "preco": 899.9,
-    "estoque": 8
   }
 ]

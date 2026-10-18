@@ -17,15 +17,14 @@ function calcularCRC16(str) {
 
 // Função para gerar o payload EMV do Pix dinamicamente com CRC16 válido
 function gerarPayloadPix(chavePix, valorTotal) {
-    // Formatação dos campos segundo o padrão BR Code
     const gui = "0014BR.GOV.BCB.PIX";
     const chave = "01" + String(chavePix.length).padStart(2, '0') + chavePix;
     const merchantAccountInfo = gui + chave;
     const tag26 = "26" + String(merchantAccountInfo.length).padStart(2, '0') + merchantAccountInfo;
     
-    const tag00 = "000201"; // Payload Format Indicator
-    const tag52 = "52040000"; // Merchant Category Code
-    const tag53 = "5303986"; // Transaction Currency (BRL - 986)
+    const tag00 = "000201"; 
+    const tag52 = "52040000"; 
+    const tag53 = "5303986"; 
     
     let tag54 = "";
     if (valorTotal && valorTotal > 0) {
@@ -33,10 +32,10 @@ function gerarPayloadPix(chavePix, valorTotal) {
         tag54 = "54" + String(valorStr.length).padStart(2, '0') + valorStr;
     }
     
-    const tag58 = "5802BR"; // Country Code
-    const tag59 = "5916Empresa Vendedora"; // Merchant Name
-    const tag60 = "6009SAO PAULO"; // Merchant City
-    const tag62 = "62070503***"; // Additional Data Field Template
+    const tag58 = "5802BR"; 
+    const tag59 = "5925JOSE PAULO DE JESUS FERRE"; 
+    const tag60 = "6009SAO PAULO"; 
+    const tag62 = "622605223GNIRORKTNZxf3V6UiCunL"; 
     
     let payloadSemCRC = tag00 + tag26 + tag52 + tag53 + tag54 + tag58 + tag59 + tag60 + tag62 + "6304";
     let crc = calcularCRC16(payloadSemCRC);
@@ -45,8 +44,8 @@ function gerarPayloadPix(chavePix, valorTotal) {
 }
 
 let configApp = { 
-    chave_pix: "dfd6038c-64a7-4143-b17b-3eced0fba32a",
-    chave_pix_alternativa: ""
+    chave_pix: "+557598343185",
+    chave_pix_alternativa: "00020126360014BR.GOV.BCB.PIX0114+55759834318555204000053039865802BR5925JOSE PAULO DE JESUS FERRE6009SAO PAULO622605223GNIRORKTNZxf3V6UiCunL6304151C"
 };
 
 let servidorAtivo = false;
@@ -174,13 +173,13 @@ form.addEventListener("submit", async function(e){
         let pixCopiaECola = "";
 
         if (servidorAtivo) {
-            const chavePix = configApp.chave_pix || "dfd6038c-64a7-4143-b17b-3eced0fba32a";
+            const chavePix = configApp.chave_pix || "+557598343185";
             pixCopiaECola = gerarPayloadPix(chavePix, total);
         } else {
             if (configApp.chave_pix_alternativa) {
                 pixCopiaECola = configApp.chave_pix_alternativa;
             } else {
-                const chavePix = configApp.chave_pix || "dfd6038c-64a7-4143-b17b-3eced0fba32a";
+                const chavePix = configApp.chave_pix || "+557598343185";
                 pixCopiaECola = gerarPayloadPix(chavePix, total);
             }
         }
@@ -333,13 +332,13 @@ form.addEventListener("submit", async function(e){
                 qrContainer.innerHTML = "";
                 let qrPixCode = "";
                 if (servidorAtivo) {
-                    const chavePix = configApp.chave_pix || "dfd6038c-64a7-4143-b17b-3eced0fba32a";
+                    const chavePix = configApp.chave_pix || "+557598343185";
                     qrPixCode = gerarPayloadPix(chavePix, total);
                 } else {
                     if (configApp.chave_pix_alternativa) {
                         qrPixCode = configApp.chave_pix_alternativa;
                     } else {
-                        const chavePix = configApp.chave_pix || "dfd6038c-64a7-4143-b17b-3eced0fba32a";
+                        const chavePix = configApp.chave_pix || "+557598343185";
                         qrPixCode = gerarPayloadPix(chavePix, total);
                     }
                 }

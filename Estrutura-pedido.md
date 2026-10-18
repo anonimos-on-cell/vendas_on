@@ -1,9 +1,9 @@
-# Árvore da Aplicação - Registradora de Pedidos (v3.9.0)
+# Árvore da Aplicação - Registradora de Pedidos (v3.10.0)
 
-Esta é a estrutura atualizada de arquivos da aplicação contida na pasta `pedidos_v3.9.0`:
+Esta é a estrutura atualizada de arquivos da aplicação contida na pasta `pedidos_v3.10.0`:
 
 ```text
-pedidos_v3.9.0/
+pedidos_v3.10.0/
 │
 ├── index.html            # Interface principal
 ├── style.css             # Estilização completa

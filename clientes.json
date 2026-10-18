@@ -6,13 +6,5 @@
     "email": "joao.silva@email.com",
     "telefone": "(11) 98765-4321",
     "endereco": "Rua das Flores, 123, Bairro Alto, São Paulo - SP"
-  },
-  {
-    "id": 2,
-    "nome": "Maria Oliveira",
-    "documento": "987.654.321-11",
-    "email": "maria.oliveira@email.com",
-    "telefone": "(21) 99876-5432",
-    "endereco": "Av. Brasil, 456, Centro, Rio de Janeiro - RJ"
   }
 ]

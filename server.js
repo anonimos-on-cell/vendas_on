@@ -19,9 +19,7 @@ app.get('/status', (req, res) => {
 
 app.post('/pedidos', (req, res) => {
     const { cliente, produto, quantidade, valor, total, pagamento, cartao_numero, cartao_titular, cartao_validade, cartao_cvv, assinatura, boleto_nome, boleto_documento, boleto_endereco } = req.body;
-    
     const query = `INSERT INTO pedidos (cliente, produto, quantidade, valor_unitario, total, forma_pagamento, cartao_numero, cartao_titular, cartao_validade, cartao_cvv, assinatura, boleto_nome, boleto_documento, boleto_endereco) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    
     db.query(query, [cliente, produto, quantidade, valor, total, pagamento, cartao_numero, cartao_titular, cartao_validade, cartao_cvv, assinatura, boleto_nome, boleto_documento, boleto_endereco], (err, result) => {
         if (err) {
             console.error(err);
