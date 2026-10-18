@@ -307,12 +307,6 @@ form.addEventListener("submit", async function(e){
                     <span class="linha-digitavel">${linhaDigitavel}</span>
                 </div>
 
-                <div class="boleto-copiar-linha">
-                    <span class="boleto-label">Número do Código de Barras / Linha Digitável:</span>
-                    <div class="linha-digitavel-box">${linhaDigitavel}</div>
-                    <button type="button" class="btn-secundario btn-copiar-linha" onclick="navigator.clipboard.writeText('${linhaDigitavelLimpa}'); alert('Linha digitável copiada!');">📋 Copiar Linha Digitável</button>
-                </div>
-
                 <div class="boleto-grid">
                     <div class="boleto-campo-full">
                         <span class="boleto-label">Beneficiário (Quem Recebe)</span>
@@ -344,9 +338,17 @@ form.addEventListener("submit", async function(e){
                     </div>
                 </div>
 
+                <!-- CÓDIGO DE BARRAS -->
                 <div class="barcode-container">
                     <div class="barcode-lines"></div>
                     <span class="barcode-number">${linhaDigitavelLimpa}</span>
+                </div>
+
+                <!-- BLOCO DA LINHA DIGITÁVEL E BOTÃO DE COPIAR REPOSICIONADO PARA ABAIXO DO CÓDIGO DE BARRAS -->
+                <div class="boleto-copiar-linha">
+                    <span class="boleto-label">Número do Código de Barras / Linha Digitável:</span>
+                    <div class="linha-digitavel-box">${linhaDigitavel}</div>
+                    <button type="button" class="btn-secundario btn-copiar-linha" onclick="navigator.clipboard.writeText('${linhaDigitavelLimpa}'); alert('Linha digitável copiada com sucesso!');">📋 Copiar Linha Digitável</button>
                 </div>
             </div>
         </div>`;

@@ -423,7 +423,7 @@ canvas#canvasAssinatura {
     background-color: #164e45;
 }
 
-/* BOLETO BANCÁRIO CORRIGIDO E RESTRITO AO LIMITE DA CAIXA */
+/* BOLETO BANCÁRIO REORGANIZADO */
 .boleto-box {
     border: 1px solid #0b2b26;
     padding: 15px;
@@ -475,31 +475,6 @@ canvas#canvasAssinatura {
     overflow-wrap: anywhere;
     max-width: 100%;
     text-align: right;
-}
-
-.boleto-copiar-linha {
-    background-color: #f7fafc;
-    border: 1px solid #cbd5e0;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 15px;
-    overflow: hidden;
-}
-
-.linha-digitavel-box {
-    font-family: monospace;
-    font-size: 13px;
-    font-weight: bold;
-    color: #0b2b26;
-    margin: 6px 0;
-    word-break: break-all;
-    overflow-wrap: anywhere;
-}
-
-.btn-copiar-linha {
-    padding: 8px 12px;
-    font-size: 13px;
-    margin-top: 6px;
 }
 
 .boleto-grid {
@@ -569,7 +544,6 @@ canvas#canvasAssinatura {
     box-sizing: border-box;
 }
 
-/* CORREÇÃO DO ESTOURO DO NÚMERO DO CÓDIGO DE BARRAS */
 .barcode-number {
     font-family: monospace;
     font-size: 10px;
@@ -578,13 +552,39 @@ canvas#canvasAssinatura {
     display: block;
     width: 100%;
     max-width: 100%;
-    word-break: break-all !archive;
     word-break: break-all;
     overflow-wrap: anywhere;
     box-sizing: border-box;
     padding: 0 4px;
     white-space: normal;
     text-align: center;
+}
+
+/* BLOCO DE CÓPIA REPOSICIONADO PARA O RODAPÉ */
+.boleto-copiar-linha {
+    background-color: #f7fafc;
+    border: 1px solid #cbd5e0;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 18px;
+    overflow: hidden;
+}
+
+.linha-digitavel-box {
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: bold;
+    color: #0b2b26;
+    margin: 6px 0;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+
+.btn-copiar-linha {
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-top: 6px;
+    width: 100%;
 }
 
 @media print {

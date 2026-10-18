@@ -1,12 +1,11 @@
-# Registradora de Pedidos - Versão v3.19.0
+# Registradora de Pedidos - Versão v3.20.0
 
-Sistema completo para registro de pedidos com correção definitiva do estouro e desalinhamento de texto no cabeçalho e na barra inferior do Boleto Bancário.
+Sistema completo para registro de pedidos com o bloco da Linha Digitável e botão Copiar reposicionado estrategicamente para o rodapé do Boleto Bancário, abaixo do Código de Barras.
 
-## Novidades na Versão v3.19.0
-- **Ajuste da Linha Digitável e Número do Código de Barras**:
-  - `word-break: break-all;` e `overflow-wrap: anywhere;` aplicados em todas as saídas numéricas do boleto.
-  - Ajuste de tamanho de fonte responsiva no topo e na numeração abaixo do código de barras (`font-size: 10px` a `12px` e `letter-spacing: 0.5px`).
-  - Restrição absoluta de caixa com `max-width: 100%` e `box-sizing: border-box`, garantindo que os números fiquem 100% contidos na moldura, mesmo em telas de celular estreitas.
+## Novidades na Versão v3.20.0
+- **Reorganização do Layout do Boleto Bancário**:
+  - O bloco "Número do Código de Barras / Linha Digitável" contendo a caixa do código e o botão "Copiar Linha Digitável" foi movido para o rodapé, situado logo abaixo da representação visual do Código de Barras e do número correspondente.
+  - A parte superior do boleto ficou mais limpa, mantendo o cabeçalho bancário, dados do beneficiário, sacado, datas e demonstrativo do item.
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.

@@ -1,7 +1,6 @@
-# Registro de Mudanças no Código (Changelog) - Versão v3.19.0
+# Registro de Mudanças no Código (Changelog) - Versão v3.20.0
 
-## Versão v3.19.0
-- **Correção da Extrapolação da Numeração do Código de Barras**:
-  - Ajustado CSS da classe `.barcode-number` para utilizar `word-break: break-all;`, `overflow-wrap: anywhere;` e tamanho de fonte responsivo.
-  - Corrigido o cabeçalho do boleto `.linha-digitavel` para flexibilizar a quebra de linha em telas pequenas sem ultrapassar o cabeçalho ou encavalar texto.
-  - Adicionadas travas de segurança de margem interna (`padding`) e caixa estrita (`overflow: hidden`).
+## Versão v3.20.0
+- **Reposicionamento do Bloco da Linha Digitável**:
+  - Movido o contêiner `.boleto-copiar-linha` para o final da área do boleto bancário, exatamente abaixo do gráfico do código de barras `.barcode-container`.
+  - Layout do boleto limpo e refinado para facilitar a navegação e leitura dos dados pelo pagador.

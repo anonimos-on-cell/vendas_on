@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.19.0",
-  "description": "Sistema de registro de pedidos com correção total de quebra e estouro dos números da linha digitável do boleto",
+  "version": "v3.20.0",
+  "description": "Sistema de registro de pedidos com o bloco de copiar a linha digitável reposicionado abaixo do código de barras",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
