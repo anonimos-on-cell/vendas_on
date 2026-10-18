@@ -1,11 +1,12 @@
-# Registradora de Pedidos - Versão v3.16.0
+# Registradora de Pedidos - Versão v3.17.0
 
-Sistema completo para registro de pedidos com visualização do Boleto Bancário profissional contendo linha digitável copia e cola, código de barras e descrição detalhada do pedido.
+Sistema completo para registro de pedidos com módulo PIX totalmente remodelado, visual moderno, QR Code elegante e caixa de Copia e Cola estruturada.
 
-## Funcionalidades
-- **Boleto Bancário Completo**: Exibição da Linha Digitável formatada para copiar e colar, Código de Barras estilizado, Dados do Sacado, Beneficiário, Vencimento e Descrição/Demonstrativo do produto.
-- **Assinatura Confinada na Caixa**: Controle estrito de limites no Canvas da Assinatura para pagamentos em dinheiro.
-- **Payload PIX EMV Válido**: Chave Pix `dc529730-f4e4-4370-a87d-658ed8ab9eb9` e valor total preenchido e travado (Tag 54).
+## Novidades na Versão v3.17.0
+- **Design do PIX Remodelado**: Card limpo com destaque em cor de marca (#32bcad - tom oficial Pix).
+- **Badge e Detalhes do Pagamento**: Destaque visual do valor total fixo, beneficiário, chave Pix e cidade.
+- **Caixa de Código Copia e Cola Funcional**: Caixa estilizada de código com botão responsivo de cópia em um clique.
+- **QR Code Centralizado com Borda Suave**: QR Code renderizado com sombra sutil e moldura organizada.
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.

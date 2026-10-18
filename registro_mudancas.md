@@ -1,8 +1,9 @@
-# Registro de Mudanças no Código (Changelog) - Versão v3.16.0
+# Registro de Mudanças no Código (Changelog) - Versão v3.17.0
 
-## Versão v3.16.0
-- **Aprimoramento Visual e Estrutural do Boleto Bancário**:
-  - Adicionada a Linha Digitável (Código de Barras numérico) com botão "Copiar Linha Digitável" para clientes que optarem por não escanear o código de barras.
-  - Adicionado demonstrativo completo e detalhado com a descrição do produto, quantidade, valor unitário e total.
-  - Renderização aprimorada do código de barras visual com barras estáticas e dinâmicas sob medida.
-  - Incluídos campos de sacado, beneficiário, agência/código beneficiário e instruções de cobrança.
+## Versão v3.17.0
+- **Remodelação do Bloco de Pagamento PIX**:
+  - Reestruturação visual completa do container de pagamento via PIX.
+  - Adicionado cabeçalho com ícone/logo Pix e badge "Valor Fixo".
+  - Apresentação organizada dos dados do recebedor (Beneficiário, Chave, Cidade) em uma grade simplificada.
+  - Moldura dedicada para o QR Code com sombra e fundo em contraste limpo.
+  - Caixa de "Pix Copia e Cola" aperfeiçoada com botão de cópia estilizado e feedback visual em tempo real.

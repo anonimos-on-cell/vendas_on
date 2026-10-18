@@ -44,6 +44,7 @@ let configApp = {
     chave_pix: "dc529730-f4e4-4370-a87d-658ed8ab9eb9",
     chave_pix_alternativa: "",
     beneficiario: "JOSE PAULO DE JESUS FERRE",
+    cidade: "FEIRA DE SANTAN",
     cnpj: "12.345.678/0001-90",
     agencia_conta: "1234 / 56789-0"
 };
@@ -160,6 +161,25 @@ function imprimirApenasRecibo() {
     window.print();
 }
 
+function copiarPix(codigo) {
+    navigator.clipboard.writeText(codigo).then(() => {
+        const btn = document.getElementById("btnCopiarPix");
+        if (btn) {
+            const txtOriginal = btn.innerHTML;
+            btn.innerHTML = "✅ Código PIX Copiado!";
+            btn.classList.add("copiado");
+            setTimeout(() => {
+                btn.innerHTML = txtOriginal;
+                btn.classList.remove("copiado");
+            }, 2500);
+        } else {
+            alert("Código PIX copiado com sucesso!");
+        }
+    }).catch(() => {
+        alert("Erro ao copiar. Selecione e copie manualmente o código.");
+    });
+}
+
 form.addEventListener("submit", async function(e){
     e.preventDefault();
     numeroPedido++;
@@ -188,15 +208,51 @@ form.addEventListener("submit", async function(e){
         const pixCopiaECola = gerarPayloadPix(chavePix, total);
         
         htmlPagamento = `
-        <div class="pagamento-bloco pix-container">
-            <h3>Pagamento via PIX (Valor Fixo)</h3>
-            <p class="pix-instrucao">Escaneie o QR Code abaixo. O valor exato de <strong>R$ ${total.toFixed(2)}</strong> já está integrado:</p>
-            <div id="qrcode-wrapper">
-                <div id="qrcode-container"></div>
+        <div class="pix-card-remodelado">
+            <div class="pix-header">
+                <div class="pix-titulo-grupo">
+                    <div class="pix-icon-badge">❖</div>
+                    <div>
+                        <h3>Pagamento via PIX</h3>
+                        <p class="pix-subtitulo">Instantâneo, seguro e sem taxas</p>
+                    </div>
+                </div>
+                <span class="pix-badge-status">Valor Fixo Inserido</span>
             </div>
-            <p class="pix-copia-titulo">Código PIX Copia e Cola:</p>
-            <div class="pix-copia-cola" id="pixCodeText">${pixCopiaECola}</div>
-            <button type="button" class="btn-secundario btn-copiar-pix" onclick="navigator.clipboard.writeText('${pixCopiaECola}'); alert('Código PIX copiado!');">Copiar Código PIX</button>
+
+            <div class="pix-corpo">
+                <div class="pix-detalhes-info">
+                    <div class="pix-info-row">
+                        <span class="pix-label">Beneficiário:</span>
+                        <span class="pix-valor">${configApp.beneficiario || "JOSE PAULO DE JESUS FERRE"}</span>
+                    </div>
+                    <div class="pix-info-row">
+                        <span class="pix-label">Cidade:</span>
+                        <span class="pix-valor">${configApp.cidade || "FEIRA DE SANTAN"}</span>
+                    </div>
+                    <div class="pix-info-row">
+                        <span class="pix-label">Valor do Pagamento:</span>
+                        <span class="pix-valor-destaque">R$ ${total.toFixed(2)}</span>
+                    </div>
+                </div>
+
+                <div class="pix-qr-secao">
+                    <p class="pix-instrucao">Aponte a câmera do seu aplicativo de banco para escanear:</p>
+                    <div class="pix-qr-wrapper">
+                        <div id="qrcode-container"></div>
+                    </div>
+                </div>
+
+                <div class="pix-copia-secao">
+                    <p class="pix-copia-instrucao">Ou utilize a opção <strong>Pix Copia e Cola</strong>:</p>
+                    <div class="pix-copia-box">
+                        <input type="text" readonly id="pixCodeText" value="${pixCopiaECola}" onclick="this.select();" />
+                        <button type="button" id="btnCopiarPix" class="btn-pix-copiar" onclick="copiarPix('${pixCopiaECola}')">
+                            📋 Copiar Código PIX
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>`;
 
     } else if (pagamento === "Cartão") {
@@ -238,7 +294,6 @@ form.addEventListener("submit", async function(e){
         const linhaDigitavel = `34191.09008 61234.567891 01234.567893 1 ${valorCentavos}`;
         const linhaDigitavelLimpa = linhaDigitavel.replace(/\./g, '').replace(/ /g, '');
         const nossoNumero = `341/98765432-1`;
-        const numeroDocumento = `PED-${numeroPedido}`;
 
         htmlPagamento = `
         <div class="pagamento-bloco boleto-container">
@@ -254,22 +309,18 @@ form.addEventListener("submit", async function(e){
                 <div class="boleto-copiar-linha">
                     <span class="boleto-label">Número do Código de Barras / Linha Digitável:</span>
                     <div class="linha-digitavel-box">${linhaDigitavel}</div>
-                    <button type="button" class="btn-secundario btn-copiar-linha" onclick="navigator.clipboard.writeText('${linhaDigitavelLimpa}'); alert('Linha digitável do boleto copiada com sucesso!');">📋 Copiar Linha Digitável</button>
+                    <button type="button" class="btn-secundario btn-copiar-linha" onclick="navigator.clipboard.writeText('${linhaDigitavelLimpa}'); alert('Linha digitável copiada!');">📋 Copiar Linha Digitável</button>
                 </div>
 
                 <div class="boleto-grid">
                     <div class="boleto-campo-full">
                         <span class="boleto-label">Beneficiário (Quem Recebe)</span>
-                        <div class="boleto-valor-txt">${configApp.beneficiario || "JOSE PAULO DE JESUS FERRE"} | CNPJ/CPF: ${configApp.cnpj || "12.345.678/0001-90"}</div>
-                        <span class="boleto-label" style="margin-top:4px;">Agência / Código Beneficiário</span>
-                        <div class="boleto-valor-txt">${configApp.agencia_conta || "1234 / 56789-0"}</div>
+                        <div class="boleto-valor-txt">${configApp.beneficiario || "JOSE PAULO DE JESUS FERRE"} | CNPJ: ${configApp.cnpj || "12.345.678/0001-90"}</div>
                     </div>
 
                     <div class="boleto-campo-full">
                         <span class="boleto-label">Pagador (Sacado)</span>
-                        <div class="boleto-valor-txt">Nome: ${boleto_nome}</div>
-                        <div class="boleto-valor-txt">CPF/CNPJ: ${boleto_documento}</div>
-                        <div class="boleto-valor-txt">Endereço: ${boleto_endereco}</div>
+                        <div class="boleto-valor-txt">Nome: ${boleto_nome} | CPF/CNPJ: ${boleto_documento}</div>
                     </div>
 
                     <div class="boleto-campo">
@@ -279,14 +330,6 @@ form.addEventListener("submit", async function(e){
                     <div class="boleto-campo">
                         <span class="boleto-label">Vencimento</span>
                         <div class="boleto-valor-txt">${vencimentoStr}</div>
-                    </div>
-                    <div class="boleto-campo">
-                        <span class="boleto-label">Nosso Número</span>
-                        <div class="boleto-valor-txt">${nossoNumero}</div>
-                    </div>
-                    <div class="boleto-campo">
-                        <span class="boleto-label">Valor do Documento</span>
-                        <div class="boleto-valor-txt">R$ ${total.toFixed(2)}</div>
                     </div>
 
                     <div class="boleto-campo-full">
@@ -298,18 +341,9 @@ form.addEventListener("submit", async function(e){
                             • <strong>Subtotal do Item:</strong> R$ ${total.toFixed(2)}
                         </div>
                     </div>
-
-                    <div class="boleto-campo-full">
-                        <span class="boleto-label">Instruções de Cobrança</span>
-                        <div class="boleto-valor-txt">
-                            • Após o vencimento, cobrar juros de R$ 0,50 por dia e multa de 2%.<br>
-                            • Pagável em qualquer rede bancária ou internet banking até o vencimento.
-                        </div>
-                    </div>
                 </div>
 
                 <div class="barcode-container">
-                    <span class="boleto-label">Código de Barras (Escaneável)</span>
                     <div class="barcode-lines"></div>
                     <span class="barcode-number">${linhaDigitavelLimpa}</span>
                 </div>
@@ -374,8 +408,11 @@ form.addEventListener("submit", async function(e){
                 const qrPixCode = gerarPayloadPix(chavePix, total);
                 new QRCode(qrContainer, {
                     text: qrPixCode,
-                    width: 180,
-                    height: 180
+                    width: 190,
+                    height: 190,
+                    colorDark: "#0b2b26",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
                 });
             }
         }, 100);

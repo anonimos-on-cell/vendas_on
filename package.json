@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.16.0",
-  "description": "Sistema de registro de pedidos com boleto bancário bancário completo, linha digitável, código de barras e descrição detalhada do produto",
+  "version": "v3.17.0",
+  "description": "Sistema de registro de pedidos com bloco do Pix totalmente remodelado, limpo, moderno e organizado",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
