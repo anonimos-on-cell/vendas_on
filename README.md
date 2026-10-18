@@ -1,11 +1,11 @@
-# Registradora de Pedidos - Versão v3.15.0
+# Registradora de Pedidos - Versão v3.16.0
 
-Sistema completo para registro de pedidos com controle estrito de limites no Canvas da Assinatura de pagamento em dinheiro.
+Sistema completo para registro de pedidos com visualização do Boleto Bancário profissional contendo linha digitável copia e cola, código de barras e descrição detalhada do pedido.
 
 ## Funcionalidades
-- **Assinatura Confinada na Caixa**: O cursor e o traço de assinatura em dinheiro ficam restritos rigorosamente à área útil do Canvas (`clip` + trava de coordenadas `Math.max` / `Math.min`), impedindo vazamento para fora da borda.
-- **Payload PIX EMV Válido**: Chave Pix `dc529730-f4e4-4370-a87d-658ed8ab9eb9`, cidade `FEIRA DE SANTAN` e valor total preenchido e travado (Tag 54).
-- **Recibo Organizado e Atraente**: Layout em cartões e grade moderna com QR Code centralizado.
+- **Boleto Bancário Completo**: Exibição da Linha Digitável formatada para copiar e colar, Código de Barras estilizado, Dados do Sacado, Beneficiário, Vencimento e Descrição/Demonstrativo do produto.
+- **Assinatura Confinada na Caixa**: Controle estrito de limites no Canvas da Assinatura para pagamentos em dinheiro.
+- **Payload PIX EMV Válido**: Chave Pix `dc529730-f4e4-4370-a87d-658ed8ab9eb9` e valor total preenchido e travado (Tag 54).
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.

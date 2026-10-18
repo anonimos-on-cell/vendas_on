@@ -1,13 +1,13 @@
-# Árvore da Aplicação - Registradora de Pedidos (v3.15.0)
+# Árvore da Aplicação - Registradora de Pedidos (v3.16.0)
 
-Esta é a estrutura completa de arquivos da aplicação contida na pasta `pedidos_v3.15.0`:
+Esta é a estrutura completa de arquivos da aplicação contida na pasta `pedidos_v3.16.0`:
 
 ```text
-pedidos_v3.15.0/
+pedidos_v3.16.0/
 │
 ├── index.html            # Interface principal e formulário
-├── style.css             # Estilização completa, contêiner rígido para canvas e regras @media print
-├── script.js             # Front-end, controle de limites do Canvas de assinatura e BR Code Pix
+├── style.css             # Estilização completa, layout profissional de boleto e regras @media print
+├── script.js             # Lógica front-end, gerador de Boleto Completo e BR Code Pix
 ├── server.js             # API Node.js (Express + CORS)
 ├── banco.sql             # Script para MySQL
 ├── config.json           # Configurações dinâmicas de empresa e chave Pix

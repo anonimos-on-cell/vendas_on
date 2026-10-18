@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.15.0",
-  "description": "Sistema de registro de pedidos com limitação rígida da assinatura de dinheiro dentro da caixa do canvas",
+  "version": "v3.16.0",
+  "description": "Sistema de registro de pedidos com boleto bancário bancário completo, linha digitável, código de barras e descrição detalhada do produto",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

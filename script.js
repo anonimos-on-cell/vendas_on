@@ -42,7 +42,10 @@ function gerarPayloadPix(chavePix, valorTotal) {
 
 let configApp = { 
     chave_pix: "dc529730-f4e4-4370-a87d-658ed8ab9eb9",
-    chave_pix_alternativa: ""
+    chave_pix_alternativa: "",
+    beneficiario: "JOSE PAULO DE JESUS FERRE",
+    cnpj: "12.345.678/0001-90",
+    agencia_conta: "1234 / 56789-0"
 };
 
 let servidorAtivo = false;
@@ -81,13 +84,12 @@ const camposBoleto = document.getElementById("campos-boleto");
 
 let numeroPedido = 1000;
 
-// CONTROLE DO CANVAS DE ASSINATURA COM RESTRIÇÃO RÍGIDA DE BORDAS
+// CONTROLE DO CANVAS DE ASSINATURA CONFINADA
 const canvas = document.getElementById("canvasAssinatura");
 const ctx = canvas ? canvas.getContext("2d") : null;
 let desenhando = false;
 
 if (ctx && canvas) {
-    // Configura o caminho de corte (clip) para garantir zero extrapolação
     ctx.lineWidth = 2;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -100,11 +102,9 @@ function obterPosicaoCursorClamped(e) {
     const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
     const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
     
-    // Calcula x e y em relação às dimensões reais do Canvas
     let posX = (clientX - rect.left) * (canvas.width / rect.width);
     let posY = (clientY - rect.top) * (canvas.height / rect.height);
     
-    // Clampa (restringe) rigorosamente para não sair do limite (0 até canvas.width/height)
     posX = Math.max(1, Math.min(canvas.width - 1, posX));
     posY = Math.max(1, Math.min(canvas.height - 1, posY));
     
@@ -176,6 +176,10 @@ form.addEventListener("submit", async function(e){
     const dataStr = dataObj.toLocaleDateString('pt-BR');
     const horaStr = dataObj.toLocaleTimeString('pt-BR');
 
+    const dataVenc = new Date();
+    dataVenc.setDate(dataVenc.getDate() + 3);
+    const vencimentoStr = dataVenc.toLocaleDateString('pt-BR');
+
     let htmlPagamento = "";
     let dadosExtras = {};
 
@@ -226,11 +230,92 @@ form.addEventListener("submit", async function(e){
         dadosExtras = { assinatura: assinaturaDataURL };
 
     } else if (pagamento === "Boleto") {
+        const boleto_nome = (document.getElementById("boleto_nome") && document.getElementById("boleto_nome").value) ? document.getElementById("boleto_nome").value : cliente;
+        const boleto_documento = (document.getElementById("boleto_documento") && document.getElementById("boleto_documento").value) ? document.getElementById("boleto_documento").value : "000.000.000-00";
+        const boleto_endereco = (document.getElementById("boleto_endereco") && document.getElementById("boleto_endereco").value) ? document.getElementById("boleto_endereco").value : "Endereço não informado";
+
+        const valorCentavos = Math.round(total * 100).toString().padStart(10, '0');
+        const linhaDigitavel = `34191.09008 61234.567891 01234.567893 1 ${valorCentavos}`;
+        const linhaDigitavelLimpa = linhaDigitavel.replace(/\./g, '').replace(/ /g, '');
+        const nossoNumero = `341/98765432-1`;
+        const numeroDocumento = `PED-${numeroPedido}`;
+
         htmlPagamento = `
-        <div class="pagamento-bloco">
-            <h3>Boleto Bancário</h3>
-            <p><strong>Valor do Documento:</strong> R$ ${total.toFixed(2)}</p>
+        <div class="pagamento-bloco boleto-container">
+            <h3>Boleto Bancário para Pagamento</h3>
+            
+            <div class="boleto-box">
+                <div class="boleto-header-banco">
+                    <span class="banco-logo">Itaú</span>
+                    <span class="banco-codigo">341-7</span>
+                    <span class="linha-digitavel">${linhaDigitavel}</span>
+                </div>
+
+                <div class="boleto-copiar-linha">
+                    <span class="boleto-label">Número do Código de Barras / Linha Digitável:</span>
+                    <div class="linha-digitavel-box">${linhaDigitavel}</div>
+                    <button type="button" class="btn-secundario btn-copiar-linha" onclick="navigator.clipboard.writeText('${linhaDigitavelLimpa}'); alert('Linha digitável do boleto copiada com sucesso!');">📋 Copiar Linha Digitável</button>
+                </div>
+
+                <div class="boleto-grid">
+                    <div class="boleto-campo-full">
+                        <span class="boleto-label">Beneficiário (Quem Recebe)</span>
+                        <div class="boleto-valor-txt">${configApp.beneficiario || "JOSE PAULO DE JESUS FERRE"} | CNPJ/CPF: ${configApp.cnpj || "12.345.678/0001-90"}</div>
+                        <span class="boleto-label" style="margin-top:4px;">Agência / Código Beneficiário</span>
+                        <div class="boleto-valor-txt">${configApp.agencia_conta || "1234 / 56789-0"}</div>
+                    </div>
+
+                    <div class="boleto-campo-full">
+                        <span class="boleto-label">Pagador (Sacado)</span>
+                        <div class="boleto-valor-txt">Nome: ${boleto_nome}</div>
+                        <div class="boleto-valor-txt">CPF/CNPJ: ${boleto_documento}</div>
+                        <div class="boleto-valor-txt">Endereço: ${boleto_endereco}</div>
+                    </div>
+
+                    <div class="boleto-campo">
+                        <span class="boleto-label">Data do Documento</span>
+                        <div class="boleto-valor-txt">${dataStr}</div>
+                    </div>
+                    <div class="boleto-campo">
+                        <span class="boleto-label">Vencimento</span>
+                        <div class="boleto-valor-txt">${vencimentoStr}</div>
+                    </div>
+                    <div class="boleto-campo">
+                        <span class="boleto-label">Nosso Número</span>
+                        <div class="boleto-valor-txt">${nossoNumero}</div>
+                    </div>
+                    <div class="boleto-campo">
+                        <span class="boleto-label">Valor do Documento</span>
+                        <div class="boleto-valor-txt">R$ ${total.toFixed(2)}</div>
+                    </div>
+
+                    <div class="boleto-campo-full">
+                        <span class="boleto-label">Demonstrativo e Descrição do Produto / Serviço</span>
+                        <div class="boleto-valor-txt demonstrativo-box">
+                            • <strong>Item:</strong> ${produto}<br>
+                            • <strong>Quantidade:</strong> ${quantidade} unidade(s)<br>
+                            • <strong>Valor Unitário:</strong> R$ ${valor.toFixed(2)}<br>
+                            • <strong>Subtotal do Item:</strong> R$ ${total.toFixed(2)}
+                        </div>
+                    </div>
+
+                    <div class="boleto-campo-full">
+                        <span class="boleto-label">Instruções de Cobrança</span>
+                        <div class="boleto-valor-txt">
+                            • Após o vencimento, cobrar juros de R$ 0,50 por dia e multa de 2%.<br>
+                            • Pagável em qualquer rede bancária ou internet banking até o vencimento.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="barcode-container">
+                    <span class="boleto-label">Código de Barras (Escaneável)</span>
+                    <div class="barcode-lines"></div>
+                    <span class="barcode-number">${linhaDigitavelLimpa}</span>
+                </div>
+            </div>
         </div>`;
+        dadosExtras = { boleto_nome, boleto_documento, boleto_endereco };
     }
 
     recibo.style.display = "block";
