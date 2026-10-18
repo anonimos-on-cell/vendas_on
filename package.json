@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.18.0",
-  "description": "Sistema de registro de pedidos com redesign moderno em tons verde escuro, teal e neutros elegantes",
+  "version": "v3.19.0",
+  "description": "Sistema de registro de pedidos com correção total de quebra e estouro dos números da linha digitável do boleto",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

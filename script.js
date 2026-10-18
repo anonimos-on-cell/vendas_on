@@ -300,8 +300,10 @@ form.addEventListener("submit", async function(e){
             
             <div class="boleto-box">
                 <div class="boleto-header-banco">
-                    <span class="banco-logo">Itaú</span>
-                    <span class="banco-codigo">341-7</span>
+                    <div class="banco-identificacao">
+                        <span class="banco-logo">Itaú</span>
+                        <span class="banco-codigo">341-7</span>
+                    </div>
                     <span class="linha-digitavel">${linhaDigitavel}</span>
                 </div>
 

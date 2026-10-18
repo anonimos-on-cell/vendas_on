@@ -408,6 +408,7 @@ canvas#canvasAssinatura {
     padding: 20px;
     border-radius: 8px;
     margin-top: 20px;
+    overflow: hidden;
 }
 
 .btn-imprimir {
@@ -422,13 +423,16 @@ canvas#canvasAssinatura {
     background-color: #164e45;
 }
 
-/* BOLETO BANCÁRIO */
+/* BOLETO BANCÁRIO CORRIGIDO E RESTRITO AO LIMITE DA CAIXA */
 .boleto-box {
     border: 1px solid #0b2b26;
     padding: 15px;
     border-radius: 8px;
     background: #ffffff;
     margin-top: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
 }
 
 .boleto-header-banco {
@@ -438,6 +442,14 @@ canvas#canvasAssinatura {
     border-bottom: 2px solid #0b2b26;
     padding-bottom: 8px;
     margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.banco-identificacao {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .banco-logo {
@@ -447,18 +459,22 @@ canvas#canvasAssinatura {
 }
 
 .banco-codigo {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     border-left: 2px solid #0b2b26;
     border-right: 2px solid #0b2b26;
-    padding: 0 10px;
+    padding: 0 8px;
 }
 
 .linha-digitavel {
     font-family: monospace;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 11px;
     color: #1a202c;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    max-width: 100%;
+    text-align: right;
 }
 
 .boleto-copiar-linha {
@@ -467,15 +483,17 @@ canvas#canvasAssinatura {
     padding: 10px;
     border-radius: 6px;
     margin-bottom: 15px;
+    overflow: hidden;
 }
 
 .linha-digitavel-box {
     font-family: monospace;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     color: #0b2b26;
     margin: 6px 0;
     word-break: break-all;
+    overflow-wrap: anywhere;
 }
 
 .btn-copiar-linha {
@@ -494,11 +512,13 @@ canvas#canvasAssinatura {
     grid-column: span 2;
     border-bottom: 1px solid #e2e8f0;
     padding-bottom: 6px;
+    word-break: break-word;
 }
 
 .boleto-campo {
     border-bottom: 1px solid #e2e8f0;
     padding-bottom: 6px;
+    word-break: break-word;
 }
 
 .boleto-label {
@@ -512,6 +532,7 @@ canvas#canvasAssinatura {
 .boleto-valor-txt {
     font-size: 13px;
     color: #2d3748;
+    word-break: break-word;
 }
 
 .demonstrativo-box {
@@ -525,10 +546,15 @@ canvas#canvasAssinatura {
 .barcode-container {
     margin-top: 15px;
     text-align: center;
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 0 5px;
 }
 
 .barcode-lines {
     height: 50px;
+    width: 100%;
     background: repeating-linear-gradient(
         90deg,
         #000,
@@ -540,13 +566,25 @@ canvas#canvasAssinatura {
     );
     margin: 8px 0;
     border: 1px solid #e2e8f0;
+    box-sizing: border-box;
 }
 
+/* CORREÇÃO DO ESTOURO DO NÚMERO DO CÓDIGO DE BARRAS */
 .barcode-number {
     font-family: monospace;
-    font-size: 11px;
+    font-size: 10px;
     color: #4a5568;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    word-break: break-all !archive;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
+    padding: 0 4px;
+    white-space: normal;
+    text-align: center;
 }
 
 @media print {
