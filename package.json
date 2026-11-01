@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.21.0",
-  "description": "Sistema de registro de pedidos com assinatura de confirmação dinâmica para Pix, Cartão e Boleto",
+  "version": "v3.22.0",
+  "description": "Sistema de registro de pedidos com fluxo de assinatura e comprovante no envio do formulário",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

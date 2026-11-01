@@ -1,6 +1,6 @@
-# Registro de Mudanças no Código (Changelog) - Versão v3.21.0
+# Registro de Mudanças no Código (Changelog) - Versão v3.22.0
 
-## Versão v3.21.0
-- **Ajuste nas Formas de Pagamento e Assinatura**:
-  - Removida a opção de pagamento em Dinheiro.
-  - A assinatura digital passou a ser uma etapa de confirmação legal posterior, exibida de forma dinâmica unicamente quando o usuário seleciona uma forma de pagamento (Pix, Cartão ou Boleto).
+## Versão v3.22.0
+- **Fluxo de Finalização e Exibição de Pagamento**:
+  - Formulário inicial contém os dados do pedido e os campos específicos de cada pagamento (dados do cartão ou sacado do boleto).
+  - Ao clicar no botão "Finalizar e Gerar Comprovante", gera o resultado exibindo primeiramente o quadro de Assinatura do Cliente para confirmação legal e, logo abaixo, a forma de pagamento processada (Pix com QR Code, Cartão ou Boleto Itaú).

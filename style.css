@@ -15,7 +15,7 @@ body {
 
 .container {
     background: #ffffff;
-    max-width: 600px;
+    max-width: 650px;
     width: 100%;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.08);
@@ -69,20 +69,6 @@ input:focus, select:focus {
     box-shadow: 0 0 0 3px rgba(49,130,206,0.15);
 }
 
-.canvas-container {
-    border: 2px dashed #cbd5e0;
-    border-radius: 6px;
-    margin-top: 10px;
-    background: #fafafa;
-    display: flex;
-    justify-content: center;
-}
-
-canvas {
-    touch-action: none;
-    cursor: crosshair;
-}
-
 .btn-principal {
     width: 100%;
     background: #3182ce;
@@ -118,4 +104,142 @@ canvas {
 
 .campos-condicionais {
     margin-top: 10px;
+}
+
+/* Área do Recibo */
+#recibo {
+    margin-top: 30px;
+    border-top: 2px dashed #e2e8f0;
+    padding-top: 20px;
+}
+
+.secao-recibo {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.secao-recibo h2 {
+    font-size: 18px;
+    color: #2d3748;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #cbd5e0;
+    padding-bottom: 6px;
+}
+
+.detalhes-pedido p {
+    font-size: 14px;
+    color: #4a5568;
+    margin-bottom: 6px;
+}
+
+/* Canvas de Assinatura */
+.canvas-container {
+    border: 2px dashed #cbd5e0;
+    border-radius: 6px;
+    margin-top: 10px;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+}
+
+canvas {
+    touch-action: none;
+    cursor: crosshair;
+}
+
+/* PIX no recibo */
+.pix-container {
+    text-align: center;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.pix-code-box {
+    background: #edf2f7;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 12px;
+    word-break: break-all;
+    margin: 10px 0;
+}
+
+/* Boleto */
+.boleto-box {
+    border: 2px solid #000;
+    background: #fff;
+    padding: 15px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+.boleto-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+.boleto-header h3 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.boleto-linha-digitavel {
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.boleto-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    border-bottom: 1px solid #000;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.boleto-field {
+    border: 1px solid #ccc;
+    padding: 6px;
+}
+
+.boleto-field label {
+    font-size: 10px;
+    color: #666;
+    display: block;
+}
+
+.barcode-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.barcode {
+    height: 50px;
+    background: repeating-linear-gradient(
+        90deg,
+        #000,
+        #000 2px,
+        #fff 2px,
+        #fff 4px
+    );
+    width: 100%;
+}
+
+.boleto-copiar-linha {
+    margin-top: 15px;
+    text-align: center;
+    background: #f7fafc;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
 }

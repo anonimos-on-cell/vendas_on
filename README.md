@@ -1,10 +1,6 @@
-# Registradora de Pedidos - Versão v3.21.0
+# Registradora de Pedidos - Versão v3.22.0
 
-Sistema completo para registro de pedidos com suporte a formas de pagamento (Pix, Cartão de Crédito/Débito e Boleto Bancário) e validação jurídica por Assinatura Digital condicional para legalização posterior.
-
-## Novidades na Versão v3.21.0
-- **Remoção do Pagamento em Dinheiro**: Retirada a opção de pagamento via Dinheiro direto.
-- **Assinatura Condicional de Confirmação**: A assinatura do cliente agora é exibida dinamicamente apenas após a seleção da forma de pagamento desejada (Pix, Cartão ou Boleto), servindo como confirmação legal.
+Sistema completo para registro de pedidos com fluxo em que, ao clicar em "Finalizar", exibe a área de Assinatura do Cliente e logo em seguida a Forma de Pagamento e comprovante correspondente (Pix com QR Code/Copia e Cola, Cartão Virtual ou Boleto Bancário).
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.
