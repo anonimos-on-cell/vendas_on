@@ -1,6 +1,6 @@
-# Registro de Mudanças no Código (Changelog) - Versão v3.20.0
+# Registro de Mudanças no Código (Changelog) - Versão v3.21.0
 
-## Versão v3.20.0
-- **Reposicionamento do Bloco da Linha Digitável**:
-  - Movido o contêiner `.boleto-copiar-linha` para o final da área do boleto bancário, exatamente abaixo do gráfico do código de barras `.barcode-container`.
-  - Layout do boleto limpo e refinado para facilitar a navegação e leitura dos dados pelo pagador.
+## Versão v3.21.0
+- **Ajuste nas Formas de Pagamento e Assinatura**:
+  - Removida a opção de pagamento em Dinheiro.
+  - A assinatura digital passou a ser uma etapa de confirmação legal posterior, exibida de forma dinâmica unicamente quando o usuário seleciona uma forma de pagamento (Pix, Cartão ou Boleto).
