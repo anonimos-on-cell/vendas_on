@@ -1,6 +1,6 @@
-# Registradora de Pedidos - Versão v3.30.0
+# Registradora de Pedidos - Versão v3.31.0
 
-Sistema completo para registro de pedidos com suporte a números decimais no campo **Quantidade**.
+Sistema completo para registro de pedidos com quantidade inteira e **Valor Unitário** aceitando decimais.
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.

@@ -74,8 +74,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Campo Quantidade: Aceita números decimais (permite números e ponto decimal)
-    document.querySelectorAll(".input-quantidade-decimal").forEach(input => {
+    // Campo Valor Unitário: Aceita números decimais (permite números e ponto decimal)
+    document.querySelectorAll(".input-valor-decimal").forEach(input => {
         input.addEventListener("input", function() {
             this.value = this.value.replace(/[^0-9.]/g, '');
         });
@@ -83,11 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelectorAll(".input-somente-numero").forEach(input => {
         input.addEventListener("input", function() {
-            if (this.type === "number" || this.id === "valor") {
-                this.value = this.value.replace(/[^0-9.]/g, '');
-            } else {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            }
+            this.value = this.value.replace(/[^0-9]/g, '');
         });
     });
 
@@ -174,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const cliente = clienteInput.value.trim();
         const produto = produtoInput.value.trim();
-        const quantidadeVal = parseFloat(quantidadeInput.value);
+        const quantidadeVal = parseInt(quantidadeInput.value);
         const valorUnitarioVal = parseFloat(valorInput.value);
 
         if (!cliente || !produto || isNaN(quantidadeVal) || quantidadeVal <= 0 || isNaN(valorUnitarioVal) || valorUnitarioVal <= 0) {

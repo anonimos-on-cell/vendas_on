@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.30.0",
-  "description": "Sistema de registro de pedidos com suporte a números decimais no campo Quantidade",
+  "version": "v3.31.0",
+  "description": "Sistema de registro de pedidos com quantidade inteira e valor unitário decimal",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
