@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.25.0",
-  "description": "Sistema de registro de pedidos com o bloco de assinatura reposicionado no formulário principal, abaixo dos dados do cliente e dos dados específicos do cartão/boleto",
+  "version": "v3.26.0",
+  "description": "Sistema de registro de pedidos com validação estrita nos campos de entrada (bloqueio de números em texto e bloqueio de letras em números)",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

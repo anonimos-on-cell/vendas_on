@@ -60,6 +60,30 @@ async function carregarConfiguracoes() {
 carregarConfiguracoes();
 
 document.addEventListener("DOMContentLoaded", function() {
+    // =========================================================================
+    // REGRAS DE VALIDAÇÃO TEMPO REAL DE INPUTS (TEXTO vs NÚMERO)
+    // =========================================================================
+
+    // 1. Inputs de FORMATO TEXTO: Se houver dígitos numéricos (0-9), bloqueia e remove instantaneamente.
+    document.querySelectorAll(".input-somente-texto").forEach(input => {
+        input.addEventListener("input", function() {
+            // Remove qualquer dígito de 0 a 9 do texto
+            this.value = this.value.replace(/[0-9]/g, '');
+        });
+    });
+
+    // 2. Inputs de FORMATO NÚMERO: Se houver letras ou caracteres não numéricos, não deixa passar.
+    document.querySelectorAll(".input-somente-numero").forEach(input => {
+        input.addEventListener("input", function() {
+            // Remove qualquer caractere que não seja número (ou ponto/vírgula se for decimal)
+            if (this.type === "number" || this.id === "valor") {
+                this.value = this.value.replace(/[^0-9.]/g, '');
+            } else {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            }
+        });
+    });
+
     const form = document.getElementById("pedidoForm");
     const selectPagamento = document.getElementById("pagamento");
     const camposCartao = document.getElementById("campos-cartao");
@@ -123,11 +147,21 @@ document.addEventListener("DOMContentLoaded", function() {
     form.addEventListener("submit", function(e) {
         e.preventDefault();
 
-        // 1. VALIDAÇÃO DOS 4 CAMPOS SUPERIORES DO PEDIDO
+        // VALIDAÇÃO ADICIONAL DE SEGURANÇA DOS INPUTS NO SUBMIT
         const clienteInput = document.getElementById("cliente");
         const produtoInput = document.getElementById("produto");
         const quantidadeInput = document.getElementById("quantidade");
         const valorInput = document.getElementById("valor");
+
+        // Verifica se campo de texto possui número
+        if (/[0-9]/.test(clienteInput.value)) {
+            alert("O campo Nome do Cliente não pode conter números!");
+            return;
+        }
+        if (/[0-9]/.test(produtoInput.value)) {
+            alert("O campo Produto/Serviço não pode conter números!");
+            return;
+        }
 
         const cliente = clienteInput.value.trim();
         const produto = produtoInput.value.trim();
@@ -145,15 +179,20 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        // 2. VALIDAÇÃO DOS CAMPOS ESPECÍFICOS DE PAGAMENTO
+        // Validação de campos de pagamento
         if (formaPagamento === "Cartão") {
             const numCartao = document.getElementById("cartao_numero").value.trim();
             const titular = document.getElementById("cartao_titular").value.trim();
             const validade = document.getElementById("cartao_validade").value.trim();
             const cvv = document.getElementById("cartao_cvv").value.trim();
 
+            if (/[0-9]/.test(titular)) {
+                alert("O campo Nome do Titular do Cartão não pode conter números!");
+                return;
+            }
+
             if (!numCartao || !titular || !validade || !cvv) {
-                alert("Por favor, preencha todos os dados do Cartão Virtual (Número, Titular, Validade e CVV) antes de prosseguir.");
+                alert("Por favor, preencha todos os dados do Cartão Virtual antes de prosseguir.");
                 return;
             }
         } else if (formaPagamento === "Boleto") {
@@ -161,13 +200,18 @@ document.addEventListener("DOMContentLoaded", function() {
             const bolDoc = document.getElementById("boleto_documento").value.trim();
             const bolEnd = document.getElementById("boleto_endereco").value.trim();
 
+            if (/[0-9]/.test(bolNome)) {
+                alert("O campo Nome do Pagador no Boleto não pode conter números!");
+                return;
+            }
+
             if (!bolNome || !bolDoc || !bolEnd) {
-                alert("Por favor, preencha todas as informações do Pagador para o Boleto (Nome, CPF/CNPJ e Endereço) antes de prosseguir.");
+                alert("Por favor, preencha todas as informações do Pagador para o Boleto antes de prosseguir.");
                 return;
             }
         }
 
-        // 3. VALIDAÇÃO DA ASSINATURA OBRIGATÓRIA
+        // Validação de Assinatura
         if (!assinado) {
             alert("Atenção: É necessário assinar no quadro de assinatura antes de finalizar o pedido!");
             return;
@@ -177,11 +221,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const total = (quantidadeVal * valorUnitarioVal).toFixed(2);
         const assinaturaDataUrl = canvas.toDataURL();
 
-        // Limpa recibo anterior
         recibo.innerHTML = "";
         recibo.style.display = "block";
 
-        // 4. GERAÇÃO DO COMPROVANTE
         let htmlRecibo = `
             <div class="secao-recibo">
                 <h2>Resumo do Pedido #${numeroPedido}</h2>
@@ -193,7 +235,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             </div>
 
-            <!-- EXIBIÇÃO DA ASSINATURA REGISTRADA NO RECIBO -->
             <div class="secao-recibo">
                 <h2>Assinatura de Confirmação Registrada</h2>
                 <div style="text-align:center; margin-top:10px;">
@@ -201,7 +242,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             </div>
 
-            <!-- DETALHAMENTO DO PAGAMENTO SELECIONADO -->
             <div class="secao-recibo" id="bloco-forma-pagamento">
                 <h2>Detalhamento do Pagamento</h2>
         `;
@@ -277,7 +317,6 @@ document.addEventListener("DOMContentLoaded", function() {
         htmlRecibo += `</div>`;
         recibo.innerHTML = htmlRecibo;
 
-        // Gera QR Code do PIX se for o caso
         if (formaPagamento === "PIX") {
             const payloadPix = gerarPayloadPix(configApp.chave_pix, total);
             const qrcodeDiv = document.getElementById("qrcode");

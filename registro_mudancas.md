@@ -1,7 +1,7 @@
-# Registro de Mudanças no Código (Changelog) - Versão v3.25.0
+# Registro de Mudanças no Código (Changelog) - Versão v3.26.0
 
-## Versão v3.25.0
-- **Reposicionamento da Assinatura do Cliente**:
-  - O bloco da Assinatura e Confirmação foi movido para a parte superior (dentro do formulário principal).
-  - Posicionado logo abaixo do campo com o Nome do Cliente e dos dados específicos do Cartão de Crédito ou do Boleto.
-  - Ao clicar em "Finalizar e Gerar Comprovante", o sistema valida todas as informações (incluindo a presença da assinatura) e exibe o resumo e o detalhamento do pagamento processado.
+## Versão v3.26.0
+- **Validação de Inputs por Tipo de Dado (Texto vs Número)**:
+  - Adicionado escutador em tempo real (`input`) para filtrar caracteres inválidos nos campos do formulário:
+    - Se o campo for de formato **Texto**, dígitos numéricos (0-9) são automaticamente bloqueados e removidos.
+    - Se o campo for do formato **Número**, letras e caracteres não numéricos são automaticamente bloqueados e removidos.
