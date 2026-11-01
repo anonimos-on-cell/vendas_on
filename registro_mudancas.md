@@ -1,5 +1,5 @@
-# Registro de Mudanças no Código (Changelog) - Versão v3.28.0
+# Registro de Mudanças no Código (Changelog) - Versão v3.29.0
 
-## Versão v3.28.0
-- **Contenção e Quebra de Texto em Inputs e Blocos (`overflow` / `word-wrap`)**:
-  - Ajustado o `style.css` para garantir que textos longos digitados em inputs, textareas ou exibidos em seções de recibos e boletos permaneçam rigorosamente dentro de suas regiões, aplicando `box-sizing: border-box`, `max-width: 100%`, `overflow: hidden`, `word-break: break-word` e `text-overflow: ellipsis` conforme necessário.
+## Versão v3.29.0
+- **Limpeza Automática do Recibo ao Alterar a Forma de Pagamento**:
+  - Adicionado evento de escuta na seleção de forma de pagamento (`change` no select `#pagamento`) que limpa e oculta imediatamente qualquer recibo/comprovante anterior gerado. Assim, ao mudar entre Pix, Cartão ou Boleto e finalizar novamente, um novo recibo atualizado é gerado do zero.

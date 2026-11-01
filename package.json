@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.28.0",
-  "description": "Sistema de registro de pedidos com controle de overflow e quebra de texto em inputs e recibos",
+  "version": "v3.29.0",
+  "description": "Sistema de registro de pedidos com limpeza automática do recibo anterior ao alterar a forma de pagamento",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

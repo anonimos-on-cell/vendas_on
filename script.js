@@ -137,10 +137,17 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // ALTERAÇÃO DA FORMA DE PAGAMENTO: Exibe campos condicionais e LIMPA O RECIBO ANTERIOR
     selectPagamento.addEventListener("change", function() {
         const valor = this.value;
         camposCartao.style.display = valor === "Cartão" ? "block" : "none";
         camposBoleto.style.display = valor === "Boleto" ? "block" : "none";
+
+        // Limpa e oculta o recibo anterior ao trocar a forma de pagamento (Pix, Cartão ou Boleto)
+        if (recibo) {
+            recibo.innerHTML = "";
+            recibo.style.display = "none";
+        }
     });
 
     form.addEventListener("submit", function(e) {

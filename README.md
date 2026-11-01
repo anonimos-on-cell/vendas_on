@@ -1,6 +1,6 @@
-# Registradora de Pedidos - Versão v3.28.0
+# Registradora de Pedidos - Versão v3.29.0
 
-Sistema completo para registro de pedidos com controle rigoroso de contenção de texto (`overflow-wrap`, `word-break`, padding e larguras flexíveis) para evitar que qualquer texto saia de sua região ou container.
+Sistema completo para registro de pedidos com limpeza automática do recibo anterior ao alterar a forma de pagamento.
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.
