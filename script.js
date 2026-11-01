@@ -76,32 +76,71 @@ document.addEventListener("DOMContentLoaded", function() {
 
     form.addEventListener("submit", function(e) {
         e.preventDefault();
-        numeroPedido++;
 
-        const cliente = document.getElementById("cliente").value;
-        const produto = document.getElementById("produto").value;
-        const quantidade = parseInt(document.getElementById("quantidade").value);
-        const valorUnitario = parseFloat(document.getElementById("valor").value);
-        const total = (quantidade * valorUnitario).toFixed(2);
+        // 1. VALIDAÇÃO DOS 4 CAMPOS SUPERIORES DO PEDIDO
+        const clienteInput = document.getElementById("cliente");
+        const produtoInput = document.getElementById("produto");
+        const quantidadeInput = document.getElementById("quantidade");
+        const valorInput = document.getElementById("valor");
+
+        const cliente = clienteInput.value.trim();
+        const produto = produtoInput.value.trim();
+        const quantidadeVal = parseInt(quantidadeInput.value);
+        const valorUnitarioVal = parseFloat(valorInput.value);
+
+        if (!cliente || !produto || isNaN(quantidadeVal) || quantidadeVal <= 0 || isNaN(valorUnitarioVal) || valorUnitarioVal <= 0) {
+            alert("Por favor, preencha corretamente os 4 campos do pedido (Nome do Cliente, Produto, Quantidade válida e Valor Unitário) antes de prosseguir.");
+            return;
+        }
+
         const formaPagamento = selectPagamento.value;
+        if (!formaPagamento) {
+            alert("Por favor, selecione uma forma de pagamento.");
+            return;
+        }
+
+        // 2. VALIDAÇÃO DOS CAMPOS ESPECÍFICOS DE PAGAMENTO
+        if (formaPagamento === "Cartão") {
+            const numCartao = document.getElementById("cartao_numero").value.trim();
+            const titular = document.getElementById("cartao_titular").value.trim();
+            const validade = document.getElementById("cartao_validade").value.trim();
+            const cvv = document.getElementById("cartao_cvv").value.trim();
+
+            if (!numCartao || !titular || !validade || !cvv) {
+                alert("Por favor, preencha todos os dados do Cartão Virtual (Número, Titular, Validade e CVV) antes de prosseguir.");
+                return;
+            }
+        } else if (formaPagamento === "Boleto") {
+            const bolNome = document.getElementById("boleto_nome").value.trim();
+            const bolDoc = document.getElementById("boleto_documento").value.trim();
+            const bolEnd = document.getElementById("boleto_endereco").value.trim();
+
+            if (!bolNome || !bolDoc || !bolEnd) {
+                alert("Por favor, preencha todas as informações do Pagador para o Boleto (Nome, CPF/CNPJ e Endereço) antes de prosseguir.");
+                return;
+            }
+        }
+
+        numeroPedido++;
+        const total = (quantidadeVal * valorUnitarioVal).toFixed(2);
 
         // Limpa recibo anterior
         recibo.innerHTML = "";
         recibo.style.display = "block";
 
-        // 1. DADOS DO PEDIDO
+        // 3. MONTAGEM DO RECIBO (EXIBE A ASSINATURA E A FORMA DE PAGAMENTO EM SEGUIDA)
         let htmlRecibo = `
             <div class="secao-recibo">
                 <h2>Resumo do Pedido #${numeroPedido}</h2>
                 <div class="detalhes-pedido">
                     <p><strong>Cliente:</strong> ${cliente}</p>
-                    <p><strong>Produto:</strong> ${produto} (x${quantidade})</p>
+                    <p><strong>Produto:</strong> ${produto} (x${quantidadeVal})</p>
                     <p><strong>Valor Total:</strong> R$ ${total}</p>
                     <p><strong>Forma de Pagamento:</strong> ${formaPagamento}</p>
                 </div>
             </div>
 
-            <!-- 2. ASSINATURA DO CLIENTE (Aparece na finalização) -->
+            <!-- QUADRO DE ASSINATURA (Liberado após validação dos campos) -->
             <div class="secao-recibo">
                 <h2>Assinatura de Confirmação do Cliente</h2>
                 <p style="font-size:13px; color:#4a5568; margin-bottom:8px;">
@@ -113,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <button type="button" id="limparAssinatura" class="btn-secundario">Limpar Assinatura</button>
             </div>
 
-            <!-- 3. FORMA DE PAGAMENTO SELECIONADA -->
+            <!-- DETALHAMENTO DA FORMA DE PAGAMENTO -->
             <div class="secao-recibo" id="bloco-forma-pagamento">
                 <h2>Detalhamento do Pagamento</h2>
         `;
@@ -131,9 +170,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             `;
         } else if (formaPagamento === "Cartão") {
-            const cartaoNum = document.getElementById("cartao_numero").value || "**** **** **** 1234";
-            const cartaoTitular = document.getElementById("cartao_titular").value || cliente;
-            const cartaoVal = document.getElementById("cartao_validade").value || "12/28";
+            const cartaoNum = document.getElementById("cartao_numero").value.trim();
+            const cartaoTitular = document.getElementById("cartao_titular").value.trim();
+            const cartaoVal = document.getElementById("cartao_validade").value.trim();
             
             htmlRecibo += `
                 <div class="detalhes-pedido">
@@ -145,9 +184,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             `;
         } else if (formaPagamento === "Boleto") {
-            const bolNome = document.getElementById("boleto_nome").value || cliente;
-            const bolDoc = document.getElementById("boleto_documento").value || "000.000.000-00";
-            const bolEnd = document.getElementById("boleto_endereco").value || "Não informado";
+            const bolNome = document.getElementById("boleto_nome").value.trim();
+            const bolDoc = document.getElementById("boleto_documento").value.trim();
+            const bolEnd = document.getElementById("boleto_endereco").value.trim();
             const linhaDigitavel = "34191.79001 01043.510047 91020.150008 8 95000000" + Math.floor(total * 100);
 
             htmlRecibo += `
@@ -189,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function() {
         htmlRecibo += `</div>`;
         recibo.innerHTML = htmlRecibo;
 
-        // Configuração do Canvas da Assinatura no Recibo
+        // Configura o Canvas de Assinatura
         const canvas = document.getElementById("canvasAssinatura");
         if (canvas) {
             const ctx = canvas.getContext("2d");
@@ -232,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
 
-        // Configuração do QR Code Pix
+        // Configura o QR Code Pix
         if (formaPagamento === "PIX") {
             const payloadPix = gerarPayloadPix(configApp.chave_pix, total);
             new QRCode(document.getElementById("qrcode"), {
@@ -247,7 +286,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
 
-        // Rola até o recibo gerado
         recibo.scrollIntoView({ behavior: 'smooth' });
     });
 });

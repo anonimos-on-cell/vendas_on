@@ -19,7 +19,7 @@
 
 <form id="pedidoForm">
 <fieldset>
-<legend>Dados do Pedido</legend>
+<legend>Dados do Pedido (Obrigatórios)</legend>
 <input type="text" id="cliente" placeholder="Nome Completo do Cliente" required>
 <input type="text" id="produto" placeholder="Descrição do Produto / Serviço" required>
 <input type="number" id="quantidade" placeholder="Quantidade" min="1" required>
@@ -36,7 +36,7 @@
 </select>
 
 <div id="campos-cartao" class="campos-condicionais" style="display:none;">
-<input type="text" id="cartao_numero" placeholder="Número do Cartão Virtual">
+<input type="text" id="cartao_numero" placeholder="Número do Cartão Virtual (16 dígitos)">
 <input type="text" id="cartao_titular" placeholder="Nome do Titular Impresso no Cartão">
 <input type="text" id="cartao_validade" placeholder="MM/AA">
 <input type="text" id="cartao_cvv" placeholder="Código de Segurança (CVV)">

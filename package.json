@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.22.0",
-  "description": "Sistema de registro de pedidos com fluxo de assinatura e comprovante no envio do formulário",
+  "version": "v3.23.0",
+  "description": "Sistema de registro de pedidos com validação estrita dos 4 campos superiores do pedido e campos condicionais de pagamento antes do fluxo de assinatura e geração do comprovante",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

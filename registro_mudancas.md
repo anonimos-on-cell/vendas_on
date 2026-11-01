@@ -1,6 +1,7 @@
-# Registro de Mudanças no Código (Changelog) - Versão v3.22.0
+# Registro de Mudanças no Código (Changelog) - Versão v3.23.0
 
-## Versão v3.22.0
-- **Fluxo de Finalização e Exibição de Pagamento**:
-  - Formulário inicial contém os dados do pedido e os campos específicos de cada pagamento (dados do cartão ou sacado do boleto).
-  - Ao clicar no botão "Finalizar e Gerar Comprovante", gera o resultado exibindo primeiramente o quadro de Assinatura do Cliente para confirmação legal e, logo abaixo, a forma de pagamento processada (Pix com QR Code, Cartão ou Boleto Itaú).
+## Versão v3.23.0
+- **Validação de Campos Obrigatórios do Pedido**:
+  - Garantida a validação dos 4 campos superiores (Nome do Cliente, Descrição do Produto, Quantidade e Valor Unitário) antes de liberar o processamento.
+  - Validação dos campos condicionais específicos do pagamento selecionado (Cartão ou Boleto).
+  - Somente após o preenchimento válido de todos esses campos, o sistema libera e exibe o bloco de Assinatura de Confirmação do Cliente seguido pelo Detalhamento do Pagamento (Pix com QR Code, Cartão ou Boleto Itaú).
