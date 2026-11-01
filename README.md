@@ -1,11 +1,10 @@
-# Registradora de Pedidos - Versão v3.26.0
+# Registradora de Pedidos - Versão v3.27.0
 
-Sistema completo para registro de pedidos com validação inteligente de entradas de dados (inputs).
+Sistema completo para registro de pedidos com limite máximo de 100 caracteres nos campos de formato texto.
 
-## Novidades na Versão v3.26.0
-- **Filtro de Entradas Texto x Número**:
-  - Campos de **Texto** (ex: Nome do Cliente, Produto, Titular do Cartão, Nome do Pagador no Boleto): Não aceitam dígitos numéricos. Qualquer número inserido é imediatamente filtrado e removido na digitação.
-  - Campos **Numéricos** (ex: Quantidade, Valor Unitário, Número do Cartão, CVV, CPF/CNPJ): Não aceitam caracteres alfabéticos/letras.
+## Novidades na Versão v3.27.0
+- **Limite de Caracteres em Textos**:
+  - Todos os campos de formato texto (ex: Nome do Cliente, Produto, Titular do Cartão, Nome do Pagador no Boleto) possuem restrição estrita de no máximo **100 caracteres** (`maxlength="100"` e validação).
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.

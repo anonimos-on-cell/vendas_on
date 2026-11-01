@@ -176,6 +176,8 @@ canvas {
     padding: 15px;
     font-family: Arial, sans-serif;
     font-size: 12px;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .boleto-header {
@@ -185,6 +187,7 @@ canvas {
     border-bottom: 2px solid #000;
     padding-bottom: 8px;
     margin-bottom: 10px;
+    flex-wrap: wrap;
 }
 
 .boleto-header h3 {
@@ -194,8 +197,10 @@ canvas {
 
 .boleto-linha-digitavel {
     font-family: monospace;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
+    word-break: break-all;
+    max-width: 100%;
 }
 
 .boleto-grid {
@@ -210,6 +215,7 @@ canvas {
 .boleto-field {
     border: 1px solid #ccc;
     padding: 6px;
+    word-break: break-word;
 }
 
 .boleto-field label {
@@ -221,6 +227,8 @@ canvas {
 .barcode-container {
     text-align: center;
     margin-top: 15px;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .barcode {
@@ -233,6 +241,7 @@ canvas {
         #fff 4px
     );
     width: 100%;
+    max-width: 100%;
 }
 
 .boleto-copiar-linha {
@@ -242,4 +251,5 @@ canvas {
     padding: 10px;
     border-radius: 6px;
     border: 1px solid #e2e8f0;
+    word-break: break-all;
 }

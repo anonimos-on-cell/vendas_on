@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.26.0",
-  "description": "Sistema de registro de pedidos com validação estrita nos campos de entrada (bloqueio de números em texto e bloqueio de letras em números)",
+  "version": "v3.27.0",
+  "description": "Sistema de registro de pedidos com limite máximo de 100 caracteres nos campos de formato texto",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

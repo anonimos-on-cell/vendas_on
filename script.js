@@ -61,21 +61,24 @@ carregarConfiguracoes();
 
 document.addEventListener("DOMContentLoaded", function() {
     // =========================================================================
-    // REGRAS DE VALIDAÇÃO TEMPO REAL DE INPUTS (TEXTO vs NÚMERO)
+    // REGRAS DE VALIDAÇÃO TEMPO REAL DE INPUTS (TEXTO vs NÚMERO + MÁX 100 CARACTERES)
     // =========================================================================
 
-    // 1. Inputs de FORMATO TEXTO: Se houver dígitos numéricos (0-9), bloqueia e remove instantaneamente.
+    // 1. Inputs de FORMATO TEXTO: Bloqueia números e limita estritamente a 100 caracteres.
     document.querySelectorAll(".input-somente-texto").forEach(input => {
         input.addEventListener("input", function() {
-            // Remove qualquer dígito de 0 a 9 do texto
-            this.value = this.value.replace(/[0-9]/g, '');
+            // Remove dígitos numéricos e trunca para 100 caracteres max
+            let valorLimpo = this.value.replace(/[0-9]/g, '');
+            if (valorLimpo.length > 100) {
+                valorLimpo = valorLimpo.substring(0, 100);
+            }
+            this.value = valorLimpo;
         });
     });
 
-    // 2. Inputs de FORMATO NÚMERO: Se houver letras ou caracteres não numéricos, não deixa passar.
+    // 2. Inputs de FORMATO NÚMERO: Bloqueia letras e caracteres não numéricos.
     document.querySelectorAll(".input-somente-numero").forEach(input => {
         input.addEventListener("input", function() {
-            // Remove qualquer caractere que não seja número (ou ponto/vírgula se for decimal)
             if (this.type === "number" || this.id === "valor") {
                 this.value = this.value.replace(/[^0-9.]/g, '');
             } else {
@@ -147,13 +150,11 @@ document.addEventListener("DOMContentLoaded", function() {
     form.addEventListener("submit", function(e) {
         e.preventDefault();
 
-        // VALIDAÇÃO ADICIONAL DE SEGURANÇA DOS INPUTS NO SUBMIT
         const clienteInput = document.getElementById("cliente");
         const produtoInput = document.getElementById("produto");
         const quantidadeInput = document.getElementById("quantidade");
         const valorInput = document.getElementById("valor");
 
-        // Verifica se campo de texto possui número
         if (/[0-9]/.test(clienteInput.value)) {
             alert("O campo Nome do Cliente não pode conter números!");
             return;
@@ -169,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const valorUnitarioVal = parseFloat(valorInput.value);
 
         if (!cliente || !produto || isNaN(quantidadeVal) || quantidadeVal <= 0 || isNaN(valorUnitarioVal) || valorUnitarioVal <= 0) {
-            alert("Por favor, preencha corretamente os 4 campos do pedido (Nome do Cliente, Produto, Quantidade válida e Valor Unitário) antes de prosseguir.");
+            alert("Por favor, preencha corretamente os 4 campos do pedido antes de prosseguir.");
             return;
         }
 
@@ -179,7 +180,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        // Validação de campos de pagamento
         if (formaPagamento === "Cartão") {
             const numCartao = document.getElementById("cartao_numero").value.trim();
             const titular = document.getElementById("cartao_titular").value.trim();
@@ -211,7 +211,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        // Validação de Assinatura
         if (!assinado) {
             alert("Atenção: É necessário assinar no quadro de assinatura antes de finalizar o pedido!");
             return;

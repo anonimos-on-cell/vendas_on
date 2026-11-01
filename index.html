@@ -21,9 +21,9 @@
 <!-- 1. DADOS DO PEDIDO -->
 <fieldset>
 <legend>Dados do Pedido (Obrigatórios)</legend>
-<!-- Inputs do tipo Texto e Número devidamente marcados com a classe de validação -->
-<input type="text" id="cliente" class="input-somente-texto" placeholder="Nome Completo do Cliente (Somente letras)" required>
-<input type="text" id="produto" class="input-somente-texto" placeholder="Descrição do Produto / Serviço (Somente letras)" required>
+<!-- Inputs de texto com limite máximo de 100 caracteres -->
+<input type="text" id="cliente" class="input-somente-texto" maxlength="100" placeholder="Nome Completo do Cliente (Máx. 100 caracteres)" required>
+<input type="text" id="produto" class="input-somente-texto" maxlength="100" placeholder="Descrição do Produto / Serviço (Máx. 100 caracteres)" required>
 <input type="number" id="quantidade" class="input-somente-numero" placeholder="Quantidade (Somente números)" min="1" required>
 <input type="number" step="0.01" id="valor" class="input-somente-numero" placeholder="Valor Unitário R$ (Somente números)" required>
 </fieldset>
@@ -40,14 +40,14 @@
 
 <div id="campos-cartao" class="campos-condicionais" style="display:none;">
 <input type="text" id="cartao_numero" class="input-somente-numero" placeholder="Número do Cartão Virtual (Somente números)">
-<input type="text" id="cartao_titular" class="input-somente-texto" placeholder="Nome do Titular Impresso no Cartão (Somente letras)">
+<input type="text" id="cartao_titular" class="input-somente-texto" maxlength="100" placeholder="Nome do Titular do Cartão (Máx. 100 caracteres)">
 <input type="text" id="cartao_validade" placeholder="MM/AA">
-<input type="text" id="cartao_cvv" class="input-somente-numero" placeholder="Código de Segurança - CVV (Somente números)">
+<input type="text" id="cartao_cvv" class="input-somente-numero" placeholder="CVV (Somente números)">
 </div>
 
 <div id="campos-boleto" class="campos-condicionais" style="display:none;">
 <h3 style="font-size:13px; margin-top:12px; color:#4a5568;">Informações do Pagador (Sacado):</h3>
-<input type="text" id="boleto_nome" class="input-somente-texto" placeholder="Nome / Razão Social do Pagador (Somente letras)">
+<input type="text" id="boleto_nome" class="input-somente-texto" maxlength="100" placeholder="Nome / Razão Social do Pagador (Máx. 100 caracteres)">
 <input type="text" id="boleto_documento" class="input-somente-numero" placeholder="CPF ou CNPJ do Pagador (Somente números)">
 <input type="text" id="boleto_endereco" placeholder="Endereço Completo">
 </div>
