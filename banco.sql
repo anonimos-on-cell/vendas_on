@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS pedidos (
     cliente VARCHAR(100),
     produto VARCHAR(100),
     quantidade INT,
-    valor_unitario DECIMAL(10,2),
+    valor_unitario DECIMAL(10,2) CHECK (valor_unitario > 0),
     total DECIMAL(10,2),
     forma_pagamento VARCHAR(30),
     cartao_numero VARCHAR(20),

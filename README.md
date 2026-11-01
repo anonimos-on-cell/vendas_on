@@ -1,6 +1,6 @@
-# Registradora de Pedidos - Versão v3.31.0
+# Registradora de Pedidos - Versão v3.32.0
 
-Sistema completo para registro de pedidos com quantidade inteira e **Valor Unitário** aceitando decimais.
+Sistema completo para registro de pedidos com restrição estrita de **números decimais positivos** no campo Valor Unitário (`min="0.01"` e remoção de sinais negativos).
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.

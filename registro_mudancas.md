@@ -1,6 +1,5 @@
-# Registro de Mudanças no Código (Changelog) - Versão v3.31.0
+# Registro de Mudanças no Código (Changelog) - Versão v3.32.0
 
-## Versão v3.31.0
-- **Inversão de Decimais entre Quantidade e Valor Unitário**:
-  - O campo **Quantidade** voltou a ser estritamente numérico inteiro (`INT`).
-  - O campo **Valor Unitário** agora é o único que aceita e processa números decimais (`step="any"`, com ponto e dígitos numéricos permitidos em tempo real).
+## Versão v3.32.0
+- **Restrição de Valores Decimais Positivos no Valor Unitário**:
+  - Adicionado atributo `min="0.01"` e tratamento em tempo real via JavaScript para bloquear o sinal de menos (`-`) e quaisquer caracteres inválidos, garantindo que o campo **Valor Unitário** aceite apenas números decimais estritamente positivos.

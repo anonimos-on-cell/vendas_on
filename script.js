@@ -74,10 +74,17 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Campo Valor Unitário: Aceita números decimais (permite números e ponto decimal)
+    // Campo Valor Unitário: Aceita SOMENTE números decimais estritamente positivos (bloqueia sinal de menos e quaisquer outros caracteres)
     document.querySelectorAll(".input-valor-decimal").forEach(input => {
         input.addEventListener("input", function() {
+            // Remove tudo exceto números e ponto decimal (remove sinal de menos '-' se houver)
             this.value = this.value.replace(/[^0-9.]/g, '');
+            
+            // Garante que haja no máximo um ponto decimal
+            let partes = this.value.split('.');
+            if (partes.length > 2) {
+                this.value = partes[0] + '.' + partes.slice(1).join('');
+            }
         });
     });
 
@@ -174,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const valorUnitarioVal = parseFloat(valorInput.value);
 
         if (!cliente || !produto || isNaN(quantidadeVal) || quantidadeVal <= 0 || isNaN(valorUnitarioVal) || valorUnitarioVal <= 0) {
-            alert("Por favor, preencha corretamente os 4 campos do pedido antes de prosseguir.");
+            alert("Por favor, preencha corretamente os 4 campos do pedido com valores positivos antes de prosseguir.");
             return;
         }
 
