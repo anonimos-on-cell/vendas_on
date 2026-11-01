@@ -1,7 +1,7 @@
 {
   "name": "pedido-system-remodulado",
-  "version": "v3.23.0",
-  "description": "Sistema de registro de pedidos com validação estrita dos 4 campos superiores do pedido e campos condicionais de pagamento antes do fluxo de assinatura e geração do comprovante",
+  "version": "v3.25.0",
+  "description": "Sistema de registro de pedidos com o bloco de assinatura reposicionado no formulário principal, abaixo dos dados do cliente e dos dados específicos do cartão/boleto",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

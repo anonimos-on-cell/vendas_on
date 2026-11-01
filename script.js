@@ -68,6 +68,52 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let numeroPedido = 1000;
 
+    // Configuração do Canvas de Assinatura no formulário principal
+    const canvas = document.getElementById("canvasAssinatura");
+    const ctx = canvas ? canvas.getContext("2d") : null;
+    let assinado = false;
+
+    if (canvas && ctx) {
+        function obterPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            return { x: clientX - rect.left, y: clientY - rect.top };
+        }
+
+        function iniciar(e) {
+            ctx.beginPath();
+            const pos = obterPos(e);
+            ctx.moveTo(pos.x, pos.y);
+            canvas.addEventListener("mousemove", mover);
+            canvas.addEventListener("touchmove", mover);
+        }
+
+        function mover(e) {
+            assinado = true;
+            const pos = obterPos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+
+        function parar() {
+            canvas.removeEventListener("mousemove", mover);
+            canvas.removeEventListener("touchmove", mover);
+        }
+
+        canvas.addEventListener("mousedown", iniciar);
+        canvas.addEventListener("mouseup", parar);
+        canvas.addEventListener("mouseleave", parar);
+
+        canvas.addEventListener("touchstart", (e) => { iniciar(e); e.preventDefault(); });
+        canvas.addEventListener("touchend", parar);
+
+        document.getElementById("limparAssinatura").addEventListener("click", () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            assinado = false;
+        });
+    }
+
     selectPagamento.addEventListener("change", function() {
         const valor = this.value;
         camposCartao.style.display = valor === "Cartão" ? "block" : "none";
@@ -121,14 +167,21 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
+        // 3. VALIDAÇÃO DA ASSINATURA OBRIGATÓRIA
+        if (!assinado) {
+            alert("Atenção: É necessário assinar no quadro de assinatura antes de finalizar o pedido!");
+            return;
+        }
+
         numeroPedido++;
         const total = (quantidadeVal * valorUnitarioVal).toFixed(2);
+        const assinaturaDataUrl = canvas.toDataURL();
 
         // Limpa recibo anterior
         recibo.innerHTML = "";
         recibo.style.display = "block";
 
-        // 3. MONTAGEM DO RECIBO (EXIBE A ASSINATURA E A FORMA DE PAGAMENTO EM SEGUIDA)
+        // 4. GERAÇÃO DO COMPROVANTE
         let htmlRecibo = `
             <div class="secao-recibo">
                 <h2>Resumo do Pedido #${numeroPedido}</h2>
@@ -140,19 +193,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             </div>
 
-            <!-- QUADRO DE ASSINATURA (Liberado após validação dos campos) -->
+            <!-- EXIBIÇÃO DA ASSINATURA REGISTRADA NO RECIBO -->
             <div class="secao-recibo">
-                <h2>Assinatura de Confirmação do Cliente</h2>
-                <p style="font-size:13px; color:#4a5568; margin-bottom:8px;">
-                    Assine dentro do quadro abaixo para confirmar e validar legalmente este pedido:
-                </p>
-                <div class="canvas-container">
-                    <canvas id="canvasAssinatura" width="400" height="150"></canvas>
+                <h2>Assinatura de Confirmação Registrada</h2>
+                <div style="text-align:center; margin-top:10px;">
+                    <img src="${assinaturaDataUrl}" alt="Assinatura do Cliente" style="border:1px solid #cbd5e0; border-radius:6px; max-width:100%; height:auto; background:#fff;">
                 </div>
-                <button type="button" id="limparAssinatura" class="btn-secundario">Limpar Assinatura</button>
             </div>
 
-            <!-- DETALHAMENTO DA FORMA DE PAGAMENTO -->
+            <!-- DETALHAMENTO DO PAGAMENTO SELECIONADO -->
             <div class="secao-recibo" id="bloco-forma-pagamento">
                 <h2>Detalhamento do Pagamento</h2>
         `;
@@ -173,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const cartaoNum = document.getElementById("cartao_numero").value.trim();
             const cartaoTitular = document.getElementById("cartao_titular").value.trim();
             const cartaoVal = document.getElementById("cartao_validade").value.trim();
-            
+
             htmlRecibo += `
                 <div class="detalhes-pedido">
                     <h3 style="font-size:16px; margin-bottom:8px;">Pagamento com Cartão de Crédito / Débito</h3>
@@ -228,57 +277,18 @@ document.addEventListener("DOMContentLoaded", function() {
         htmlRecibo += `</div>`;
         recibo.innerHTML = htmlRecibo;
 
-        // Configura o Canvas de Assinatura
-        const canvas = document.getElementById("canvasAssinatura");
-        if (canvas) {
-            const ctx = canvas.getContext("2d");
-            let desenhando = false;
-
-            function obterPos(e) {
-                const rect = canvas.getBoundingClientRect();
-                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-                return { x: clientX - rect.left, y: clientY - rect.top };
-            }
-
-            function iniciar(e) {
-                desenhando = true;
-                ctx.beginPath();
-                const pos = obterPos(e);
-                ctx.moveTo(pos.x, pos.y);
-            }
-
-            function mover(e) {
-                if (!desenhando) return;
-                const pos = obterPos(e);
-                ctx.lineTo(pos.x, pos.y);
-                ctx.stroke();
-            }
-
-            function parar() { desenhando = false; }
-
-            canvas.addEventListener("mousedown", iniciar);
-            canvas.addEventListener("mousemove", mover);
-            canvas.addEventListener("mouseup", parar);
-            canvas.addEventListener("mouseleave", parar);
-
-            canvas.addEventListener("touchstart", (e) => { iniciar(e); e.preventDefault(); });
-            canvas.addEventListener("touchmove", (e) => { mover(e); e.preventDefault(); });
-            canvas.addEventListener("touchend", parar);
-
-            document.getElementById("limparAssinatura").addEventListener("click", () => {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            });
-        }
-
-        // Configura o QR Code Pix
+        // Gera QR Code do PIX se for o caso
         if (formaPagamento === "PIX") {
             const payloadPix = gerarPayloadPix(configApp.chave_pix, total);
-            new QRCode(document.getElementById("qrcode"), {
-                text: payloadPix,
-                width: 160,
-                height: 160
-            });
+            const qrcodeDiv = document.getElementById("qrcode");
+            if (qrcodeDiv) {
+                qrcodeDiv.innerHTML = "";
+                new QRCode(qrcodeDiv, {
+                    text: payloadPix,
+                    width: 160,
+                    height: 160
+                });
+            }
 
             document.getElementById("btnCopiarPix").addEventListener("click", function() {
                 navigator.clipboard.writeText(payloadPix);

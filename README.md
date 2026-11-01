@@ -1,6 +1,6 @@
-# Registradora de Pedidos - Versão v3.23.0
+# Registradora de Pedidos - Versão v3.25.0
 
-Sistema completo para registro de pedidos com validação dos 4 campos superiores dos Dados do Pedido (Cliente, Produto, Quantidade e Valor) e dos campos específicos do método de pagamento (Cartão ou Boleto). Apenas com os campos válidos, o fluxo abre a tela de Assinatura do Cliente e exibe logo em seguida a Forma de Pagamento processada.
+Sistema completo para registro de pedidos. A seção de Assinatura do Cliente foi reposicionada no formulário principal, ficando logo abaixo dos dados do pedido e das informações condicionais de pagamento (Cartão ou Boleto/Pagador).
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.
