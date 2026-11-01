@@ -21,7 +21,6 @@
 <!-- 1. DADOS DO PEDIDO -->
 <fieldset>
 <legend>Dados do Pedido (Obrigatórios)</legend>
-<!-- Inputs de texto com limite máximo de 100 caracteres -->
 <input type="text" id="cliente" class="input-somente-texto" maxlength="100" placeholder="Nome Completo do Cliente (Máx. 100 caracteres)" required>
 <input type="text" id="produto" class="input-somente-texto" maxlength="100" placeholder="Descrição do Produto / Serviço (Máx. 100 caracteres)" required>
 <input type="number" id="quantidade" class="input-somente-numero" placeholder="Quantidade (Somente números)" min="1" required>
@@ -49,7 +48,7 @@
 <h3 style="font-size:13px; margin-top:12px; color:#4a5568;">Informações do Pagador (Sacado):</h3>
 <input type="text" id="boleto_nome" class="input-somente-texto" maxlength="100" placeholder="Nome / Razão Social do Pagador (Máx. 100 caracteres)">
 <input type="text" id="boleto_documento" class="input-somente-numero" placeholder="CPF ou CNPJ do Pagador (Somente números)">
-<input type="text" id="boleto_endereco" placeholder="Endereço Completo">
+<input type="text" id="boleto_endereco" maxlength="150" placeholder="Endereço Completo">
 </div>
 </fieldset>
 

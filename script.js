@@ -64,10 +64,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // REGRAS DE VALIDAÇÃO TEMPO REAL DE INPUTS (TEXTO vs NÚMERO + MÁX 100 CARACTERES)
     // =========================================================================
 
-    // 1. Inputs de FORMATO TEXTO: Bloqueia números e limita estritamente a 100 caracteres.
     document.querySelectorAll(".input-somente-texto").forEach(input => {
         input.addEventListener("input", function() {
-            // Remove dígitos numéricos e trunca para 100 caracteres max
             let valorLimpo = this.value.replace(/[0-9]/g, '');
             if (valorLimpo.length > 100) {
                 valorLimpo = valorLimpo.substring(0, 100);
@@ -76,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // 2. Inputs de FORMATO NÚMERO: Bloqueia letras e caracteres não numéricos.
     document.querySelectorAll(".input-somente-numero").forEach(input => {
         input.addEventListener("input", function() {
             if (this.type === "number" || this.id === "valor") {
@@ -95,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let numeroPedido = 1000;
 
-    // Configuração do Canvas de Assinatura no formulário principal
     const canvas = document.getElementById("canvasAssinatura");
     const ctx = canvas ? canvas.getContext("2d") : null;
     let assinado = false;

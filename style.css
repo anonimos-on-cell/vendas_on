@@ -11,6 +11,7 @@ body {
     display: flex;
     justify-content: center;
     padding: 30px 15px;
+    overflow-x: hidden;
 }
 
 .container {
@@ -20,11 +21,13 @@ body {
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     padding: 30px;
+    overflow: hidden;
 }
 
 .brand-header {
     text-align: center;
     margin-bottom: 25px;
+    word-break: break-word;
 }
 
 .brand-header h1 {
@@ -44,6 +47,8 @@ fieldset {
     border-radius: 8px;
     padding: 18px;
     margin-bottom: 20px;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 legend {
@@ -55,6 +60,7 @@ legend {
 
 input, select {
     width: 100%;
+    max-width: 100%;
     padding: 12px;
     margin-top: 10px;
     border: 1px solid #cbd5e0;
@@ -62,6 +68,10 @@ input, select {
     font-size: 14px;
     outline: none;
     transition: all 0.2s;
+    box-sizing: border-box;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 input:focus, select:focus {
@@ -104,6 +114,8 @@ input:focus, select:focus {
 
 .campos-condicionais {
     margin-top: 10px;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 /* Área do Recibo */
@@ -111,6 +123,8 @@ input:focus, select:focus {
     margin-top: 30px;
     border-top: 2px dashed #e2e8f0;
     padding-top: 20px;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .secao-recibo {
@@ -119,6 +133,9 @@ input:focus, select:focus {
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
+    max-width: 100%;
+    overflow: hidden;
+    word-break: break-word;
 }
 
 .secao-recibo h2 {
@@ -133,6 +150,8 @@ input:focus, select:focus {
     font-size: 14px;
     color: #4a5568;
     margin-bottom: 6px;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Canvas de Assinatura */
@@ -143,11 +162,14 @@ input:focus, select:focus {
     background: #ffffff;
     display: flex;
     justify-content: center;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 canvas {
     touch-action: none;
     cursor: crosshair;
+    max-width: 100%;
 }
 
 /* PIX no recibo */
@@ -157,6 +179,8 @@ canvas {
     background: #ffffff;
     border-radius: 8px;
     border: 1px solid #e2e8f0;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .pix-code-box {
@@ -166,7 +190,9 @@ canvas {
     font-family: monospace;
     font-size: 12px;
     word-break: break-all;
+    overflow-wrap: break-word;
     margin: 10px 0;
+    max-width: 100%;
 }
 
 /* Boleto */
@@ -178,6 +204,7 @@ canvas {
     font-size: 12px;
     max-width: 100%;
     overflow: hidden;
+    word-break: break-word;
 }
 
 .boleto-header {
@@ -188,6 +215,7 @@ canvas {
     padding-bottom: 8px;
     margin-bottom: 10px;
     flex-wrap: wrap;
+    gap: 5px;
 }
 
 .boleto-header h3 {
@@ -210,12 +238,14 @@ canvas {
     border-bottom: 1px solid #000;
     padding-bottom: 10px;
     margin-bottom: 10px;
+    max-width: 100%;
 }
 
 .boleto-field {
     border: 1px solid #ccc;
     padding: 6px;
     word-break: break-word;
+    overflow: hidden;
 }
 
 .boleto-field label {
@@ -252,4 +282,5 @@ canvas {
     border-radius: 6px;
     border: 1px solid #e2e8f0;
     word-break: break-all;
+    overflow: hidden;
 }
