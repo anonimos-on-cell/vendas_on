@@ -61,7 +61,7 @@ carregarConfiguracoes();
 
 document.addEventListener("DOMContentLoaded", function() {
     // =========================================================================
-    // REGRAS DE VALIDAÇÃO TEMPO REAL DE INPUTS (TEXTO vs NÚMERO + MÁX 100 CARACTERES)
+    // REGRAS DE VALIDAÇÃO TEMPO REAL DE INPUTS
     // =========================================================================
 
     document.querySelectorAll(".input-somente-texto").forEach(input => {
@@ -71,6 +71,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 valorLimpo = valorLimpo.substring(0, 100);
             }
             this.value = valorLimpo;
+        });
+    });
+
+    // Campo Quantidade: Aceita números decimais (permite números e ponto decimal)
+    document.querySelectorAll(".input-quantidade-decimal").forEach(input => {
+        input.addEventListener("input", function() {
+            this.value = this.value.replace(/[^0-9.]/g, '');
         });
     });
 
@@ -137,13 +144,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // ALTERAÇÃO DA FORMA DE PAGAMENTO: Exibe campos condicionais e LIMPA O RECIBO ANTERIOR
     selectPagamento.addEventListener("change", function() {
         const valor = this.value;
         camposCartao.style.display = valor === "Cartão" ? "block" : "none";
         camposBoleto.style.display = valor === "Boleto" ? "block" : "none";
 
-        // Limpa e oculta o recibo anterior ao trocar a forma de pagamento (Pix, Cartão ou Boleto)
         if (recibo) {
             recibo.innerHTML = "";
             recibo.style.display = "none";
@@ -169,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const cliente = clienteInput.value.trim();
         const produto = produtoInput.value.trim();
-        const quantidadeVal = parseInt(quantidadeInput.value);
+        const quantidadeVal = parseFloat(quantidadeInput.value);
         const valorUnitarioVal = parseFloat(valorInput.value);
 
         if (!cliente || !produto || isNaN(quantidadeVal) || quantidadeVal <= 0 || isNaN(valorUnitarioVal) || valorUnitarioVal <= 0) {

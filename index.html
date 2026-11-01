@@ -23,7 +23,8 @@
 <legend>Dados do Pedido (Obrigatórios)</legend>
 <input type="text" id="cliente" class="input-somente-texto" maxlength="100" placeholder="Nome Completo do Cliente (Máx. 100 caracteres)" required>
 <input type="text" id="produto" class="input-somente-texto" maxlength="100" placeholder="Descrição do Produto / Serviço (Máx. 100 caracteres)" required>
-<input type="number" id="quantidade" class="input-somente-numero" placeholder="Quantidade (Somente números)" min="1" required>
+<!-- Campo Quantidade com suporte a decimal (step="any") -->
+<input type="number" step="any" id="quantidade" class="input-quantidade-decimal" placeholder="Quantidade (Permite decimais, ex: 1.5)" min="0.01" required>
 <input type="number" step="0.01" id="valor" class="input-somente-numero" placeholder="Valor Unitário R$ (Somente números)" required>
 </fieldset>
 

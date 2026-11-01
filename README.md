@@ -1,6 +1,6 @@
-# Registradora de Pedidos - Versão v3.29.0
+# Registradora de Pedidos - Versão v3.30.0
 
-Sistema completo para registro de pedidos com limpeza automática do recibo anterior ao alterar a forma de pagamento.
+Sistema completo para registro de pedidos com suporte a números decimais no campo **Quantidade**.
 
 ## Como Executar
 1. Importe o `banco.sql` no MySQL.
